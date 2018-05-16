@@ -11,14 +11,22 @@ namespace Youtube\Auth\Http\Controllers;
 use Assets;
 use Sentinel;
 use Youtube\Auth\Http\Requests\LoginRequest;
+use Youtube\Users\Repositories\Eloquent\DbUsersRepository;
 
 use App\Http\Controllers\Controller;
 
 class AuthController extends Controller
 {
-    public function __construct()
-    {
+    /**
+     * @var UserInterface
+     */
+    protected $userRepository;
 
+
+
+    public function __construct(DbUsersRepository $userRepository )
+    {
+        $this->userRepository = $userRepository;
     }
     /**
      * Show login page
@@ -53,7 +61,13 @@ class AuthController extends Controller
             $remember = $request->input('remember') == 1 ? true : false;
             try {
                 if (Sentinel::authenticate($credentials, $remember)) {
-                    return redirect()->intended()->with('success_msg', trans('auth::auth.login.success'));
+                    if (Sentinel::check()) {
+                        if (!session()->has('url.intended')) {
+                            session()->flash('url.intended', url()->current());
+                        }
+                        $this->userRepository->setUserDetailInSession();
+                        return redirect()->intended()->with('success_msg', trans('auth::auth.login.success'));
+                    }
                 }
             } catch (ThrottlingException $e) {
                 return redirect()->route('access.login')->with('error_msg', $e->getMessage())->withInput();

@@ -9,6 +9,8 @@
 namespace Youtube\Dashboard\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Permission;
+use App;
 
 class DashboardController extends Controller
 {
@@ -23,7 +25,11 @@ class DashboardController extends Controller
      */
     public function getDashboard()
     {
-
+        if (Permission::isSuperAdmin() || Permission::isSystemAdmin()) {
+            return $superAdmin = App::make('Youtube\Dashboard\Http\Controllers\SuperAdminController')->index();
+        }elseif (Permission::isUser()) {
+            return $registeredUser = App::make('Youtube\Dashboard\Http\Controllers\RegisteredUsersController')->index();
+        }
     }
 
 }

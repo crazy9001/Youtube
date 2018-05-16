@@ -28,11 +28,11 @@ class Authenticate
 
         $route = $request->route()->getAction();
         if (array_key_exists('permission', $route)) {
-            if ($route['permission'] && !Sentinel::getUser()->hasPermission($route['permission'])) {
+            if ($route['permission'] && !Sentinel::getUser()->hasAccess($route['permission'])) {
                 abort(401);
             }
         } elseif (array_key_exists('as', $route)) {
-            if (!Sentinel::getUser()->hasPermission($route['as'])) {
+            if (!Sentinel::getUser()->hasAccess($route['as'])) {
                 abort(401);
             }
         }

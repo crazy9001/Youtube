@@ -150,7 +150,8 @@ return [
         /*
          * Package Service Providers...
          */
-
+        App\Providers\HelperServiceProvider::class,
+        
         /*
          * Application Service Providers...
          */
@@ -162,6 +163,7 @@ return [
 
         Cartalyst\Sentinel\Laravel\SentinelServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        Prettus\Repository\Providers\RepositoryServiceProvider::class,
 
         Youtube\Base\Providers\BaseServiceProvider::class,
     ],
@@ -214,6 +216,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Activation' => Cartalyst\Sentinel\Laravel\Facades\Activation::class,
         'Reminder'   => Cartalyst\Sentinel\Laravel\Facades\Reminder::class,
+        'Permission' => App\Helpers\PermissionHelper::class,
+        'Helper' => App\Helpers\BasicHelper::class,
         'Sentinel'   => Cartalyst\Sentinel\Laravel\Facades\Sentinel::class,
         'Form' => Collective\Html\FormFacade::class,
         'HTML' => Collective\Html\HtmlFacade::class,

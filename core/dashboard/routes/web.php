@@ -14,6 +14,11 @@ Route::group(['namespace' => 'Youtube\Dashboard\Http\Controllers', 'middleware' 
             'uses' => 'DashboardController@getDashboard',
         ]);
 
+        Route::get('/group', [
+            'as' => 'user.group.index',
+            'uses' => 'DashboardController@getDashboard',
+        ]);
+
     });
 
 });
