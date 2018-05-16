@@ -6,9 +6,11 @@
     "type": "project",
     "require": {
         "php": "^7.1.3",
+        "cartalyst/sentinel": "^2.0",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.6.*",
-        "laravel/tinker": "^1.0"
+        "laravel/tinker": "^1.0",
+        "laravelcollective/html": "^5.6"
     },
     "require-dev": {
         "filp/whoops": "^2.0",
@@ -23,7 +25,11 @@
             "database/factories"
         ],
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "Youtube\\Base\\": "core/base/src",
+            "Youtube\\Assets\\": "core/assets/src",
+            "Youtube\\Auth\\": "core/auth/src",
+            "Youtube\\Dashboard\\": "core/dashboard/src"
         }
     },
     "autoload-dev": {
