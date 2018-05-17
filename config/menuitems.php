@@ -9,18 +9,23 @@
 return array(
 
     'super-admin' => [
-        'Dashboard' => 'dashboard.index',
+        'Bảng điều khiển' => 'dashboard.index',
         'Quản lí nhóm' => [
-            'Xem tất cả' => 'user.group.index',
-            'Thêm mới' => 'user.group.create'
+            'Xem tất cả' => 'group.index',
+            'Thêm mới' => 'group.create'
         ],
+        'Test menu' =>  [
+            'test 1'    =>  [
+                'tesst 1.1' =>  'test1.1'
+            ]
+        ]
     ],
     /**
      * Icons for all
      *
      */
     'Icons' => [
-        'Dashboard' => '<i class="fa fa-dashboard"></i>',
+        /*'Bảng điều khiển' => '<i class="fa fa-dashboard"></i>',*/
     ]
 
 );

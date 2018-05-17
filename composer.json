@@ -31,7 +31,8 @@
             "Youtube\\Assets\\": "core/assets/src",
             "Youtube\\Auth\\": "core/auth/src",
             "Youtube\\Dashboard\\": "core/dashboard/src",
-            "Youtube\\Users\\": "core/users/src"
+            "Youtube\\Users\\": "core/users/src",
+            "Youtube\\Groups\\": "core/groups/src"
         }
     },
     "autoload-dev": {

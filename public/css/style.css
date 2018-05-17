@@ -9345,5 +9345,9 @@ a:focus {
 .basic-margin > li, .basic-margin > a {
   margin: 0 5px 5px 0;
 }
-
+.required:after {
+  content: ' *' !important;
+  color: red;
+  display: unset !important;
+}
 /*# sourceMappingURL=style.css.map */

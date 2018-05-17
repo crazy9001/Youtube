@@ -61,7 +61,7 @@ class MenuItemHelper
                 } else {
                     $menu .= '<li class="' . ($route_current == $value ? 'active' : '') . '">'
                         . '<a class="' . ($route_current == $value ? 'active ' : '') . '" href="' . ( Route::has($value) ? URL::route($value) : URL::to('login') ) . '">'
-                        . (isset($icons[$key]) ? $icons[$key] : '')
+                        . (isset($icons[$key] ) ? $icons[$key] : '')
                         . '<span>' . $key . '</span>' . (isset($key) && isset($badget_key_value[$key]) ? '<span class="pull-right badge badge-info">' . (!empty($badget_key_value[$key]) ? $badget_key_value[$key] : '0') . '</span>' : '' )
                         . '</a>'
                         . '</li>';

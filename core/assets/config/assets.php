@@ -114,7 +114,7 @@ return array(
                 'use_cdn' => false,
                 'location' => 'bottom',
                 'src' => [
-                    'local' => '/js/demonstration.min.js"',
+                    'local' => '/js/demonstration.min.js',
                 ],
             ],
             'core' => [
@@ -124,6 +124,48 @@ return array(
                     'local' => '/js/core.js',
                 ],
             ],
+            'complexify' => [
+                'use_cdn' => false,
+                'location' => 'bottom',
+                'src' => [
+                    'local' => '/js/plugins/complexify/jquery.complexify.min.js',
+                ],
+            ],
+            'tagsinput' => [
+                'use_cdn' => false,
+                'location' => 'bottom',
+                'src' => [
+                    'local' => '/js/plugins/tagsinput/jquery.tagsinput.min.js',
+                ],
+            ],
+            'chosen' => [
+                'use_cdn' => false,
+                'location' => 'bottom',
+                'src' => [
+                    'local' => '/js/plugins/chosen/chosen.jquery.min.js',
+                ],
+            ],
+            'multiselect' => [
+                'use_cdn' => false,
+                'location' => 'bottom',
+                'src' => [
+                    'local' => '/js/plugins/multiselect/jquery.multi-select.js',
+                ],
+            ],
+            'select2' => [
+                'use_cdn' => false,
+                'location' => 'bottom',
+                'src' => [
+                    'local' => '/js/plugins/select2/select2.min.js',
+                ],
+            ],
+            'mockjax' => [
+                'use_cdn' => false,
+                'location' => 'bottom',
+                'src' => [
+                    'local' => '/js/plugins/mockjax/jquery.mockjax.js',
+                ],
+            ]
         ],
         'stylesheets' => [
             'bootstrap' => [
@@ -167,6 +209,34 @@ return array(
                 'location' => 'top',
                 'src' => [
                     'local' => '/css/themes.css',
+                ],
+            ],
+            'tagsinput' => [
+                'use_cdn' => false,
+                'location' => 'top',
+                'src' => [
+                    'local' => '/css/plugins/tagsinput/jquery.tagsinput.css',
+                ],
+            ],
+            'chosen' => [
+                'use_cdn' => false,
+                'location' => 'top',
+                'src' => [
+                    'local' => '/css/plugins/chosen/chosen.css',
+                ],
+            ],
+            'multiselect' => [
+                'use_cdn' => false,
+                'location' => 'top',
+                'src' => [
+                    'local' => '/css/plugins/multiselect/multi-select.css',
+                ],
+            ],
+            'select2' => [
+                'use_cdn' => false,
+                'location' => 'top',
+                'src' => [
+                    'local' => '/css/plugins/select2/select2.css',
                 ],
             ],
         ],
