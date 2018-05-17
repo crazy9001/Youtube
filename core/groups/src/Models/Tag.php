@@ -26,6 +26,12 @@ class Tag extends Eloquent
      */
     protected $dates = ['created_at', 'updated_at'];
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['name', 'slug', 'user_id', 'description', 'status'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

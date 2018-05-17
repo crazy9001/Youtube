@@ -14,11 +14,13 @@ return array(
             'Xem tất cả' => 'group.index',
             'Thêm mới' => 'group.create'
         ],
-        'Test menu' =>  [
-            'test 1'    =>  [
-                'tesst 1.1' =>  'test1.1'
-            ]
-        ]
+        'Quản lí kênh' =>  [
+            'Xem tất cả'    =>  'channel.index',
+            'Thêm mới' => 'channel.create'
+        ],
+        'Quản lí video' => 'video.index',
+        'Quản lí API key' => 'key.index'
+
     ],
     /**
      * Icons for all

@@ -27,7 +27,7 @@
             </a>
         </div>
     </div>
-
+    {!! Form::open(['class' => 'form-horizontal form-bordered']) !!}
     <div class="row">
 
         <div class="col-sm-9">
@@ -42,14 +42,13 @@
 
                 <div class="box-content nopadding">
 
-                    <form action="#" method="POST" class='form-horizontal form-bordered' enctype='multipart/form-data'>
 
                         <div class="form-group @if ($errors->has('name')) has-error @endif">
                             <label for="textfield" class="control-label col-sm-2 required">Tên nhóm</label>
                             <div class="col-sm-10">
                                 <input type="text" name="name" id="name" class="form-control" placeholder="Nhập tên nhóm">
                                 @if ($errors->has('name'))
-                                    <span id="username-error" class="help-block has-error">{{ $errors->first('username') }}</span>
+                                    <span id="username-error" class="help-block has-error">{{ $errors->first('name') }}</span>
                                 @endif
                             </div>
                         </div>
@@ -59,7 +58,7 @@
                             <div class="col-sm-10">
                                 {!! Form::select('parent_id', $groups, old('parent_id'), ['class' => 'form-control', 'id' => 'parent_id']) !!}
                                 @if ($errors->has('parent_id'))
-                                    <span id="username-error" class="help-block has-error">{{ $errors->first('username') }}</span>
+                                    <span id="username-error" class="help-block has-error">{{ $errors->first('parent_id') }}</span>
                                 @endif
                             </div>
                         </div>
@@ -70,7 +69,7 @@
                                 <input type="text" name="tags" id="tags" class="tagsinput form-control" value="">
                                 <span class="label label-info">Mỗi tag cách nhau bởi phím "enter"</span>
                                 @if ($errors->has('tags'))
-                                    <span id="username-error" class="help-block has-error">{{ $errors->first('username') }}</span>
+                                    <span id="username-error" class="help-block has-error">{{ $errors->first('tags') }}</span>
                                 @endif
                             </div>
                         </div>
@@ -85,15 +84,20 @@
                             </div>
                         </div>
 
-
-                    </form>
-
                 </div>
 
             </div>
 
         </div>
 
-    </div>
 
+        <div class="col-sm-3">
+
+            @include('bases::elements.form-actions')
+
+        </div>
+
+
+    </div>
+    {!! Form::close() !!}
 @stop

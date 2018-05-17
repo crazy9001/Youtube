@@ -19,8 +19,8 @@ class CreateTableGroup extends Migration
             $table->string('slug', 120);
             $table->integer('user_id')->unsigned()->index()->references('id')->on('users');
             $table->integer('parent_id')->unsigned()->default(0)->index();
-            $table->string('note', 400);
-            $table->string('icon');
+            $table->string('note', 400)->nullable()->default('');
+            $table->string('icon')->nullable()->default('');
 
             $table->timestamps();
             $table->engine = 'InnoDB';
