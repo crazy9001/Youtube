@@ -151,6 +151,7 @@ return [
          * Package Service Providers...
          */
         App\Providers\HelperServiceProvider::class,
+        Alaouy\Youtube\YoutubeServiceProvider::class,
         
         /*
          * Application Service Providers...
@@ -221,6 +222,7 @@ return [
         'Sentinel'   => Cartalyst\Sentinel\Laravel\Facades\Sentinel::class,
         'Form' => Collective\Html\FormFacade::class,
         'HTML' => Collective\Html\HtmlFacade::class,
+        'Youtube' => Alaouy\Youtube\Facades\Youtube::class,
     ],
 
 ];

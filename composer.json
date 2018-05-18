@@ -6,6 +6,7 @@
     "type": "project",
     "require": {
         "php": "^7.1.3",
+        "alaouy/youtube": "^2.2",
         "cartalyst/sentinel": "^2.0",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.6.*",
@@ -32,7 +33,8 @@
             "Youtube\\Auth\\": "core/auth/src",
             "Youtube\\Dashboard\\": "core/dashboard/src",
             "Youtube\\Users\\": "core/users/src",
-            "Youtube\\Groups\\": "core/groups/src"
+            "Youtube\\Groups\\": "core/groups/src",
+            "Youtube\\Videos\\": "core/videos/src"
         }
     },
     "autoload-dev": {

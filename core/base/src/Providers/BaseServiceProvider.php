@@ -15,6 +15,7 @@ use Youtube\Dashboard\Providers\DashboardServiceProvider;
 use Illuminate\Support\ServiceProvider;
 use Youtube\Groups\Providers\GroupsServiceProvider;
 use Youtube\Users\Providers\UsersServiceProvider;
+use Youtube\Videos\Providers\VideosServiceProvider;
 
 class BaseServiceProvider extends  ServiceProvider
 {
@@ -43,6 +44,7 @@ class BaseServiceProvider extends  ServiceProvider
         $this->app->register(ComposerServiceProvider::class);
         $this->app->register(UsersServiceProvider::class);
         $this->app->register(GroupsServiceProvider::class);
+        $this->app->register(VideosServiceProvider::class);
 
         $this->mergeConfigFrom(__DIR__ . '/../../config/youtube.php', 'youtube');
         $this->loadRoutesFrom(__DIR__.'/../../routes/web.php');
