@@ -10,7 +10,6 @@ namespace Youtube\Groups\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Youtube\Groups\Repositories\Eloquent\GroupRepository;
-use Youtube\Groups\Repositories\Eloquent\TagRepository;
 use Assets;
 use Sentinel;
 use Youtube\Groups\Http\Requests\GroupRequest;
@@ -19,12 +18,10 @@ class IndexController extends Controller
 {
     protected $groupRepository;
 
-    protected $tagRepository;
 
-    public function __construct( GroupRepository $groupRepository, TagRepository $tagRepository )
+    public function __construct( GroupRepository $groupRepository)
     {
         $this->groupRepository = $groupRepository;
-        $this->tagRepository = $tagRepository;
     }
 
     public function index()
@@ -51,23 +48,11 @@ class IndexController extends Controller
             'parent_id' => $request->parent_id,
             'note'  =>  $request->note,
             'icon'  =>  $request->icon,
+            'tags'  =>  $request->tags,
         ];
-        $group = $this->groupRepository->updateOrCreate($data);
+        //dd($data);
+        $this->groupRepository->updateOrCreate($data);
 
-        // data tags
-        $tagInputs = explode(',', $request->input('tags'));
-        foreach ($tagInputs as $tagName) {
-            $tag = $this->tagRepository->findWhere(['name' => $tagName])->first();
-            if ($tag === null) {
-                $dataTag = [
-                    'name'  =>  $tagName,
-                    'slug'  =>  str_slug($tagName),
-                    'user_id'   =>  Sentinel::getUser()->id
-                ];
-                $tag = $this->tagRepository->updateOrCreate($dataTag);
-            }
-            $group->tags()->attach($tag->id);
-        }
 
         if ($request->input('submit') == 'save') {
             return redirect()->route('group.index')->with('success_msg', trans('bases::notices.create_success_message'));

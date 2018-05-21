@@ -31,14 +31,7 @@ class Group extends Eloquent
      *
      * @var array
      */
-    protected $fillable = ['name', 'slug', 'user_id', 'parent_id','note', 'icon'];
+    protected $fillable = ['name', 'slug', 'user_id', 'parent_id','note', 'icon', 'tags'];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    public function tags()
-    {
-        return $this->belongsToMany(Tag::class, 'group_tag')->withTimestamps();
-    }
 
 }

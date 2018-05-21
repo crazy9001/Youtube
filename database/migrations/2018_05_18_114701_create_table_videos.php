@@ -22,6 +22,7 @@ class CreateTableVideos extends Migration
             $table->timestamp('published_at')->nullable();
             $table->string('tags', 400);
             $table->integer('category_id');
+            $table->integer('group_id');
             $table->string('embed_html', 400);
 
             $table->timestamps();
