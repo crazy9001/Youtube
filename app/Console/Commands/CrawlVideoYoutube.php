@@ -49,31 +49,35 @@ class CrawlVideoYoutube extends Command
 
     public function handle()
     {
-        $listVideosChannel = Youtube::listChannelVideos('UClyA28-01x4z60eWQ2kiNbA', 50);
+        $listVideosChannel = Youtube::listChannelVideos('UCsFZL2A9RZTVI5v7h5gYbPQ', 50);
+        $arrayIds = [];
         foreach($listVideosChannel as $video){
-            $videoInfomation = Youtube::getVideoInfo($video->id->videoId);
-            if($videoInfomation != false){
-                $findVideo = $this->videoRepository->findWhere(['video_id' => $videoInfomation->id]);
-                $groups = $this->groupsRepository->pluck('tags', 'id')->all();
-                $videoTags = isset($videoInfomation->snippet->tags) ? $videoInfomation->snippet->tags : array();
-                $videoData = [
-                    'video_id' => isset($videoInfomation->id) ? $videoInfomation->id : '',
-                    'title' => isset($videoInfomation->snippet->title) ? $videoInfomation->snippet->title : '',
-                    'description' => isset($videoInfomation->snippet->description) ? $videoInfomation->snippet->description : '',
-                    'thumbnails' =>  isset($videoInfomation->snippet->thumbnails->high->url) ? $videoInfomation->snippet->thumbnails->high->url : '',
-                    'published_at' => isset($videoInfomation->snippet->publishedAt) ? $videoInfomation->snippet->publishedAt : '',
-                    'tags' => isset($videoInfomation->snippet->tags) ? json_encode($videoInfomation->snippet->tags) : '',
-                    'category_id' => isset($videoInfomation->snippet->categoryId) ? $videoInfomation->snippet->categoryId : '',
-                    'embed_html' => isset($videoInfomation->player->embedHtml) ? $videoInfomation->player->embedHtml : '',
-                    'group_id' =>  !empty(key(array_intersect($groups, $videoTags))) ? key(array_intersect($groups, $videoTags)) : 0
-                ];
-                if($findVideo->isEmpty()){
-                    $this->videoRepository->create($videoData);
-                }else{
-                    $this->videoRepository->update($videoData, $findVideo->first()->id);
-                }
-            }
+            $arrayIds[] = $video->id->videoId;
         }
+        $videosInfomation = Youtube::getVideoInfo($arrayIds);
+        $groups = $this->groupsRepository->pluck('tags', 'id')->all();
+        foreach($videosInfomation as $videoInfomation){
+            $videoTags = isset($videoInfomation->snippet->tags) ? $videoInfomation->snippet->tags : array();
+            $videoData = [
+                'video_id' => isset($videoInfomation->id) ? $videoInfomation->id : '',
+                'title' => isset($videoInfomation->snippet->title) ? $videoInfomation->snippet->title : '',
+                'description' => isset($videoInfomation->snippet->description) ? $videoInfomation->snippet->description : '',
+                'thumbnails' =>  isset($videoInfomation->snippet->thumbnails->high->url) ? $videoInfomation->snippet->thumbnails->high->url : '',
+                'published_at' => isset($videoInfomation->snippet->publishedAt) ? $videoInfomation->snippet->publishedAt : '',
+                'tags' => isset($videoInfomation->snippet->tags) ? json_encode($videoInfomation->snippet->tags) : '',
+                'category_id' => isset($videoInfomation->snippet->categoryId) ? $videoInfomation->snippet->categoryId : '',
+                'embed_html' => isset($videoInfomation->player->embedHtml) ? $videoInfomation->player->embedHtml : '',
+                'group_id' =>  !empty(key(array_intersect($groups, $videoTags))) ? key(array_intersect($groups, $videoTags)) : 0
+            ];
+            $findVideo = $this->videoRepository->findWhere(['video_id' => $videoInfomation->id]);
+            if($findVideo->isEmpty()){
+                $this->videoRepository->create($videoData);
+            }else{
+                $this->videoRepository->update($videoData, $findVideo->first()->id);
+            }
+
+        }
+
     }
 
 }
