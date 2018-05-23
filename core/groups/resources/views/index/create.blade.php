@@ -1,11 +1,7 @@
 @extends('bases::layouts.master')
 
 @section('content')
-    <div class="page-header">
-        <div class="pull-left">
-            <h1>Thêm nhóm mới</h1>
-        </div>
-    </div>
+    <div class="page-header"></div>
 
     <div class="breadcrumbs">
         <ul>
@@ -21,11 +17,6 @@
                 <a href="{{ route('group.create') }}">Thêm nhóm mới</a>
             </li>
         </ul>
-        <div class="close-bread">
-            <a href="#">
-                <i class="fa fa-times"></i>
-            </a>
-        </div>
     </div>
     {!! Form::open(['class' => 'form-horizontal form-bordered']) !!}
     <div class="row">

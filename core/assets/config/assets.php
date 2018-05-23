@@ -165,6 +165,13 @@ return array(
                 'src' => [
                     'local' => '/js/plugins/mockjax/jquery.mockjax.js',
                 ],
+            ],
+            'treeview' => [
+                'use_cdn' => false,
+                'location' => 'bottom',
+                'src' => [
+                    'local' => '/js/plugins/treeview/jquery-treeview.js',
+                ],
             ]
         ],
         'stylesheets' => [
@@ -237,6 +244,13 @@ return array(
                 'location' => 'top',
                 'src' => [
                     'local' => '/css/plugins/select2/select2.css',
+                ],
+            ],
+            'treeview' => [
+                'use_cdn' => false,
+                'location' => 'top',
+                'src' => [
+                    'local' => '/css/plugins/treeview/jquery.treeview.css',
                 ],
             ],
         ],

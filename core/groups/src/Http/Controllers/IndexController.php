@@ -9,6 +9,7 @@
 namespace Youtube\Groups\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Youtube\Groups\Models\Group;
 use Youtube\Groups\Repositories\Eloquent\GroupRepository;
 use Assets;
 use Sentinel;
@@ -26,8 +27,41 @@ class IndexController extends Controller
 
     public function index()
     {
-        return view('groups::index.index');
+        Assets::removeJavascript(['eakroko']);
+        Assets::addStylesheets(['treeview']);
+        Assets::addJavascript(['treeview']);
+        $groups = $this->groupRepository->findWhere(['parent_id' => 0]);
+        $tree = '<ul id="browser" class="filetree"><li class="tree-view"></li>';
+        foreach ($groups as $group) {
+            $tree .= '<li class="tree-view closed"<a class="tree-name">' . $group->name . '</a>';
+            if(count($group->childs)) {
+                $tree .= $this->childView($group);
+            }
+        }
+        $tree .= '<ul>';
+
+        return view('groups::index.index', compact('tree'));
     }
+
+    public function childView($group){
+
+        $html = '<ul>';
+
+        foreach ($group->childs as $arr) {
+            if(count($arr->childs)){
+                $html .= '<li class="tree-view closed"><a class="tree-name">' . $arr->name . '</a>';
+                $html.= $this->childView($arr);
+            }else{
+                $html .= '<li class="tree-view"><a class="tree-name">' . $arr->name . '</a>';
+                $html .= '</li>';
+            }
+
+        }
+
+        $html .="</ul>";
+        return $html;
+    }
+
     public function create()
     {
         Assets::addStylesheets(['tagsinput']);
@@ -50,7 +84,6 @@ class IndexController extends Controller
             'icon'  =>  $request->icon,
             'tags'  =>  $request->tags,
         ];
-        //dd($data);
         $this->groupRepository->updateOrCreate($data);
 
 
