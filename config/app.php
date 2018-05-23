@@ -165,6 +165,7 @@ return [
         Cartalyst\Sentinel\Laravel\SentinelServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
+        Nestable\NestableServiceProvider::class,
 
         Youtube\Base\Providers\BaseServiceProvider::class,
     ],
@@ -223,6 +224,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'HTML' => Collective\Html\HtmlFacade::class,
         'Youtube' => Alaouy\Youtube\Facades\Youtube::class,
+        'Nestable' => Nestable\Facades\NestableService::class
     ],
 
 ];

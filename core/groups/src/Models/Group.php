@@ -9,9 +9,15 @@
 namespace Youtube\Groups\Models;
 
 use Eloquent;
+use Nestable\NestableTrait;
 
 class Group extends Eloquent
+
 {
+    use NestableTrait;
+
+    protected $parent = 'parent_id';
+
     /**
      * The database table used by the model.
      *

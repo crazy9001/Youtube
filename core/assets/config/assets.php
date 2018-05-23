@@ -172,6 +172,13 @@ return array(
                 'src' => [
                     'local' => '/js/plugins/treeview/jquery-treeview.js',
                 ],
+            ],
+            'nestable' => [
+                'use_cdn' => false,
+                'location' => 'bottom',
+                'src' => [
+                    'local' => '/js/jquery.nestable.js',
+                ],
             ]
         ],
         'stylesheets' => [
