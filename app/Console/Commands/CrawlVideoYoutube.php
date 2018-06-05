@@ -13,6 +13,7 @@ use Illuminate\Support\Carbon;
 use Youtube;
 use Youtube\Videos\Repositories\Eloquent\DbVideosRepository;
 use Youtube\Groups\Repositories\Eloquent\GroupRepository;
+use Helper;
 
 class CrawlVideoYoutube extends Command
 {
@@ -50,29 +51,18 @@ class CrawlVideoYoutube extends Command
 
     public function handle()
     {
-
         $params = [
             'type' => 'video',
-            'channelId' => 'UC0jDoh3tVXCaqJ6oTve8ebA',
+            'channelId' => 'UC0jDoh3tVXCaqJ6oTve8ebA',/*UCDGv4buAgQMq03Qxa6aW1lQ*/
             'part'  =>  'id,snippet',
             'maxResults' => 50,
             'order' => 'date'
         ];
         $search = Youtube::searchAdvanced($params, true);
-
-
-        if (isset($search['info']['nextPageToken'])) {
-            $params['pageToken'] = $search['info']['nextPageToken'];
-            $search = Youtube::searchAdvanced($params, true);
-        }
-
-        print_r(($search));
-
-        //dd($search);
-
+        $listVideosChannel = Helper::getDataYoutube($params, $search);
         //$listVideosChannel = Youtube::listChannelVideos('UC0jDoh3tVXCaqJ6oTve8ebA', 50, 'date', ['id', 'snippet']);
-        /*$arrayIds = [];
-        foreach($search as $video){
+        $arrayIds = [];
+        foreach($listVideosChannel as $video){
             $arrayIds[] = $video->id->videoId;
         }
         $videosInfomation = Youtube::getVideoInfo($arrayIds);
@@ -97,7 +87,7 @@ class CrawlVideoYoutube extends Command
                 $this->videoRepository->update($videoData, $findVideo->first()->id);
             }
 
-        }*/
+        }
 
     }
 

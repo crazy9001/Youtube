@@ -11,6 +11,7 @@ namespace App\Helpers;
 use Session;
 use Sentinel;
 use Youtube\Users\Repositories\Eloquent\DbUsersRepository;
+use Youtube;
 
 class BasicHelper
 {
@@ -77,5 +78,50 @@ class BasicHelper
 
         return $roles;
     }
+
+    /**
+     * @param $params
+     * @param $data
+     * @param bool $next
+     * @param array $arr
+     * @return array
+     */
+    public static function getDataYoutube($params, $data, $arr = array() )
+    {
+        if (!$arr) {
+            $arr = array();
+        }
+        $arr[] = $data['results'];
+        if($data['info']['nextPageToken'] != null){
+            $params['pageToken'] = $data['info']['nextPageToken'];
+            $dataVideo = Youtube::searchAdvanced($params, true);
+            $arr = self::getDataYoutube($params, $dataVideo, $arr);
+        }else {
+            return $arr = $data['results'];
+        }
+        return $arr;
+    }
+
+//    public static function getDataYoutube($params, $data, $next = true, $arr = array() )
+//    {
+//        if (!$arr) {
+//            $arr = array();
+//        }
+//        $arr[] = $data['results'];
+//        $params['pageToken'] = $data['info']['nextPageToken'];
+//        while ($next) {
+//            $dataVideo = Youtube::searchAdvanced($params, true);
+//            $params['pageToken'] = $dataVideo['info']['nextPageToken'];
+//            $next = $dataVideo['info']['nextPageToken'] != null ? true : false;
+//            print_r($next);
+//            $arr[]= $dataVideo['results'];
+//            //$arr = self::getDataYoutube($params, $dataVideo, $next, $arr);
+//        }
+//        print_r($arr);
+//        /// co muon lam them de quy khong =))
+//        /// the cau de quy nhin cho no nguy hiem
+//        return $arr;
+//
+//    }
 
 }
