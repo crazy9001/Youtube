@@ -51,10 +51,47 @@ class CrawlVideoYoutube extends Command
 
     public function handle()
     {
+        $this->crawlVideoProgress();
+    }
+
+    /**
+     * This function start get video with a channel
+     */
+    protected function crawlVideoProgress()
+    {
+        $listChannelId = $this->getListChannelId();
+        foreach ($listChannelId as $channelId) {
+            $this->crawlVideoByChannelId($channelId);
+        }
+    }
+
+    /**
+     * This function get list channel
+     * @return array
+     */
+    protected function getListChannelId()
+    {
+        return [
+            1   =>  'UCsaMa3VD1I9G952DDlOX7aw',
+            2   =>  'UC5ezaYrzZpyItPSRG27MLpg',
+            3   =>  'UCCE0ldAqiHLYeQaa8yI2_aQ',
+            4   =>  'UCw_vhwkSx6vXRxkJizUyWuw',
+            5   =>  'UCbqS7BTNUNDlZs__mD-vbXQ'
+        ];
+    }
+
+    /**
+     * This function in Progress crawl
+     * @param $channelId
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     */
+    protected function crawlVideoByChannelId($channelId)
+    {
+
         // create param
         $params = [
             'type' => 'video',
-            'channelId' => 'UCDGv4buAgQMq03Qxa6aW1lQ',/*UCDGv4buAgQMq03Qxa6aW1lQ*/
+            'channelId' => $channelId,
             'part'  =>  'id,snippet',
             'maxResults' => 50,
             'order' => 'date'
@@ -65,7 +102,8 @@ class CrawlVideoYoutube extends Command
 
         // get info channel
         $inforChannel = Youtube::getChannelById($params['channelId']);
-        $this->info('Crawling video channel : ' . $inforChannel->snippet->title);
+
+            $this->info('---------------------- CRAWLING VIDEO CHANNEL ' . $inforChannel->snippet->title . ' ----------------------');
 
         // merge videos
         $videos = array_merge($videos, $search['results']);
@@ -102,6 +140,7 @@ class CrawlVideoYoutube extends Command
                 $videoTags = isset($videoInfomation->snippet->tags) ? $videoInfomation->snippet->tags : array();
                 $videoData = [
                     'video_id' => isset($videoInfomation->id) ? $videoInfomation->id : '',
+                    'channelId' => isset($videoInfomation->snippet->channelId) ? $videoInfomation->snippet->channelId : '',
                     'title' => isset($videoInfomation->snippet->title) ? $videoInfomation->snippet->title : '',
                     'description' => isset($videoInfomation->snippet->description) ? $videoInfomation->snippet->description : '',
                     'thumbnails' =>  isset($videoInfomation->snippet->thumbnails->high->url) ? $videoInfomation->snippet->thumbnails->high->url : '',
@@ -109,7 +148,8 @@ class CrawlVideoYoutube extends Command
                     'tags' => isset($videoInfomation->snippet->tags) ? json_encode($videoInfomation->snippet->tags) : '',
                     'category_id' => isset($videoInfomation->snippet->categoryId) ? $videoInfomation->snippet->categoryId : '',
                     'embed_html' => isset($videoInfomation->player->embedHtml) ? $videoInfomation->player->embedHtml : '',
-                    'group_id' =>  !empty(key(array_intersect($groups, $videoTags))) ? key(array_intersect($groups, $videoTags)) : 0 // insert video into group after compare tags
+                    'group_id' =>  !empty(key(array_intersect($groups, $videoTags))) ? key(array_intersect($groups, $videoTags)) : 0, // insert video into group after compare tags
+                    'views' =>  isset($videoInfomation->statistics->viewCount) ? $videoInfomation->statistics->viewCount : 0,
                 ];
                 $findVideo = $this->videoRepository->findWhere(['video_id' => $videoInfomation->id]);
 

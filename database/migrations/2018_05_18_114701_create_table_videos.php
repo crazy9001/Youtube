@@ -15,15 +15,17 @@ class CreateTableVideos extends Migration
     {
         Schema::create('videos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('video_id');
-            $table->string('title', 400);
-            $table->text('description');
-            $table->string('thumbnails');
+            $table->string('video_id')->nullable();
+            $table->string('channelId')->nullable();
+            $table->string('title', 400)->nullable();
+            $table->text('description')->nullable();
+            $table->string('thumbnails')->nullable();
             $table->timestamp('published_at')->nullable();
-            $table->string('tags', 400);
-            $table->integer('category_id');
-            $table->integer('group_id');
-            $table->string('embed_html', 400);
+            $table->string('tags', 400)->nullable();
+            $table->integer('category_id')->nullable();
+            $table->integer('group_id')->nullable();
+            $table->integer('views')->nullable();
+            $table->string('embed_html', 400)->nullable();
 
             $table->timestamps();
             $table->engine = 'InnoDB';

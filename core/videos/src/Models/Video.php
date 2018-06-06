@@ -30,6 +30,6 @@ class Video extends Eloquent
      *
      * @var array
      */
-    protected $fillable = ['video_id', 'title', 'description', 'thumbnails', 'published_at', 'tags', 'category_id', 'embed_html', 'group_id'];
+    protected $fillable = ['video_id', 'title', 'description', 'thumbnails', 'published_at', 'tags', 'category_id', 'embed_html', 'group_id', 'channelId', 'views'];
 
 }
