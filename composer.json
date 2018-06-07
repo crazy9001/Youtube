@@ -35,7 +35,8 @@
             "Youtube\\Dashboard\\": "core/dashboard/src",
             "Youtube\\Users\\": "core/users/src",
             "Youtube\\Groups\\": "core/groups/src",
-            "Youtube\\Videos\\": "core/videos/src"
+            "Youtube\\Videos\\": "core/videos/src",
+            "Youtube\\Channel\\": "core/channel/src"
         }
     },
     "autoload-dev": {

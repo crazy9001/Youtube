@@ -13,6 +13,7 @@ use Illuminate\Support\Carbon;
 use Youtube;
 use Youtube\Videos\Repositories\Eloquent\DbVideosRepository;
 use Youtube\Groups\Repositories\Eloquent\GroupRepository;
+use Youtube\Channel\Repositories\Eloquent\DbChannelRepository;
 use Helper;
 
 class CrawlVideoYoutube extends Command
@@ -42,11 +43,14 @@ class CrawlVideoYoutube extends Command
 
     protected $groupsRepository;
 
-    public function __construct(DbVideosRepository $videosRepository, GroupRepository $groupsRepository)
+    protected $channelRepository;
+
+    public function __construct(DbVideosRepository $videosRepository, GroupRepository $groupsRepository, DbChannelRepository $channelRepository)
     {
         parent::__construct();
         $this->videoRepository = $videosRepository;
         $this->groupsRepository = $groupsRepository;
+        $this->channelRepository = $channelRepository;
     }
 
     public function handle()
@@ -71,13 +75,7 @@ class CrawlVideoYoutube extends Command
      */
     protected function getListChannelId()
     {
-        return [
-            1   =>  'UCsaMa3VD1I9G952DDlOX7aw',
-            2   =>  'UC5ezaYrzZpyItPSRG27MLpg',
-            3   =>  'UCCE0ldAqiHLYeQaa8yI2_aQ',
-            4   =>  'UCw_vhwkSx6vXRxkJizUyWuw',
-            5   =>  'UCbqS7BTNUNDlZs__mD-vbXQ'
-        ];
+        return $this->channelRepository->pluck('id_channel', 'id');
     }
 
     /**

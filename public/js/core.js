@@ -1,4 +1,6 @@
 var Youtube = Youtube || {};
+var GlobalLinkYoutube = 'http://youtube.com/';
+Youtube.GlobalLinkChannelYoutube = GlobalLinkYoutube + 'channel/';
 Youtube.showNotice = function (e, n, t) {
     toastr.options = {
         closeButton: !0,

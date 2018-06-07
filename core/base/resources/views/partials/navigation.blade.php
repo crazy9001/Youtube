@@ -15,7 +15,7 @@
                     <ul class="dropdown-menu pull-right message-ul">
                         <li>
                             <a href="#">
-                                <img src="img/demo/user-1.jpg" alt="">
+                                <img src="{{ asset('img/demo/user-1.jpg') }}" alt="">
                                 <div class="details">
                                     <div class="name">Jane Doe</div>
                                     <div class="message">
@@ -26,7 +26,7 @@
                         </li>
                         <li>
                             <a href="#">
-                                <img src="img/demo/user-2.jpg" alt="">
+                                <img src="{{ asset('img/demo/user-2.jpg') }}" alt="">
                                 <div class="details">
                                     <div class="name">John Doedoe</div>
                                     <div class="message">
@@ -41,7 +41,7 @@
                         </li>
                         <li>
                             <a href="#">
-                                <img src="img/demo/user-3.jpg" alt="">
+                                <img src="{{ asset('img/demo/user-3.jpg') }}" alt="">
                                 <div class="details">
                                     <div class="name">Bob Doe</div>
                                     <div class="message">
@@ -116,31 +116,31 @@
                 </li>
                 <li class='dropdown language-select'>
                     <a href="#" class='dropdown-toggle' data-toggle="dropdown">
-                        <img src="img/demo/flags/us.gif" alt="">
+                        <img src="{{ asset('img/demo/flags/us.gif') }}" alt="">
                         <span>US</span>
                     </a>
                     <ul class="dropdown-menu pull-right">
                         <li>
                             <a href="#">
-                                <img src="img/demo/flags/br.gif" alt="">
+                                <img src="{{ asset('img/demo/flags/br.gif') }}" alt="">
                                 <span>Brasil</span>
                             </a>
                         </li>
                         <li>
                             <a href="#">
-                                <img src="img/demo/flags/de.gif" alt="">
+                                <img src="{{ asset('img/demo/flags/de.gif') }}" alt="">
                                 <span>Deutschland</span>
                             </a>
                         </li>
                         <li>
                             <a href="#">
-                                <img src="img/demo/flags/es.gif" alt="">
+                                <img src="{{ asset('img/demo/flags/es.gif') }}" alt="">
                                 <span>España</span>
                             </a>
                         </li>
                         <li>
                             <a href="#">
-                                <img src="img/demo/flags/fr.gif" alt="">
+                                <img src="{{ asset('img/demo/flags/fr.gif') }}" alt="">
                                 <span>France</span>
                             </a>
                         </li>
@@ -150,7 +150,7 @@
             <div class="dropdown">
                 <a href="#" class='dropdown-toggle' data-toggle="dropdown">
                     {{ $userName }}
-                    <img src="img/demo/user-avatar.jpg" alt="">
+                    <img src="{{ asset('img/demo/user-avatar.jpg') }}" alt="">
                 </a>
                 <ul class="dropdown-menu pull-right">
                     <li>

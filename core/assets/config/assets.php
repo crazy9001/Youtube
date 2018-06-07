@@ -179,6 +179,13 @@ return array(
                 'src' => [
                     'local' => '/js/jquery.nestable.js',
                 ],
+            ],
+            'editable' => [
+                'use_cdn' => false,
+                'location' => 'bottom',
+                'src' => [
+                    'local' => '/js/plugins/editable/bootstrap-editable.min.js',
+                ],
             ]
         ],
         'stylesheets' => [
@@ -258,6 +265,13 @@ return array(
                 'location' => 'top',
                 'src' => [
                     'local' => '/css/plugins/treeview/jquery.treeview.css',
+                ],
+            ],
+            'editable' => [
+                'use_cdn' => false,
+                'location' => 'top',
+                'src' => [
+                    'local' => '/css/plugins/editable/bootstrap-editable.css',
                 ],
             ],
         ],

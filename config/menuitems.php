@@ -14,10 +14,7 @@ return array(
             'Xem tất cả' => 'group.index',
             'Thêm mới' => 'group.create'
         ],
-        'Quản lí kênh' =>  [
-            'Xem tất cả'    =>  'channel.index',
-            'Thêm mới' => 'channel.create'
-        ],
+        'Quản lí kênh' =>  'channel.index',
         'Quản lí video' => 'video.index',
         'Quản lí API key' => 'key.index'
 

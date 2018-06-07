@@ -11,6 +11,7 @@ namespace Youtube\Base\Providers;
 use Youtube\Assets\Providers\AssetsServiceProvider;
 use Youtube\Auth\Providers\AuthServiceProvider;
 use Youtube\Base\Supports\Helper;
+use Youtube\Channel\Providers\ChannelServiceProvider;
 use Youtube\Dashboard\Providers\DashboardServiceProvider;
 use Illuminate\Support\ServiceProvider;
 use Youtube\Groups\Providers\GroupsServiceProvider;
@@ -45,6 +46,7 @@ class BaseServiceProvider extends  ServiceProvider
         $this->app->register(UsersServiceProvider::class);
         $this->app->register(GroupsServiceProvider::class);
         $this->app->register(VideosServiceProvider::class);
+        $this->app->register(ChannelServiceProvider::class);
 
         $this->mergeConfigFrom(__DIR__ . '/../../config/youtube.php', 'youtube');
         $this->loadRoutesFrom(__DIR__.'/../../routes/web.php');

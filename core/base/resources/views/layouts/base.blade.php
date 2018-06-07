@@ -8,7 +8,8 @@
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <!-- Apple devices fullscreen -->
     <meta names="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <!-- provide the csrf token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     @foreach ($stylesheets as $style)
         {!! HTML::style($style) !!}

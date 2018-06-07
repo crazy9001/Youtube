@@ -1,0 +1,1 @@
+{"dashboard.index":true,"group.index":true,"group.create":true,"access.logout":true,"channel.index":true,"channel.list":true,"channel.store":true,"video.index":true}
