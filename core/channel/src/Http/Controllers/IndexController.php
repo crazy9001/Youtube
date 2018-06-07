@@ -111,4 +111,8 @@ class IndexController extends Controller
         return response()->json($response, $code);
     }
 
+    public function updateNameChannel(Request $request)
+    {
+        dd($request->all());
+    }
 }

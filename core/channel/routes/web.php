@@ -27,6 +27,11 @@ Route::group(['namespace' => 'Youtube\Channel\Http\Controllers', 'middleware' =>
                 'uses' => 'IndexController@store',
             ]);
 
+            Route::post('/update/nameChannel', [
+                'as' => 'channel.update.name',
+                'uses' => 'IndexController@updateNameChannel',
+            ]);
+
         });
 
     });

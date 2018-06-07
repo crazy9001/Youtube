@@ -201,8 +201,15 @@
 
             $(document).on("click", '.nameChannel', function(event) {
                 $(this).editable({
-                    showbuttons: true
+                    showbuttons: true,
+                    url: '{{ route('channel.update.name') }}',
+                    type: 'text',
+                    title: 'Edit category',
+                    ajaxOptions:{
+                        type:'post'
+                    } ,
                 });
+
             });
 
         });
