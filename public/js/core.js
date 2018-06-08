@@ -55,16 +55,16 @@ $(document).ready( function () {
         var row = '';
         var paginate = '';
         $.each(data.data.data, function (i, item) {
-            var count_video = (item.count_video === null) || (item.count_video === '') ? 'Chờ cập nhật' : item.count_video;
-            var note_channel = (item.note === null) || (item.note === '') ? 'Chờ cập nhật' : item.note;
-            var last_update = (item.last_update === null) || (item.last_update === '') ? 'Chờ cập nhật' : item.last_update;
+            var count_video = (item.count_video === null) || (item.count_video === '') ? '<img src="../img/loading-update.svg">' : item.count_video;
+            var note_channel = (item.note === null) || (item.note === '') ? '<img src="../img/loading-update.svg">' : item.note;
+            var last_update = (item.last_update === null) || (item.last_update === '') ? '<img src="../img/loading-update.svg">' : item.last_update;
             row += '<tr>' +
                 '<td class="table-checkbox hidden-480 table-stt"> ' + i + ' </td>' +
                 '<td> <a href="' + Youtube.GlobalLinkChannelYoutube + item.id_channel + '" target="_blank"> <img src="' + item.images + '" width="50px" style="border: 1px solid #ff4433; border-radius:50%"> </a></td>' +
                 '<td><a href="#" id="nameChannel" data-type="text" data-pk="' + item.id + '" data-name="' + item.name + '" class="editable">' + item.name + '</a></td>' +
                 '<td class="hidden-480"> <a href="' + Youtube.GlobalLinkChannelYoutube + item.id_channel + '" target="_blank">' + item.id_channel + '</a></td>' +
                 '<td class="hidden-480"> ' + last_update + ' </td>' +
-                '<td class="hidden-480"> ' + count_video + ' </td>' +
+                '<td class="hidden-480" id="countVideo"> ' + count_video + ' </td>' +
                 '<td class="hidden-480"> <a href="#" id="noteChannel" data-type="textarea" data-pk="' + item.id + '"> ' + note_channel + '</a> </td>' +
                 '<td class="hidden-480" style="text-align: center">' +
                 '<input type="checkbox" id="c5" class="selectable" data-skin="square" data-color="blue" name="selector[]" value="' + item.id + '">' +

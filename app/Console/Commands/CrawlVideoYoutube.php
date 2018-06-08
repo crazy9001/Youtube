@@ -101,7 +101,7 @@ class CrawlVideoYoutube extends Command
         // get info channel
         $inforChannel = Youtube::getChannelById($params['channelId']);
 
-            $this->info('---------------------- CRAWLING VIDEO CHANNEL ' . $inforChannel->snippet->title . ' ----------------------');
+        $this->info('---------------------- CRAWLING VIDEO CHANNEL ' . $inforChannel->snippet->title . ' ----------------------');
 
         // merge videos
         $videos = array_merge($videos, $search['results']);
@@ -161,6 +161,10 @@ class CrawlVideoYoutube extends Command
 
             }
         }
+        // update last update channel
+        $dataChannel['last_update'] = Carbon::now();
+        $channel = $this->channelRepository->findWhere(['id_channel' => $inforChannel->id])->first();
+        $this->channelRepository->update($dataChannel, $channel->id);
 
     }
 

@@ -9366,3 +9366,9 @@ a:focus {
 .pager .disabled>a {
   display: none !important;
 }
+.editable-click, a.editable-click, a.editable-click:hover {
+  border-bottom: none !important;
+}
+#noteChannel img, #countVideo img {
+  height: 45px;
+}
