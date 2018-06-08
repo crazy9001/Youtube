@@ -36,12 +36,12 @@
                                             <a href="#" class="btn" data-toggle="dropdown" rel="tooltip" data-placement="bottom" data-original-title="Chọn tất cả">
                                                 <i class="fa fa-square-o"></i>
                                             </a>
-                                            <a href="#" class="btn" rel="tooltip" data-placement="bottom" title="" data-original-title="Archive">
+                                            {{--<a href="#" class="btn" rel="tooltip" data-placement="bottom" title="" data-original-title="Archive">
                                                 <i class="fa fa-inbox"></i>
                                             </a>
                                             <a href="#" class="btn" rel="tooltip" data-placement="bottom" title="" data-original-title="Mark as spam">
                                                 <i class="fa fa-exclamation-triangle"></i>
-                                            </a>
+                                            </a>--}}
                                             <a href="#" class="btn" rel="tooltip" data-placement="bottom" title="" data-original-title="Delete">
                                                 <i class="fa fa-trash-o"></i>
                                             </a>
@@ -135,14 +135,17 @@
                     console.log(typeof data.data);
                     if((data.data).length){
                         $.each(data.data, function (i, item) {
+                            var count_video = (item.count_video === null) || (item.count_video === '') ? 'Chờ cập nhật' : item.count_video;
+                            var note_channel = (item.note === null) || (item.note === '') ? 'Chờ cập nhật' : item.note;
+                            var last_update = (item.last_update === null) || (item.last_update === '') ? 'Chờ cập nhật' : item.last_update;
                             row += '<tr>' +
                                 '<td class="table-checkbox hidden-480 table-stt"> ' + i + ' </td>' +
-                                '<td> <a href="' + Youtube.GlobalLinkChannelYoutube + item.id_channel + '" target="_blank"> <img src="' + item.images + '" width="50px"> </a></td>' +
-                                '<td><span class="nameChannel">' + item.name + '</span> </td>' +
-                                '<td class="hidden-480">' + item.id_channel + ' </td>' +
-                                '<td class="hidden-480"> 06/07/2018 </td>' +
-                                '<td class="hidden-480"> 12,500,500 </td>' +
-                                '<td class="hidden-480"> ' + item.note + ' </td>' +
+                                '<td> <a href="' + Youtube.GlobalLinkChannelYoutube + item.id_channel + '" target="_blank"> <img src="' + item.images + '" width="50px" style="border: 1px solid #ff4433; border-radius:50%"> </a></td>' +
+                                '<td><a href="#" id="nameChannel" data-type="text" data-pk="' + item.id + '" data-name="' + item.name + '" class="editable">' + item.name + '</a></td>' +
+                                '<td class="hidden-480"> <a href="' + Youtube.GlobalLinkChannelYoutube + item.id_channel + '" target="_blank">' + item.id_channel + '</a></td>' +
+                                '<td class="hidden-480"> ' + last_update + ' </td>' +
+                                '<td class="hidden-480"> ' + count_video + ' </td>' +
+                                '<td class="hidden-480"> <a href="#" id="noteChannel" data-type="textarea" data-pk="' + item.id + '"> ' + note_channel + '</a> </td>' +
                                 '<td class="hidden-480">' +
                                 '<input type="checkbox" class="selectable">' +
                                 //'<a href="#" class="sel-star active"> <i class="fa fa-star"></i></a>' +
@@ -166,7 +169,6 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
             $('#save_channel').on('click', function (e) {
                 $(this).text('Loading...');
                 e.preventDefault();
@@ -198,29 +200,49 @@
 
             });
 
-
-            $(document).on("click", '.nameChannel', function(event) {
-                $(this).editable({
-                    showbuttons: true,
-                    url: '{{ route('channel.update.name') }}',
-                    type: 'text',
-                    title: 'Edit category',
-                    ajaxOptions:{
-                        type:'post'
-                    } ,
-                });
-
+        });
+        $(document).on("click", '#nameChannel', function() {
+            $(this).editable({
+                url: '{{ route('channel.update.name') }}',
+                type: 'text',
+                ajaxOptions:{
+                    type:'post'
+                } ,
+                title: 'Nhập tên Channel',
+                success: function(data) {
+                    if(data.success === true){
+                        Youtube.showNotice('success', data.message, Youtube.languages.notices_msg.success);
+                    }
+                },
+                error:function (xhr, ajaxOptions, thrownError){
+                    xhr = jQuery.parseJSON(xhr.responseText);
+                    Youtube.showNotice('error', xhr.data, xhr.message);
+                },
             });
 
         });
 
-        /*$('.nameChannel').on('click', function (e) {
+        $(document).on("click", '#noteChannel', function() {
             $(this).editable({
-                showbuttons: true
+                url: '{{ route('channel.update.note') }}',
+                type: 'text',
+                ajaxOptions:{
+                    type:'post'
+                } ,
+                placeholder: 'Ghi chú Channel',
+                title: 'Nhập tên Channel',
+                success: function(data) {
+                    if(data.success === true){
+                        Youtube.showNotice('success', data.message, Youtube.languages.notices_msg.success);
+                    }
+                },
+                error:function (xhr, ajaxOptions, thrownError){
+                    xhr = jQuery.parseJSON(xhr.responseText);
+                    Youtube.showNotice('error', xhr.data, xhr.message);
+                },
             });
-        });*/
 
-
+        });
 
     </script>
 

@@ -111,8 +111,40 @@ class IndexController extends Controller
         return response()->json($response, $code);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     */
     public function updateNameChannel(Request $request)
     {
-        dd($request->all());
+        $validator = Validator::make($request->all(), [
+            'value' => 'required'
+        ],[
+            'value.required' =>  'Chưa nhập tên Channel'
+        ]);
+        if($validator->fails()){
+            return $this->sendError('Validation error', $validator->errors()->first());
+        }
+        $channel = $this->channelRepository->findWhere(['id' => $request->pk])->first();
+        if(!$channel){
+            return $this->sendError('Error.', 'Kênh không tồn tại');
+        }
+        $data['name'] = $request->value;
+        $channel = $this->channelRepository->update($data, $channel->id);
+        return $this->sendResponse($channel, 'Cập nhật thành công');
     }
+
+
+    public function updateNoteChannel(Request $request)
+    {
+        $channel = $this->channelRepository->findWhere(['id' => $request->pk])->first();
+        if(!$channel){
+            return $this->sendError('Error.', 'Kênh không tồn tại');
+        }
+        $data['note'] = $request->value;
+        $channel = $this->channelRepository->update($data, $channel->id);
+        return $this->sendResponse($channel, 'Cập nhật thành công');
+    }
+
 }
