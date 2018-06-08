@@ -9360,22 +9360,9 @@ a:focus {
   border-right: 1px solid #ddd;
   vertical-align : unset !important;
 }
-/*
-.modal {
-    text-align: center;
+.pager li a {
+  border-radius: 0 !important;
 }
-
-@media screen and (min-width: 768px) {
-    .modal:before {
-        display: inline-block;
-        vertical-align: middle;
-        content: " ";
-        height: 100%;
-    }
+.pager .disabled>a {
+  display: none !important;
 }
-
-.modal-dialog {
-    display: inline-block;
-    vertical-align: middle;
-}
-*/

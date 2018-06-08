@@ -14,16 +14,33 @@ use Validator;
 use Youtube;
 use Assets;
 use Youtube\Channel\Repositories\Eloquent\DbChannelRepository;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class IndexController extends Controller
 {
+    /**
+     * @var DbChannelRepository
+     */
     protected $channelRepository;
 
+    /**
+     * @var int
+     */
+    protected $countRecordOnePage = 10;
+
+    /**
+     * IndexController constructor.
+     * @param DbChannelRepository $channelRepository
+     */
     public function __construct(DbChannelRepository $channelRepository )
     {
         $this->channelRepository = $channelRepository;
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         Assets::addStylesheets(['editable', 'icheck']);
@@ -34,6 +51,7 @@ class IndexController extends Controller
     /**
      * @param Request $request
      * @return \Illuminate\Http\Response
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
     public function store(Request $request)
     {
@@ -68,11 +86,17 @@ class IndexController extends Controller
 
     }
 
-
+    /**
+     * @return \Illuminate\Http\Response
+     */
     public function getListChannel()
     {
-        $data =  $this->channelRepository->all();
-        return $this->sendResponse($data, 'Success');
+        $channels = $this->channelRepository->all();
+        $currentPage = Paginator::resolveCurrentPage() - 1;
+        $perPage = $this->countRecordOnePage;
+        $currentPageSearchResults = $channels->slice($currentPage * $perPage, $perPage)->all();
+        $channels  = new LengthAwarePaginator($currentPageSearchResults, count($channels), $perPage);
+        return $this->sendResponse($channels->toArray(), 'Successfully');
     }
 
     /**
@@ -121,7 +145,7 @@ class IndexController extends Controller
         $validator = Validator::make($request->all(), [
             'value' => 'required'
         ],[
-            'value.required' =>  'Chưa nhập tên Channel'
+            'value.required' =>  'Chưa nhập tên kênh'
         ]);
         if($validator->fails()){
             return $this->sendError('Validation error', $validator->errors()->first());

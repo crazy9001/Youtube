@@ -14,9 +14,9 @@
 
     @include('bases::partials.navigation')
 
-    @include('bases::partials.left')
+    {{--@include('bases::partials.left')--}}
 
-    <div id="main">
+    <div id="main" style="margin-left: 0">
 
         <div class="container-fluid">
 
