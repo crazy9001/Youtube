@@ -26,8 +26,8 @@ class IndexController extends Controller
 
     public function index()
     {
-        Assets::addStylesheets(['editable']);
-        Assets::addJavascript(['editable']);
+        Assets::addStylesheets(['editable', 'icheck']);
+        Assets::addJavascript(['editable', 'icheck']);
         return view('channel::index.index');
     }
 
@@ -135,7 +135,11 @@ class IndexController extends Controller
         return $this->sendResponse($channel, 'Cập nhật thành công');
     }
 
-
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     * @throws \Prettus\Validator\Exceptions\ValidatorException
+     */
     public function updateNoteChannel(Request $request)
     {
         $channel = $this->channelRepository->findWhere(['id' => $request->pk])->first();
@@ -147,4 +151,20 @@ class IndexController extends Controller
         return $this->sendResponse($channel, 'Cập nhật thành công');
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteChannel(Request $request)
+    {
+        if($request->listChannel){
+            $listChannel = $this->channelRepository->findWhereIn('id', $request->listChannel);
+            foreach($listChannel as $channel) {
+                $result = $this->channelRepository->deleteWhere(['id' => $channel->id]);
+            }
+            return $this->sendResponse($result, 'Xóa thành công');
+        }else{
+            return $this->sendError('Error.', 'Vui lòng chọn kênh');
+        }
+    }
 }

@@ -37,6 +37,11 @@ Route::group(['namespace' => 'Youtube\Channel\Http\Controllers', 'middleware' =>
                 'uses' => 'IndexController@updateNoteChannel',
             ]);
 
+            Route::post('/delete', [
+                'as' => 'channel.delete',
+                'uses' => 'IndexController@deleteChannel',
+            ]);
+
         });
 
     });

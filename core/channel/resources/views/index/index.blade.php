@@ -32,17 +32,22 @@
                                                 <i class="fa fa-plus"></i>
                                             </a>
                                         </div>
+
                                         <div class="btn-group">
-                                            <a href="#" class="btn" data-toggle="dropdown" rel="tooltip" data-placement="bottom" data-original-title="Chọn tất cả">
-                                                <i class="fa fa-square-o"></i>
-                                            </a>
+                                            <span class="btn btn-default">
+                                                <input type="checkbox" id="select_all_channel" class='' data-skin="minimal" data-color="blue" style="margin: 0">
+                                            </span>
+                                        </div>
+
+                                        <div class="btn-group">
+
                                             {{--<a href="#" class="btn" rel="tooltip" data-placement="bottom" title="" data-original-title="Archive">
                                                 <i class="fa fa-inbox"></i>
                                             </a>
                                             <a href="#" class="btn" rel="tooltip" data-placement="bottom" title="" data-original-title="Mark as spam">
                                                 <i class="fa fa-exclamation-triangle"></i>
                                             </a>--}}
-                                            <a href="#" class="btn" rel="tooltip" data-placement="bottom" title="" data-original-title="Delete">
+                                            <a href="#" id="deleteButton" class="btn" rel="tooltip" data-placement="bottom" title="" data-original-title="Delete">
                                                 <i class="fa fa-trash-o"></i>
                                             </a>
                                         </div>
@@ -125,32 +130,29 @@
 @section('javascript')
 
     <script>
-
         function overLoadDataChannel(){
             $.ajax({
                 url: '{{ route('channel.list') }}',
                 type: 'GET',
                 success: function (data, textStatus, jqXHR) {
                     var row = '';
-                    console.log(typeof data.data);
                     if((data.data).length){
                         $.each(data.data, function (i, item) {
                             var count_video = (item.count_video === null) || (item.count_video === '') ? 'Chờ cập nhật' : item.count_video;
                             var note_channel = (item.note === null) || (item.note === '') ? 'Chờ cập nhật' : item.note;
                             var last_update = (item.last_update === null) || (item.last_update === '') ? 'Chờ cập nhật' : item.last_update;
                             row += '<tr>' +
-                                '<td class="table-checkbox hidden-480 table-stt"> ' + i + ' </td>' +
-                                '<td> <a href="' + Youtube.GlobalLinkChannelYoutube + item.id_channel + '" target="_blank"> <img src="' + item.images + '" width="50px" style="border: 1px solid #ff4433; border-radius:50%"> </a></td>' +
-                                '<td><a href="#" id="nameChannel" data-type="text" data-pk="' + item.id + '" data-name="' + item.name + '" class="editable">' + item.name + '</a></td>' +
-                                '<td class="hidden-480"> <a href="' + Youtube.GlobalLinkChannelYoutube + item.id_channel + '" target="_blank">' + item.id_channel + '</a></td>' +
-                                '<td class="hidden-480"> ' + last_update + ' </td>' +
-                                '<td class="hidden-480"> ' + count_video + ' </td>' +
-                                '<td class="hidden-480"> <a href="#" id="noteChannel" data-type="textarea" data-pk="' + item.id + '"> ' + note_channel + '</a> </td>' +
-                                '<td class="hidden-480">' +
-                                '<input type="checkbox" class="selectable">' +
-                                //'<a href="#" class="sel-star active"> <i class="fa fa-star"></i></a>' +
-                                '</td>' +
-                                '</tr>';
+                                        '<td class="table-checkbox hidden-480 table-stt"> ' + i + ' </td>' +
+                                        '<td> <a href="' + Youtube.GlobalLinkChannelYoutube + item.id_channel + '" target="_blank"> <img src="' + item.images + '" width="50px" style="border: 1px solid #ff4433; border-radius:50%"> </a></td>' +
+                                        '<td><a href="#" id="nameChannel" data-type="text" data-pk="' + item.id + '" data-name="' + item.name + '" class="editable">' + item.name + '</a></td>' +
+                                        '<td class="hidden-480"> <a href="' + Youtube.GlobalLinkChannelYoutube + item.id_channel + '" target="_blank">' + item.id_channel + '</a></td>' +
+                                        '<td class="hidden-480"> ' + last_update + ' </td>' +
+                                        '<td class="hidden-480"> ' + count_video + ' </td>' +
+                                        '<td class="hidden-480"> <a href="#" id="noteChannel" data-type="textarea" data-pk="' + item.id + '"> ' + note_channel + '</a> </td>' +
+                                        '<td class="hidden-480" style="text-align: center">' +
+                                            '<input type="checkbox" id="c5" class="selectable" data-skin="square" data-color="blue" name="selector[]" value="' + item.id + '">' +
+                                        '</td>' +
+                                    '</tr>';
 
                         });
                     }else{
@@ -158,10 +160,10 @@
                     }
                     $('#dataChannel').html('');
                     $('#dataChannel').append(row);
+                    afterLoadDataChannel();
                 }
             });
         }
-
         $(document).ready(function() {
             overLoadDataChannel();
             $.ajaxSetup({
@@ -198,6 +200,28 @@
 
                 });
 
+            });
+            $('#select_all_channel').change(function() {
+                var checkboxes = $('#dataChannel').find(':checkbox');
+                checkboxes.prop('checked', $(this).is(':checked'));
+            });
+
+            $(function(){
+                $('#deleteButton').click(function(){
+                    var listChannel = [];
+                    $(':checkbox:checked').each(function(i){
+                        listChannel[i] = $(this).val();
+                    });
+                    listChannel.shift();
+                    console.log(listChannel);
+                    if(listChannel.length === 0){
+                        Youtube.showNotice('error', 'Vui lòng chọn channel', 'Error');
+                    }else{
+                        if(confirm("Are you sure?")){
+                           deleteChannel(listChannel);
+                        }
+                    }
+                });
             });
 
         });
@@ -243,6 +267,26 @@
             });
 
         });
+        function afterLoadDataChannel() {
+            Youtube.icheck();
+        }
+        function deleteChannel(listChannel){
+            $.ajax({
+                type: "POST",
+                url: "{{ route('channel.delete') }}",
+                data: { listChannel: listChannel},
+                success: function(result){
+                    if(result.success === true){
+                        overLoadDataChannel();
+                        Youtube.showNotice('success', result.message, Youtube.languages.notices_msg.success);
+                    }
+                },
+                error:function (xhr, ajaxOptions, thrownError){
+                    xhr = jQuery.parseJSON(xhr.responseText);
+                    Youtube.showNotice('error', xhr.data, xhr.message);
+                },
+            });
+        }
 
     </script>
 
