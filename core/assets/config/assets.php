@@ -186,6 +186,13 @@ return array(
                 'src' => [
                     'local' => '/js/plugins/editable/bootstrap-editable.min.js',
                 ],
+            ],
+            'data-table' => [
+                'use_cdn' => false,
+                'location' => 'bottom',
+                'src' => [
+                    'local' => '/js/plugins/datatables/jquery.dataTables.min.js',
+                ],
             ]
         ],
         'stylesheets' => [
@@ -272,6 +279,13 @@ return array(
                 'location' => 'top',
                 'src' => [
                     'local' => '/css/plugins/editable/bootstrap-editable.css',
+                ],
+            ],
+            'data-table' => [
+                'use_cdn' => false,
+                'location' => 'top',
+                'src' => [
+                    'local' => '/css/plugins/datatable/TableTools.css',
                 ],
             ],
         ],

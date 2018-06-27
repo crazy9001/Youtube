@@ -10,6 +10,7 @@ namespace Youtube\Videos\Repositories\Eloquent;
 
 use Prettus\Repository\Eloquent\BaseRepository;
 use Youtube\Videos\Models\Video;
+use DB;
 
 class DbVideosRepository extends BaseRepository
 {

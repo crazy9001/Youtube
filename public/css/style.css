@@ -9369,6 +9369,7 @@ a:focus {
 .editable-click, a.editable-click, a.editable-click:hover {
   border-bottom: none !important;
 }
-#noteChannel img, #countVideo img {
+#noteChannel img, #countVideo img, #lastUpdateChannel img {
   height: 45px;
 }
+#list_videos img { width: 100px }

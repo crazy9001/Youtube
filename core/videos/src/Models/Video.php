@@ -8,6 +8,7 @@
 namespace Youtube\Videos\Models;
 
 use Eloquent;
+use Youtube\Channel\Models\Channel;
 
 class Video extends Eloquent
 {
@@ -31,5 +32,10 @@ class Video extends Eloquent
      * @var array
      */
     protected $fillable = ['video_id', 'title', 'description', 'thumbnails', 'published_at', 'tags', 'category_id', 'embed_html', 'group_id', 'channelId', 'views'];
+
+    public function channel()
+    {
+        return $this->belongsTo(Channel::class, 'channelId', 'id_channel')->select(['id_channel']);
+    }
 
 }

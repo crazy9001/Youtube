@@ -13,6 +13,12 @@ Route::group(['namespace' => 'Youtube\Videos\Http\Controllers', 'middleware' => 
 
         Route::group(['prefix' => 'video'], function () {
 
+
+            Route::get('/lists', [
+                'as' => 'list.videos',
+                'uses' => 'IndexController@getListVideos',
+            ]);
+
             Route::get('/', [
                 'as' => 'video.index',
                 'uses' => 'IndexController@index',

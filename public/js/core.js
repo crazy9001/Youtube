@@ -63,7 +63,7 @@ $(document).ready( function () {
                 '<td> <a href="' + Youtube.GlobalLinkChannelYoutube + item.id_channel + '" target="_blank"> <img src="' + item.images + '" width="50px" style="border: 1px solid #ff4433; border-radius:50%"> </a></td>' +
                 '<td><a href="#" id="nameChannel" data-type="text" data-pk="' + item.id + '" data-name="' + item.name + '" class="editable">' + item.name + '</a></td>' +
                 '<td class="hidden-480"> <a href="' + Youtube.GlobalLinkChannelYoutube + item.id_channel + '" target="_blank">' + item.id_channel + '</a></td>' +
-                '<td class="hidden-480"> ' + last_update + ' </td>' +
+                '<td class="hidden-480" id="lastUpdateChannel"> ' + last_update + ' </td>' +
                 '<td class="hidden-480" id="countVideo"> ' + count_video + ' </td>' +
                 '<td class="hidden-480"> <a href="#" id="noteChannel" data-type="textarea" data-pk="' + item.id + '"> ' + note_channel + '</a> </td>' +
                 '<td class="hidden-480" style="text-align: center">' +
