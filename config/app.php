@@ -168,6 +168,7 @@ return [
         Nestable\NestableServiceProvider::class,
 
         Youtube\Base\Providers\BaseServiceProvider::class,
+        Yajra\Datatables\DatatablesServiceProvider::class,
     ],
 
     /*
@@ -224,7 +225,8 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'HTML' => Collective\Html\HtmlFacade::class,
         'Youtube' => Alaouy\Youtube\Facades\Youtube::class,
-        'Nestable' => Nestable\Facades\NestableService::class
+        'Nestable' => Nestable\Facades\NestableService::class,
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
     ],
 
 ];
