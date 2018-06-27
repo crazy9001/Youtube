@@ -8,9 +8,12 @@
 
 namespace Youtube\Videos\Http\Controllers;
 
+use Illuminate\Support\Facades\Input;
+use Youtube\Videos\Models\Video;
 use Youtube\Videos\Repositories\Eloquent\DbVideosRepository;
 use Assets;
 use DataTables;
+use Request;
 
 class IndexController
 {
@@ -35,8 +38,13 @@ class IndexController
 
     public function getListVideos()
     {
-        $listVideos = $this->videoRepository->get();
-        return Datatables::of($listVideos)->make(true);
+        if(Input::get('channel')){
+            $listVideos = $this->videoRepository->findWhere(['channelId' => Input::get('channel')]);
+            return Datatables::of($listVideos)->make(true);
+        }else{
+            $listVideos = $this->videoRepository->get();
+            return Datatables::of($listVideos)->make(true);
+        }
     }
 
 

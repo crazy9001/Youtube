@@ -27,6 +27,14 @@
                     </h3>
                 </div>
                 <div class="box-content nopadding">
+
+
+                    <select id="statusFilter">
+                        <option value="">All Status</option>
+                        <option value="UC0jDoh3tVXCaqJ6oTve8ebA">Channel 1</option>
+                        <option value="UCQGd-eIAxQV7zMvTT4UmjZA">Channel 2</option>
+                    </select>
+
                     <table class="table table-bordered dataTable-scroll-x" id="list_videos">
                         <thead>
                         <tr>
@@ -54,7 +62,7 @@
 
 
         $(document).ready(function() {
-            $('#list_videos').DataTable({
+            var dtListUsers = $('#list_videos').DataTable({
                 "processing": true,
                 "serverSide": true,
                 "ajax": "{{route('list.videos')}}",
@@ -67,6 +75,15 @@
                 ],
                 "scrollY": '60vh',
             });
+
+
+            $('#statusFilter').on('change', function(){
+                var filter_value = $(this).val();
+                var new_url = "{{route('list.videos')}}" + '?channel=' + filter_value;
+
+                dtListUsers.ajax.url(new_url).load();
+            });
+
         });
 
         /**
