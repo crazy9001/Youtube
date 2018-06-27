@@ -10,6 +10,7 @@ namespace Youtube\Videos\Http\Controllers;
 
 use Youtube\Videos\Repositories\Eloquent\DbVideosRepository;
 use Assets;
+use DataTables;
 
 class IndexController
 {
@@ -34,8 +35,8 @@ class IndexController
 
     public function getListVideos()
     {
-        $listVideos = $this->videoRepository->with('channel')->all();
-        return $this->sendResponse($listVideos->toArray(), 'Successfully');
+        $listVideos = $this->videoRepository->all();
+        return Datatables::of($listVideos)->make(true);
     }
 
 

@@ -52,21 +52,31 @@
 
     <script>
 
+        
         $(document).ready(function() {
-
-            $('#list_videos').DataTable( {
+            $('#list_videos').DataTable({
+                "processing": true,
+                "serverSide": true,
                 "ajax": "{{route('list.videos')}}",
                 "columns": [
-                    { "data": "thumbnails", render: getImg },
+                    { "data": "thumbnails", render: getImg, },
                     { "data": "title" },
                     { "data": "channelId" },
                     { "data": "group_id" },
                     { "data": "video_id" },
                 ],
                 "scrollY": '60vh',
-            } );
+            });
         });
 
+        /**
+         *
+         * @param data
+         * @param type
+         * @param full
+         * @param meta
+         * @returns {string}
+         */
         function getImg(data, type, full, meta) {
             var orderType = data.OrderType;
             if (orderType === 'Surplus') {
