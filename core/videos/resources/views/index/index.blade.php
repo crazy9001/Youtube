@@ -30,7 +30,7 @@
                     <table class="table table-bordered dataTable-scroll-x" id="list_videos">
                         <thead>
                         <tr>
-                            <th></th>
+                            <th style="width: 50px"></th>
                             <th>Tiêu đề</th>
                             <th>ID Channel</th>
                             <th>Nhóm</th>
@@ -52,7 +52,7 @@
 
     <script>
 
-        
+
         $(document).ready(function() {
             $('#list_videos').DataTable({
                 "processing": true,
