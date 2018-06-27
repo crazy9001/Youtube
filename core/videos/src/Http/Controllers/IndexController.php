@@ -35,7 +35,7 @@ class IndexController
 
     public function getListVideos()
     {
-        $listVideos = $this->videoRepository->all();
+        $listVideos = $this->videoRepository->orderBy('id', 'DESC')->get();
         return Datatables::of($listVideos)->make(true);
     }
 
