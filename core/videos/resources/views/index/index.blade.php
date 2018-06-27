@@ -23,7 +23,7 @@
                 <div class="box-title">
                     <h3>
                         <i class="fa fa-table"></i>
-                        Horizontal scrollable
+                        Quản lí video
                     </h3>
                 </div>
                 <div class="box-content nopadding">
