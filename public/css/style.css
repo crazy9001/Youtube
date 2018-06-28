@@ -9373,3 +9373,8 @@ a:focus {
   height: 45px;
 }
 #list_videos img { width: 100px }
+#statusFilter {
+  margin-left: 300px;
+  position: absolute;
+  top: 80px;
+}

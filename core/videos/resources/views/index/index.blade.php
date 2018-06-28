@@ -29,11 +29,7 @@
                 <div class="box-content nopadding">
 
 
-                    <select id="statusFilter">
-                        <option value="">All Status</option>
-                        <option value="UC0jDoh3tVXCaqJ6oTve8ebA">Channel 1</option>
-                        <option value="UCQGd-eIAxQV7zMvTT4UmjZA">Channel 2</option>
-                    </select>
+                    {!! Form::select('channel', ['Tìm kiếm video theo tên kênh'] + $channels, '', ['id' => 'statusFilter']) !!}
 
                     <table class="table table-bordered dataTable-scroll-x" id="list_videos">
                         <thead>

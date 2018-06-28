@@ -11,6 +11,7 @@ namespace Youtube\Videos\Http\Controllers;
 use Illuminate\Support\Facades\Input;
 use Youtube\Videos\Models\Video;
 use Youtube\Videos\Repositories\Eloquent\DbVideosRepository;
+use Youtube\Channel\Repositories\Eloquent\DbChannelRepository;
 use Assets;
 use DataTables;
 use Request;
@@ -18,10 +19,12 @@ use Request;
 class IndexController
 {
     protected $videoRepository;
+    protected $channelRepository;
 
-    public function __construct(DbVideosRepository $videosRepository)
+    public function __construct(DbVideosRepository $videosRepository, DbChannelRepository $channelRepository)
     {
         $this->videoRepository = $videosRepository;
+        $this->channelRepository = $channelRepository;
     }
 
     public function index()
@@ -29,11 +32,13 @@ class IndexController
         Assets::addStylesheets(['data-table']);
         Assets::addJavascript(['data-table']);
 
-        $listVideos = $this->videoRepository->with('channel')->paginate(5);
-        /*foreach($listVideos as $video){
-            dd($video);
-        }*/
-        return view('videos::index.index', compact('listVideos'));
+        $channels = $this->channelRepository->pluck( 'name', 'id_channel')->toArray();
+        /*$channels["0"] = 'Tìm kiếm video theo tên kênh';
+        $channels = array_sort_recursive($channels);
+        dd($channels);*/
+        //dd($channel);
+
+        return view('videos::index.index', compact('channels'));
     }
 
     public function getListVideos()
