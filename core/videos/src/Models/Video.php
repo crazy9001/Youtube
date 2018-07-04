@@ -9,6 +9,7 @@ namespace Youtube\Videos\Models;
 
 use Eloquent;
 use Youtube\Channel\Models\Channel;
+use Youtube\Groups\Models\Group;
 
 class Video extends Eloquent
 {
@@ -31,11 +32,15 @@ class Video extends Eloquent
      *
      * @var array
      */
-    protected $fillable = ['video_id', 'title', 'description', 'thumbnails', 'published_at', 'tags', 'category_id', 'embed_html', 'group_id', 'channelId', 'views'];
+    protected $fillable = ['video_id', 'title', 'description', 'thumbnails', 'published_at', 'tags', 'category_id', 'embed_html', 'group_id', 'channelId', 'views', 'status', 'display', 'note'];
 
     public function channel()
     {
-        return $this->belongsTo(Channel::class, 'channelId', 'id_channel')->select(['id_channel']);
+        return $this->belongsTo(Channel::class, 'channelId', 'id_channel');
     }
 
+    public function group()
+    {
+        return $this->belongsTo(Group::class, 'group_id', 'id');
+    }
 }

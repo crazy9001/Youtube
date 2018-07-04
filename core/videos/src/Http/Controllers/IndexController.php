@@ -33,23 +33,32 @@ class IndexController
         Assets::addJavascript(['data-table']);
 
         $channels = $this->channelRepository->pluck( 'name', 'id_channel')->toArray();
-        /*$channels["0"] = 'Tìm kiếm video theo tên kênh';
-        $channels = array_sort_recursive($channels);
-        dd($channels);*/
-        //dd($channel);
+        $status = [
+            '1' =>  'Hoạt động',
+            '0' =>  'Block',
+        ];
 
-        return view('videos::index.index', compact('channels'));
+        return view('videos::index.index', compact('channels', 'status'));
     }
 
     public function getListVideos()
     {
-        if(Input::get('channel')){
-            $listVideos = $this->videoRepository->findWhere(['channelId' => Input::get('channel')]);
-            return Datatables::of($listVideos)->make(true);
-        }else{
-            $listVideos = $this->videoRepository->get();
+        $channel = Input::get('channel');
+        $status = Input::get('status');
+        if(!isset($channel) && !isset($status)){
+            $listVideos = $this->videoRepository->with(['group', 'channel'])->get();
             return Datatables::of($listVideos)->make(true);
         }
+        if($channel == 0 && $status == 0){
+            $listVideos = $this->videoRepository->with(['group', 'channel'])->findWhere([ 'status'  =>  0]);
+            return Datatables::of($listVideos)->make(true);
+        }
+        if($channel == 0 && $status == 1){
+            $listVideos = $this->videoRepository->with(['group', 'channel'])->findWhere([ 'status'  =>  1]);
+            return Datatables::of($listVideos)->make(true);
+        }
+        $listVideos = $this->videoRepository->with(['group', 'channel'])->findWhere(['channelId' => $channel, 'status'  =>  $status]);
+        return Datatables::of($listVideos)->make(true);
     }
 
 
