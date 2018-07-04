@@ -9387,7 +9387,16 @@ a:focus {
   max-width: 80px;
   overflow: hidden;
 }
-.stt-video {
+.stt-video, .checkbox-video {
   width: 5px;
+  overflow: hidden;
+  text-align: center;
+}
+.lastcheck-video {
+  width: 100px;
+  overflow: hidden;
+}
+.status-video {
+  width: 100px;
   overflow: hidden;
 }
