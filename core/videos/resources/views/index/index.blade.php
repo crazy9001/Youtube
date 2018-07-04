@@ -78,15 +78,24 @@
                                 render: renderLink(data.group);
                             }
                             return '';
-                        }
+                        }, "orderable": "false"
                     },
                     { className: "channel-video","data": "channel.name" },
-                    { "data" : 'updated_at'},
+                    { className: 'lastcheck-video', "data" : 'updated_at'},
                     { "data" : 'note'},
-                    { "data" : 'status'},
-                    { "data" : 'display'},
-                    { "data" : 'display'},
-                    { "data": "id" },
+                    { className: 'status-video', "data" :  function (data) {
+                            return data.status == 1 ? 'Hoạt động' : 'Block'
+                        }, "orderable": "false"
+                    },
+                    { className: 'status-video', "data" : function (data) {
+                            return data.display == 1 ? 'Hiển thị' : 'Ẩn'
+                        }, "orderable": "false"
+                    },
+                    { className: 'checkbox-video', "data" : function(){
+                            return renderCheckbox;
+                        }, "orderable": "false"
+                    },
+                    { className: 'stt-video', "data": "id" },
                 ],
                 "scrollY": '60vh',
             });
@@ -125,7 +134,10 @@
                 return '<img src="' + data + '" />';
             }
         }
-
+        
+        function renderCheckbox() {
+            return '<input type="checkbox">'
+        }
         /**
          *
          * @param data
