@@ -25,6 +25,9 @@ class CreateTableVideos extends Migration
             $table->integer('category_id')->nullable();
             $table->integer('group_id')->nullable();
             $table->integer('views')->nullable();
+            $table->integer('status')->nullable()->default(1);
+            $table->integer('display')->nullable()->default(1);
+            $table->text('note')->nullable();
             $table->string('embed_html', 400)->nullable();
 
             $table->timestamps();

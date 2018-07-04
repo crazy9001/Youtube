@@ -9373,3 +9373,21 @@ a:focus {
   height: 45px;
 }
 #list_videos img { width: 100px }
+#boxFilter {
+  margin-left: 300px;
+  position: absolute;
+  top: 80px;
+}
+.title-video {
+  max-width: 100px;
+  overflow: hidden;
+  line-height: 40px !important;
+}
+.channel-video{
+  max-width: 80px;
+  overflow: hidden;
+}
+.stt-video {
+  width: 5px;
+  overflow: hidden;
+}
