@@ -28,27 +28,64 @@
                 </div>
                 <div class="box-content nopadding">
 
-                    <div id="boxFilter">
-                        {!! Form::select('channel', ['Tìm kiếm video theo tên kênh'] + $channels, '', ['id' => 'channelFilter']) !!}
-                        {!! Form::select('status', $status, '', ['id' => 'statusFilter']) !!}
-                    </div>
-                    <table class="table table-bordered dataTable-scroll-x" id="list_videos">
+                    {!! Form::open(array('route' => 'video.index','method'=>'get','class'=>'form-inline')) !!}
+                        <div id="boxFilter">
+                            {!! Form::select('channel', ['' => 'Tìm kiếm video theo tên kênh'] + $channels ,isset($filters['channel'])?$filters['channel'] : null, ['id' => 'channelFilter'])!!}
+                            {!! Form::select('status', ['' => 'Trạng thái'] + $statuss, isset($filters['status']) ? $filters['status'] : '', ['id' => 'statusFilter']) !!}
+                        </div>
+                    {!! Form::close() !!}
+                    <table class="table table-bordered" id="list_videos">
                         <thead>
                         <tr>
-                            <th></th>
-                            <th></th>
-                            <th>Tên video</th>
-                            <th>Nhóm</th>
-                            <th>Kênh</th>
-                            <th>Last check</th>
-                            <th>Ghi chú</th>
-                            <th>Tình trạng</th>
-                            <th>Display</th>
-                            <th>Checkbox</th>
-                            <th>ID</th>
+                            <th>{!!$columns['stt']!!}</th>
+                            <th>{!!$columns['thumbnails']!!}</th>
+                            <th>{!!$columns['title']!!}</th>
+                            <th>{!!$columns['video_id']!!}</th>
+                            <th>{!!$columns['group_name']!!}</th>
+                            <th>{!!$columns['channel_name']!!}</th>
+                            <th>{!!$columns['updated_at']!!}</th>
+                            <th>{!!$columns['note']!!}</th>
+                            <th>{!!$columns['status']!!}</th>
+                            <th>{!!$columns['display']!!}</th>
+                            <th>{!!$columns['checkbox']!!}</th>
+                            <th>{!!$columns['id']!!}</th>
                         </tr>
                         </thead>
                         <tbody>
+                        @foreach($videos as $key => $video)
+                            <tr role="row" class="odd">
+                                <td class="stt-video">{{ $key + 1 }}</td>
+                                <td class="img-video">
+                                    <img src="{{ isset($video->thumbnails) ? $video->thumbnails : '' }}">
+                                </td>
+                                <td class="title-video">
+                                    <a href="http://youtube.com?watch={{ isset($video->video_id) ? $video->video_id : '' }}" target="_blank">
+                                        {{ isset($video->title) ? $video->title : '' }}
+                                    </a>
+                                </td>
+                                <td class="id-video">
+                                    {{ isset($video->video_id) && !empty($video->video_id) ? $video->video_id : '' }}
+                                </td>
+                                <td class="gr-video">
+                                    {{ isset($video->group) && !empty($video->group) ? $video->group->name : '' }}
+                                </td>
+                                <td class="channel-video">
+                                    {{ isset($video->channel) && !empty($video->channel) ? $video->channel->name : '' }}
+                                </td>
+                                <td class=" lastcheck-video">
+                                    {{ isset($video->updated_at) && !empty($video->updated_at) ? $video->updated_at : '' }}
+                                </td>
+                                <td></td>
+                                <td class=" status-video">
+                                    {{ isset($video->status) && $video->status == 1 ? 'Hoạt động' : 'Block' }}
+                                </td>
+                                <td class=" status-video">
+                                    {{ isset($video->display) && $video->display == 1 ? 'Hiển thị' : 'Ản' }}
+                                </td>
+                                <td class=" checkbox-video"><input type="checkbox"></td>
+                                <td class=" stt-video">{{ $video->id }}</td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -62,92 +99,12 @@
 @section('javascript')
 
     <script>
-
-
-        $(document).ready(function() {
-            var dtListUsers = $('#list_videos').DataTable({
-                "processing": true,
-                "serverSide": true,
-                "ajax": "{{route('list.videos')}}",
-                "columns": [
-                    { className: 'stt-video', "data" : 'id' },
-                    { "data": "thumbnails", render: getImg, },
-                    { className: 'title-video', "data": "title" },
-                    { "data":  function (data){
-                            if (data.group){
-                                render: renderLink(data.group);
-                            }
-                            return '';
-                        }, "orderable": "false"
-                    },
-                    { className: "channel-video","data": "channel.name" },
-                    { className: 'lastcheck-video', "data" : 'updated_at'},
-                    { "data" : 'note'},
-                    { className: 'status-video', "data" :  function (data) {
-                            return data.status == 1 ? 'Hoạt động' : 'Block'
-                        }, "orderable": "false"
-                    },
-                    { className: 'status-video', "data" : function (data) {
-                            return data.display == 1 ? 'Hiển thị' : 'Ẩn'
-                        }, "orderable": "false"
-                    },
-                    { className: 'checkbox-video', "data" : function(){
-                            return renderCheckbox;
-                        }, "orderable": "false"
-                    },
-                    { className: 'stt-video', "data": "id" },
-                ],
-                "scrollY": '60vh',
-            });
-
-
-            $('#channelFilter').on('change', function(){
-                var status_value= $('#statusFilter').val();
-                var channel_value = $(this).val();
-                var new_url = "{{route('list.videos')}}" + '?channel=' + channel_value + '&status=' + status_value;
-                //alert(new_url);
-                dtListUsers.ajax.url(new_url).load();
-            });
-            $('#statusFilter').on('change', function(){
-                var status_value= $(this).val();
-                var channel_value = $('#channelFilter').val();
-                var new_url = "{{route('list.videos')}}" + '?channel=' + channel_value + '&status=' + status_value;
-                //alert(new_url);
-                dtListUsers.ajax.url(new_url).load();
-            });
-
+        $('#channelFilter').on('change', function(){
+            this.form.submit();
         });
-
-        /**
-         *
-         * @param data
-         * @param type
-         * @param full
-         * @param meta
-         * @returns {string}
-         */
-        function getImg(data, type, full, meta) {
-            var orderType = data.OrderType;
-            if (orderType === 'Surplus') {
-                return '<img src="' + data + '" />';
-            } else {
-                return '<img src="' + data + '" />';
-            }
-        }
-        
-        function renderCheckbox() {
-            return '<input type="checkbox">'
-        }
-        /**
-         *
-         * @param data
-         * @returns {string}
-         */
-        function renderLink(data)
-        {
-            return '<a href="' + data.slug + '">' + data.slug + '</a>'
-        }
-
+        $('#statusFilter').on('change', function(){
+            this.form.submit();
+        });
     </script>
 
 @stop

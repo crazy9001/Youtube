@@ -9372,19 +9372,18 @@ a:focus {
 #noteChannel img, #countVideo img, #lastUpdateChannel img {
   height: 45px;
 }
-#list_videos img { width: 100px }
+#list_videos img { width: 50px }
 #boxFilter {
   margin-left: 300px;
   position: absolute;
-  top: 80px;
+  top: 33px;
 }
 .title-video {
   max-width: 100px;
   overflow: hidden;
-  line-height: 40px !important;
 }
 .channel-video{
-  max-width: 80px;
+  width: 200px;
   overflow: hidden;
 }
 .stt-video, .checkbox-video {
@@ -9393,10 +9392,16 @@ a:focus {
   text-align: center;
 }
 .lastcheck-video {
-  width: 100px;
+  width: 150px;
   overflow: hidden;
 }
 .status-video {
   width: 100px;
   overflow: hidden;
+}
+.img-video, .id-video{
+  width: 50px;
+}
+.gr-video {
+  width: 100px;
 }
