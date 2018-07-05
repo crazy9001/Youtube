@@ -32,6 +32,7 @@
                         <div id="boxFilter">
                             {!! Form::select('channel', ['' => 'Tìm kiếm video theo tên kênh'] + $channels ,isset($filters['channel'])?$filters['channel'] : null, ['id' => 'channelFilter'])!!}
                             {!! Form::select('status', ['' => 'Trạng thái'] + $statuss, isset($filters['status']) ? $filters['status'] : '', ['id' => 'statusFilter']) !!}
+                            {!! Form::text('search', isset($filters['search']) && !empty($filters['search']) ? $filters['search'] : '' ,array('id' => 'textSearch','placeholder'=>' Tìm kiếm (Enter để search)')) !!}
                         </div>
                     {!! Form::close() !!}
                     <table class="table table-bordered" id="list_videos">
@@ -104,6 +105,11 @@
         });
         $('#statusFilter').on('change', function(){
             this.form.submit();
+        });
+        $('#textSearch').keypress(function(event) {
+            if (event.keyCode == 13) {
+                this.form.submit();
+            }
         });
     </script>
 
