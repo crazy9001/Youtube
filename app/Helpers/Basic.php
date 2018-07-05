@@ -12,6 +12,7 @@ use Session;
 use Sentinel;
 use Youtube\Users\Repositories\Eloquent\DbUsersRepository;
 use Youtube;
+use Illuminate\Support\Facades\Input;
 
 class BasicHelper
 {
@@ -102,26 +103,70 @@ class BasicHelper
         return $arr;
     }
 
-//    public static function getDataYoutube($params, $data, $next = true, $arr = array() )
-//    {
-//        if (!$arr) {
-//            $arr = array();
-//        }
-//        $arr[] = $data['results'];
-//        $params['pageToken'] = $data['info']['nextPageToken'];
-//        while ($next) {
-//            $dataVideo = Youtube::searchAdvanced($params, true);
-//            $params['pageToken'] = $dataVideo['info']['nextPageToken'];
-//            $next = $dataVideo['info']['nextPageToken'] != null ? true : false;
-//            print_r($next);
-//            $arr[]= $dataVideo['results'];
-//            //$arr = self::getDataYoutube($params, $dataVideo, $next, $arr);
-//        }
-//        print_r($arr);
-//        /// co muon lam them de quy khong =))
-//        /// the cau de quy nhin cho no nguy hiem
-//        return $arr;
-//
-//    }
+    public static function getSortableColumnOnArray($array, $prefix = '')
+    {
+        $queryString = self::getQueryString($prefix);
+        foreach ($array as $key => $value) {
+            $array[$key] = self::getSortableColumn($key, $value, $queryString, $prefix);
+        }
+        return $array;
+    }
+
+    /**
+     * Function to get query string
+     *
+     * @return string
+     */
+    public static function getQueryString($prefix = '')
+    {
+        // Temp array
+        $arr = array();
+        // Array to ignore the parameters from the query string
+        $ignore = array('page', 'dir', 'sort', $prefix . 'page', $prefix . 'sort', $prefix . 'dir');
+
+        // Get the desired array
+        foreach (Input::all() as $key => $value) {
+            if (!in_array($key, $ignore)) {
+                $arr[] = $key . "=" . $value;
+            }
+        }
+
+        // If the query string is present if not present
+        if (count($arr) > 0) {
+            return implode("&", $arr);
+        } else {
+            return "";
+        }
+    }
+
+    /**
+     * Function to get sortable column
+     *
+     * @param type $column
+     * @param type $displayName
+     * @return string
+     */
+    public static function getSortableColumn($column, $displayName, $queryString, $prefix = '')
+    {
+        $sort = Input::get($prefix . 'sort');
+        $dir = strtolower(Input::get($prefix . 'dir'));
+        $nextDir = 'asc';
+        $arrow = '';
+        if (strcasecmp($sort, $column) == 0) {
+            switch ($dir) {
+                case 'asc':
+                    $arrow = '<span class="glyphicon glyphicon-arrow-up"></span>';
+                    $nextDir = 'desc';
+                    break;
+                case 'desc':
+                    $arrow = '<span class="glyphicon glyphicon-arrow-down"></span>';
+                    $nextDir = 'asc';
+                    break;
+            }
+        }
+
+        $button = '<a href="?' . (empty($queryString) ? '' : $queryString . '&') . $prefix . 'sort=' . $column . '&' . $prefix . 'dir=' . $nextDir . '">' . $displayName . $arrow . '</a>';
+        return $button;
+    }
 
 }

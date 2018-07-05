@@ -15,6 +15,7 @@ use Youtube\Channel\Repositories\Eloquent\DbChannelRepository;
 use Assets;
 use DataTables;
 use Request;
+use Helper;
 
 class IndexController
 {
@@ -29,38 +30,53 @@ class IndexController
 
     public function index()
     {
-        Assets::addStylesheets(['data-table']);
-        Assets::addJavascript(['data-table']);
-
         $channels = $this->channelRepository->pluck( 'name', 'id_channel')->toArray();
-        $status = [
+        $statuss = [
             '1' =>  'Hoạt động',
             '0' =>  'Block',
         ];
-
-        return view('videos::index.index', compact('channels', 'status'));
-    }
-
-    public function getListVideos()
-    {
+        $search = Input::get('search');
         $channel = Input::get('channel');
         $status = Input::get('status');
-        if(!isset($channel) && !isset($status)){
-            $listVideos = $this->videoRepository->with(['group', 'channel'])->get();
-            return Datatables::of($listVideos)->make(true);
+        $filters = array(
+            'search' => trim($search),
+            'channel' => trim($channel),
+            'status' => trim($status),
+        );
+        $sortInfo = array();
+        if (Input::has('sort') && Input::has('dir')) {
+            $sortInfo['column'] = Input::get('sort');
+            $sortInfo['order'] = Input::get('dir');
         }
-        if($channel == 0 && $status == 0){
-            $listVideos = $this->videoRepository->with(['group', 'channel'])->findWhere([ 'status'  =>  0]);
-            return Datatables::of($listVideos)->make(true);
-        }
-        if($channel == 0 && $status == 1){
-            $listVideos = $this->videoRepository->with(['group', 'channel'])->findWhere([ 'status'  =>  1]);
-            return Datatables::of($listVideos)->make(true);
-        }
-        $listVideos = $this->videoRepository->with(['group', 'channel'])->findWhere(['channelId' => $channel, 'status'  =>  $status]);
-        return Datatables::of($listVideos)->make(true);
+        $result = $this->videoRepository->getVideos($filters, $sortInfo);
+        $pagination = $result->paginate('50')->appends($filters + $sortInfo)->render();
+        $videos = $result->get();
+        $columns = $this->getSortableColumn();
+        return view('videos::index.index', compact('pagination', 'columns', 'videos', 'channels', 'statuss', 'filters'));
     }
 
+
+    /**
+     * @return mixed
+     */
+    public function getSortableColumn()
+    {
+        $columns = array(
+            'stt' => 'STT',
+            'thumbnails' => 'Ảnh',
+            'title' => 'Tiêu đề',
+            'video_id' => 'Video ID',
+            'group_name' => 'Nhóm',
+            'channel_name' => 'Kênh',
+            'updated_at' => 'Last check',
+            'note' => 'Ghi chú',
+            'status'    =>  'Tình trạng',
+            'display'   =>  'Display',
+            'checkbox'  =>  'Action',
+            'id'    =>  'ID'
+        );
+        return Helper::getSortableColumnOnArray($columns);
+    }
 
     /**
      * success response method.
