@@ -67,10 +67,10 @@
                                     {{ isset($video->video_id) && !empty($video->video_id) ? $video->video_id : '' }}
                                 </td>
                                 <td class="gr-video">
-                                    {{ isset($video->group) && !empty($video->group) ? $video->group->name : '' }}
+                                    {{ isset($video->group_name) && !empty($video->group_name) ? $video->group_name : '' }}
                                 </td>
                                 <td class="channel-video">
-                                    {{ isset($video->channel) && !empty($video->channel) ? $video->channel->name : '' }}
+                                    {{ isset($video->channel_name) && !empty($video->channel_name) ? $video->channel_name : '' }}
                                 </td>
                                 <td class=" lastcheck-video">
                                     {{ isset($video->updated_at) && !empty($video->updated_at) ? $video->updated_at : '' }}
