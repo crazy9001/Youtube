@@ -54,12 +54,12 @@ class CheckVideoInforCommand extends Command
         {
             $inforVideo = Youtube::getVideoInfo($row->video_id);
             if(!empty($inforVideo)){
-                $status = ( isset($inforVideo->contentDetails->regionRestriction) && count($inforVideo->contentDetails->regionRestriction->blocked ) >= 100 ) ? 0 : 1;
+                $status = ( isset($inforVideo->contentDetails->regionRestriction) && count($inforVideo->contentDetails->regionRestriction->blocked ) >= 100 ) ? 2 : 1;
             }else{
-                $status = 0;
+                $status = 2;
             }
-            $data['status'] = 0;
-            $video = $status == 0 ? $this->videoRepository->update($data, $row->id) : null;
+            $data['status'] = 2;
+            $video = $status == 2 ? $this->videoRepository->update($data, $row->id) : null;
             $this->info('Check success : ' . $row->title);
         }
     }
