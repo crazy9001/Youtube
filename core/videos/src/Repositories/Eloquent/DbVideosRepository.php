@@ -32,7 +32,7 @@ class DbVideosRepository extends BaseRepository
                     if (isset($filters['channel']) && !empty($filters['channel'])) {
                         $que->where('videos.channelId', $filters['channel']);
                     }
-                    if (isset($filters['status'])) {
+                    if (isset($filters['status']) && !empty($filters['status'])) {
                         $que->where('videos.status', $filters['status']);
                     }
                     $que->Where(function($que) use ( $filters ) {

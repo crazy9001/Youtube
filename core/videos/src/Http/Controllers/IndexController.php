@@ -33,7 +33,7 @@ class IndexController
         $channels = $this->channelRepository->pluck( 'name', 'id_channel')->toArray();
         $statuss = [
             '1' =>  'Hoạt động',
-            '0' =>  'Block',
+            '2' =>  'Block',
         ];
         $search = Input::get('search');
         $channel = Input::get('channel');
@@ -51,6 +51,7 @@ class IndexController
         $result = $this->videoRepository->getVideos($filters, $sortInfo);
         $pagination = $result->paginate('50')->appends($filters + $sortInfo)->render();
         $videos = $result->get();
+        //dd($videos);
         $columns = $this->getSortableColumn();
         return view('videos::index.index', compact('pagination', 'columns', 'videos', 'channels', 'statuss', 'filters'));
     }
