@@ -26,7 +26,7 @@
                         Quản lí video
                     </h3>
                 </div>
-                <div class="box-content nopadding">
+                <div class="box-content nopadding" id="showListVideos">
 
                     {!! Form::open(array('route' => 'video.index','method'=>'get','class'=>'form-inline')) !!}
                         <div id="boxFilter">
@@ -90,6 +90,7 @@
                         </tbody>
                     </table>
                 </div>
+                @include('bases::elements.paginate')
             </div>
         </div>
 

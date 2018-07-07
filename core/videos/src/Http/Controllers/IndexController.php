@@ -49,9 +49,8 @@ class IndexController
             $sortInfo['order'] = Input::get('dir');
         }
         $result = $this->videoRepository->getVideos($filters, $sortInfo);
-        $pagination = $result->paginate('50')->appends($filters + $sortInfo)->render();
+        $pagination = $result->paginate('50')->appends($filters + $sortInfo)->render("pagination::default");
         $videos = $result->get();
-        //dd($videos);
         $columns = $this->getSortableColumn();
         return view('videos::index.index', compact('pagination', 'columns', 'videos', 'channels', 'statuss', 'filters'));
     }
