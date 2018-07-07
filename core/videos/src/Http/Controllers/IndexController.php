@@ -72,7 +72,7 @@ class IndexController
             'note' => 'Ghi chú',
             'status'    =>  'Tình trạng',
             'display'   =>  'Display',
-            'checkbox'  =>  'Action',
+            'checkbox'  =>  '<input type="checkbox" data-skin="square" data-color="blue">',
             'id'    =>  'ID'
         );
         return Helper::getSortableColumnOnArray($columns);

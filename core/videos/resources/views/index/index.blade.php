@@ -20,25 +20,50 @@
 
         <div class="col-sm-12">
             <div class="box box-color box-bordered">
-                <div class="box-title">
-                    <h3>
-                        <i class="fa fa-table"></i>
-                        Quản lí video
-                    </h3>
-                </div>
-                <div class="box-content nopadding" id="showListVideos">
-
-                    {!! Form::open(array('route' => 'video.index','method'=>'get','class'=>'form-inline')) !!}
-                        <div id="boxFilter">
-                            {!! Form::select('channel', ['' => 'Tìm kiếm video theo tên kênh'] + $channels ,isset($filters['channel'])?$filters['channel'] : null, ['id' => 'channelFilter'])!!}
-                            {!! Form::select('status', ['' => 'Trạng thái'] + $statuss, isset($filters['status']) ? $filters['status'] : '', ['id' => 'statusFilter']) !!}
-                            {!! Form::text('search', isset($filters['search']) && !empty($filters['search']) ? $filters['search'] : '' ,array('id' => 'textSearch','placeholder'=>' Tìm kiếm (Enter để search)')) !!}
+                <?php /*dd($filters) */?>
+                <div class="box">
+                <div class="box-filter" {!!  isset($filters) && (!empty($filters['channel']) || !empty($filters['status'] || !empty($filters['search']))  ) ? "style='display:block'" : ""  !!}>
+                        <div class="filter-item">
+                            {!! Form::open(array('route' => 'video.index','method'=>'get','class'=>'form-inline')) !!}
+                                <div id="boxFilter">
+                                    {!! Form::select('channel', ['' => 'Tìm kiếm video theo tên kênh'] + $channels ,isset($filters['channel'])?$filters['channel'] : null, ['id' => 'channelFilter', 'class' => 'chosen-select form-control'])!!}
+                                    {!! Form::select('status', ['' => 'Trạng thái'] + $statuss, isset($filters['status']) ? $filters['status'] : '', ['id' => 'statusFilter', 'class' => 'chosen-select form-control']) !!}
+                                    {!! Form::text('search', isset($filters['search']) && !empty($filters['search']) ? $filters['search'] : '' ,array('id' => 'textSearch','placeholder'=>' Tìm kiếm (Enter để search)', 'class' => 'form-control')) !!}
+                                </div>
+                            {!! Form::close() !!}
                         </div>
-                    {!! Form::close() !!}
+                    </div>
+                </div>
+                <div class="box-content nopadding portlet light" id="showListVideos">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <div class="wrapper-action">
+                                <div class="btn-group">
+                                    <a href="#" data-toggle="dropdown" class="btn dropdown-toggle btn--icon">
+                                        Action <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="#">Action 1</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Action 2</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Action 3</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <button class="btn btn-primary btn-show-table-options content-slideUp">Tìm kiếm</button>
+                            </div>
+                        </div>
+                    </div>
+
                     <table class="table table-bordered" id="list_videos">
                         <thead>
                         <tr>
-                            <th>{!!$columns['stt']!!}</th>
+                            <th>{!!$columns['checkbox']!!}</th>
+                            <th>{!!$columns['id']!!}</th>
                             <th>{!!$columns['thumbnails']!!}</th>
                             <th>{!!$columns['title']!!}</th>
                             <th>{!!$columns['video_id']!!}</th>
@@ -48,14 +73,16 @@
                             <th>{!!$columns['note']!!}</th>
                             <th>{!!$columns['status']!!}</th>
                             <th>{!!$columns['display']!!}</th>
-                            <th>{!!$columns['checkbox']!!}</th>
-                            <th>{!!$columns['id']!!}</th>
+
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($videos as $key => $video)
                             <tr role="row" class="odd">
-                                <td class="stt-video">{{ $key + 1 }}</td>
+                                <td class="checkbox-video">
+                                    <input type="checkbox" data-skin="square" data-color="blue">
+                                </td>
+                                <td class=" stt-video">{{ $video->id }}</td>
                                 <td class="img-video">
                                     <img src="{{ isset($video->thumbnails) ? $video->thumbnails : '' }}">
                                 </td>
@@ -83,8 +110,6 @@
                                 <td class=" status-video">
                                     {!!  isset($video->display) && $video->display == 1 ? '<span class="label label-info">Hiển thị</span>' : '<span class="label label-default">Ẩn</span>'  !!}
                                 </td>
-                                <td class=" checkbox-video"><input type="checkbox"></td>
-                                <td class=" stt-video">{{ $video->id }}</td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -112,6 +137,21 @@
                 this.form.submit();
             }
         });
+
+        $(".content-slideUp").click(function(e) {
+            e.preventDefault();
+            var $el = $(this), filter = $el.parents('.box').find(".box-filter");
+            console.log($el);
+            filter.slideToggle('fast', function() {
+                $el.find("i").toggleClass('icon-angle-up').toggleClass("icon-angle-down");
+                if (!$el.find("i").hasClass("icon-angle-up")) {
+                    if (filter.hasClass('scrollable')) slimScrollUpdate(filter);
+                } else {
+                    if (filter.hasClass('scrollable')) destroySlimscroll(filter);
+                }
+            });
+        });
+
     </script>
 
 @stop
