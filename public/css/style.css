@@ -9372,16 +9372,20 @@ a:focus {
 #noteChannel img, #countVideo img, #lastUpdateChannel img {
   height: 45px;
 }
+#list_videos {
+  border: 0px;
+}
 #list_videos img {
-  width: 50px;
+  width: 60px;
   border: 1px solid #ccc;
   padding: 3px;
   border-radius: 3px;
 }
-#boxFilter {
-  margin-left: 300px;
-  position: absolute;
-  top: 33px;
+.filter-item {
+  max-width: 645px;
+  margin-bottom: 0;
+  background: #eee;
+  padding: 10px;
 }
 .title-video {
   max-width: 100px;
@@ -9416,4 +9420,62 @@ a:focus {
 #showListVideos {
   max-height: calc(100vh - 255px);
   overflow-y: scroll;
+  border: 1px solid #ddd !important;
+}
+
+
+.portlet.light.bordered>.portlet-title {
+  border-bottom: 1px solid #eef1f5;
+}
+.portlet.portlet-no-padding .portlet-title {
+  margin-bottom: 0;
+  min-height: 40px;
+  padding-left: 11px;
+}
+.portlet.light>.portlet-title {
+  padding: 0;
+  min-height: 48px;
+}
+.portlet.bordered>.portlet-title {
+  border-bottom: 0;
+}
+.portlet>.portlet-title {
+  border-bottom: 1px solid #eee;
+  padding: 0;
+  min-height: 41px;
+}
+
+.portlet.light>.portlet-title>.caption {
+  color: #666;
+  padding: 10px 10px;
+}
+.portlet>.portlet-title>.caption {
+  float: left;
+  display: inline-block;
+  font-size: 18px;
+  line-height: 18px;
+  padding: 10px 0;
+}
+
+#list_videos thead>tr>th, .table-bordered>thead>tr>td {
+  border-bottom:  1px;
+  background: unset;
+}
+
+#list_videos th a {
+  color: #afafaf;
+  text-decoration: none;
+  font-weight: 400!important;
+  font-size: 11px!important;
+  text-transform: uppercase;
+}
+input[type=checkbox], input[type=radio] {
+  width: 15px;
+  height: 15px;
+}
+.box-filter {
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+  display: none;
 }

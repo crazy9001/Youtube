@@ -155,11 +155,11 @@ class BasicHelper
         if (strcasecmp($sort, $column) == 0) {
             switch ($dir) {
                 case 'asc':
-                    $arrow = '<span class="glyphicon glyphicon-arrow-up"></span>';
+                    $arrow = '<span class="glyphicon glyphicon-arrow-up" style="margin-left: 3px"></span>';
                     $nextDir = 'desc';
                     break;
                 case 'desc':
-                    $arrow = '<span class="glyphicon glyphicon-arrow-down"></span>';
+                    $arrow = '<span class="glyphicon glyphicon-arrow-down" style="margin-left: 3px"></span>';
                     $nextDir = 'asc';
                     break;
             }
