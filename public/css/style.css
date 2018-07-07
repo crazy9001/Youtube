@@ -9372,7 +9372,12 @@ a:focus {
 #noteChannel img, #countVideo img, #lastUpdateChannel img {
   height: 45px;
 }
-#list_videos img { width: 50px }
+#list_videos img {
+  width: 50px;
+  border: 1px solid #ccc;
+  padding: 3px;
+  border-radius: 3px;
+}
 #boxFilter {
   margin-left: 300px;
   position: absolute;
