@@ -9408,3 +9408,7 @@ a:focus {
 #textSearch {
   width: 200px;
 }
+#showListVideos {
+  max-height: calc(100vh - 255px);
+  overflow-y: scroll;
+}
