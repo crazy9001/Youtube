@@ -169,4 +169,26 @@ class BasicHelper
         return $button;
     }
 
+    public static function searchGroupIdByValue(array $values, array $groups)
+    {
+        $ids = [];
+        $newArrayIds = [];
+        foreach($values as $value){
+            foreach($groups as $key => $group){
+                if(array_search($value, $group) !== false){
+                    $ids[] = $key;
+                }
+            }
+        }
+        foreach($ids as $key => $item)
+        {
+            $arr[$item][$key] = $item;
+            ksort($arr, SORT_NUMERIC);
+        }
+        foreach($arr as $key => $value){
+            $newArrayIds[] = $key;
+        }
+        return implode(",", $newArrayIds);
+    }
+
 }

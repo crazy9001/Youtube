@@ -78,6 +78,7 @@
                         </thead>
                         <tbody>
                         @foreach($videos as $key => $video)
+                            <?php dd($video) ?>
                             <tr role="row" class="odd">
                                 <td class="checkbox-video">
                                     <input type="checkbox" data-skin="square" data-color="blue">
