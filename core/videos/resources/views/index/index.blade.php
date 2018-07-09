@@ -22,14 +22,14 @@
             <div class="box box-color box-bordered">
                 <?php /*dd($filters) */?>
                 <div class="box">
-                <div class="box-filter" {!!  isset($filters) && (!empty($filters['channel']) || !empty($filters['status'] || !empty($filters['search']))  ) ? "style='display:block'" : ""  !!}>
+                    <div class="box-filter" {!!  isset($filters) && (!empty($filters['channel']) || !empty($filters['status'] || !empty($filters['search']))  ) ? "style='display:block'" : ""  !!}>
                         <div class="filter-item">
                             {!! Form::open(array('route' => 'video.index','method'=>'get','class'=>'form-inline')) !!}
-                                <div id="boxFilter">
-                                    {!! Form::select('channel', ['' => 'Tìm kiếm video theo tên kênh'] + $channels ,isset($filters['channel'])?$filters['channel'] : null, ['id' => 'channelFilter', 'class' => 'chosen-select form-control'])!!}
-                                    {!! Form::select('status', ['' => 'Trạng thái'] + $statuss, isset($filters['status']) ? $filters['status'] : '', ['id' => 'statusFilter', 'class' => 'chosen-select form-control']) !!}
-                                    {!! Form::text('search', isset($filters['search']) && !empty($filters['search']) ? $filters['search'] : '' ,array('id' => 'textSearch','placeholder'=>' Tìm kiếm (Enter để search)', 'class' => 'form-control')) !!}
-                                </div>
+                            <div id="boxFilter">
+                                {!! Form::select('channel', ['' => 'Tìm kiếm video theo tên kênh'] + $channels ,isset($filters['channel'])?$filters['channel'] : null, ['id' => 'channelFilter', 'class' => 'chosen-select form-control'])!!}
+                                {!! Form::select('status', ['' => 'Trạng thái'] + $statuss, isset($filters['status']) ? $filters['status'] : '', ['id' => 'statusFilter', 'class' => 'chosen-select form-control']) !!}
+                                {!! Form::text('search', isset($filters['search']) && !empty($filters['search']) ? $filters['search'] : '' ,array('id' => 'textSearch','placeholder'=>' Tìm kiếm (Enter để search)', 'class' => 'form-control')) !!}
+                            </div>
                             {!! Form::close() !!}
                         </div>
                     </div>
