@@ -56,10 +56,10 @@ class CheckVideoInforCommand extends Command
             if(!empty($inforVideo)){
                 $status = ( isset($inforVideo->contentDetails->regionRestriction) && count($inforVideo->contentDetails->regionRestriction->blocked ) >= 100 ) ? 2 : 1;
             }else{
-                $status = 2;
+                $status = 3;
             }
-            $data['status'] = 2;
-            $video = $status == 2 ? $this->videoRepository->update($data, $row->id) : null;
+            $data['status'] = $status;
+            $video = $this->videoRepository->update($data, $row->id);
             $this->info('Check success : ' . $row->title);
         }
     }

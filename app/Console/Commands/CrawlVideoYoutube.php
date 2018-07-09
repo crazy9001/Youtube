@@ -161,12 +161,9 @@ class CrawlVideoYoutube extends Command
                 ];
                 $findVideo = $this->videoRepository->findWhere(['video_id' => $videoInfomation->id]);
 
-                $this->info($videoData['title']);
-
                 if($findVideo->isEmpty()){
+                    $this->info($videoData['title']);
                     $this->videoRepository->create($videoData);
-                }else{
-                    $this->videoRepository->update($videoData, $findVideo->first()->id);
                 }
 
             }

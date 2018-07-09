@@ -105,7 +105,7 @@
                                 </td>
                                 <td></td>
                                 <td class=" status-video">
-                                    {!! isset($video->status) && $video->status == 1 ? '<span class="label label-success">Hoạt động</span>' : '<span class="label label-danger">Block</span>'  !!}
+                                    {!! isset($video->status) && $video->status == 1 ? '<span class="label label-success">Sống</span>' : ($video->status == 3 ? '<span class="label label-danger">Chết</span>' : '<span class="label label-danger">Block</span>')  !!}
                                 </td>
                                 <td class=" status-video">
                                     {!!  isset($video->display) && $video->display == 1 ? '<span class="label label-info">Hiển thị</span>' : '<span class="label label-default">Ẩn</span>'  !!}
