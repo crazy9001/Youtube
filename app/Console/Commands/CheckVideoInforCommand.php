@@ -47,7 +47,6 @@ class CheckVideoInforCommand extends Command
 
     public function checkVideoInfoProgress()
     {
-        //dd($inforVideo = Youtube::getVideoInfo('ádasdasd'));
         $videos = $this->videoRepository->all();
 
         foreach($videos as $row)
@@ -57,6 +56,12 @@ class CheckVideoInforCommand extends Command
                 $status = ( isset($inforVideo->contentDetails->regionRestriction) && count($inforVideo->contentDetails->regionRestriction->blocked ) >= 100 ) ? 2 : 1;
             }else{
                 $status = 3;
+            }
+            if($status == 1){
+                $data['description'] = $inforVideo->snippet->description;
+                $data['thumbnails'] = $inforVideo->snippet->thumbnails->high->url;
+                $data['published_at'] = $inforVideo->snippet->publishedAt;
+                $data['views'] = $inforVideo->statistics->viewCount;
             }
             $data['status'] = $status;
             $video = $this->videoRepository->update($data, $row->id);
