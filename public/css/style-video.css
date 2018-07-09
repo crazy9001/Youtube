@@ -1,0 +1,58 @@
+
+table#list_videos td,
+table#list_videos th {
+    padding: 4px;
+}
+
+table#list_videos thead th {
+    text-align: center;
+    background: #f0f0f0;
+    color: #666;
+    border-bottom: 1px solid #999;
+    border-left: 1px solid #fff;
+}
+
+table#list_videos thead a:hover {
+    text-decoration: none;
+}
+
+table#list_videos thead th img {
+    vertical-align: middle;
+}
+
+table#list_videos tbody th {
+    font-weight: bold;
+}
+
+table#list_videos tbody tr {
+    background-color: #fff;
+    text-align: left;
+    color: #333333
+}
+
+table#list_videos tbody tr.row1 {
+    background: #d1e6fc;
+    border-top: 1px solid #fff;
+    color: #333333
+}
+
+table#list_videos tbody tr:nth-child(even):hover td,
+table#list_videos tbody tr:nth-child(odd):hover td {
+    background-color: #a0ffce;
+    color: #000
+}
+
+table#list_videos tbody tr td {
+    height: 25px;
+    background: #fff;
+    color: #333333;
+    vertical-align: unset !important;
+}
+.table-bordered>thead>tr>th, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>td{
+    border: 1px solid #fff;
+}
+table#list_videos tbody tr:nth-child(odd) td {
+    background: #d1e6fc;
+    border-top: 1px solid #FFF;
+    color: #333333
+}

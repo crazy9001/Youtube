@@ -185,8 +185,10 @@ class BasicHelper
             $arr[$item][$key] = $item;
             ksort($arr, SORT_NUMERIC);
         }
-        foreach($arr as $key => $value){
-            $newArrayIds[] = $key;
+        if(isset($arr) && !empty($arr)){
+            foreach($arr as $key => $value){
+                $newArrayIds[] = $key;
+            }
         }
         return implode(",", $newArrayIds);
     }

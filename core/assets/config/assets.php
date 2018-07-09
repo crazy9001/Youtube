@@ -288,6 +288,13 @@ return array(
                     'local' => '/css/plugins/datatable/TableTools.css',
                 ],
             ],
+            'table-videos' => [
+                'use_cdn' => false,
+                'location' => 'top',
+                'src' => [
+                    'local' => '/css/style-video.css',
+                ],
+            ],
         ],
     ]
 );

@@ -30,6 +30,7 @@ class IndexController
 
     public function index()
     {
+        Assets::addStylesheets(['table-videos']);
         $channels = $this->channelRepository->pluck( 'name', 'id_channel')->toArray();
         $statuss = [
             '1' =>  'Hoạt động',
