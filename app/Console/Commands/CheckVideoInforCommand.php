@@ -60,12 +60,12 @@ class CheckVideoInforCommand extends Command
                 $status = 3;
             }
             if($status == 1){
-                $data['description'] = $inforVideo->snippet->description;
-                $data['thumbnails'] = $inforVideo->snippet->thumbnails->high->url;
-                $data['published_at'] = $inforVideo->snippet->publishedAt;
-                $data['views'] = $inforVideo->statistics->viewCount;
-                $data['like_count'] = $inforVideo->statistics->likeCount;
-                $data['dislike_count'] = $inforVideo->statistics->dislikeCount;
+                $data['description'] = isset($inforVideo->snippet->description) ? $inforVideo->snippet->description : '';
+                $data['thumbnails'] = isset($inforVideo->snippet->thumbnails->high->url) ? $inforVideo->snippet->thumbnails->high->url : '';
+                $data['published_at'] = isset($inforVideo->snippet->publishedAt) ? $inforVideo->snippet->publishedAt : '';
+                $data['views'] = isset($inforVideo->statistics->viewCount) ? $inforVideo->statistics->viewCount : $row->views;
+                $data['like_count'] = isset($inforVideo->statistics->likeCount) ? $inforVideo->statistics->likeCount : $row->like_count;
+                $data['dislike_count'] = isset($inforVideo->statistics->dislikeCount) ? $inforVideo->statistics->dislikeCount : $row->dislike_count;
             }
             $data['status'] = $status;
             $video = $this->videoRepository->update($data, $row->id);
