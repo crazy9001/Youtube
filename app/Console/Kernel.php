@@ -29,7 +29,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('video:start')
             ->hourly();
         $schedule->command('video:check')
-            ->everyFiveMinutes();
+            ->everyThirtyMinutes();
     }
 
     /**
