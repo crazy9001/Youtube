@@ -104,7 +104,7 @@
                                     {{ isset($video->channel_name) && !empty($video->channel_name) ? $video->channel_name : '' }}
                                 </td>
                                 <td class=" lastcheck-video">
-                                    {{ isset($video->updated_at) && !empty($video->updated_at) ? $video->updated_at : '' }}
+                                    {{ isset($video->updated_at) && !empty($video->updated_at) ? \Carbon\Carbon::createFromTimeStamp(strtotime($video->updated_at))->diffForHumans() : '' }}
                                 </td>
                                 <td> Ghi chu</td>
                                 <td class="status-video">
