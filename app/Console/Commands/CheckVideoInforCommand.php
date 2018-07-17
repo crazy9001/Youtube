@@ -62,6 +62,8 @@ class CheckVideoInforCommand extends Command
                 $data['thumbnails'] = $inforVideo->snippet->thumbnails->high->url;
                 $data['published_at'] = $inforVideo->snippet->publishedAt;
                 $data['views'] = $inforVideo->statistics->viewCount;
+                $data['like_count'] = $inforVideo->statistics->likeCount;
+                $data['dislike_count'] = $inforVideo->statistics->dislikeCount;
             }
             $data['status'] = $status;
             $video = $this->videoRepository->update($data, $row->id);

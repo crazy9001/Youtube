@@ -158,6 +158,8 @@ class CrawlVideoYoutube extends Command
                     'embed_html' => isset($videoInfomation->player->embedHtml) ? $videoInfomation->player->embedHtml : '',
                     'group_id' =>  isset($videoTags) && !empty($videoTags) ? (Helper::searchGroupIdByValue($videoTags, $totalGroup) != "" ? Helper::searchGroupIdByValue($videoTags, $totalGroup) : 1) : 1, // insert video into group after compare tags
                     'views' =>  isset($videoInfomation->statistics->viewCount) ? $videoInfomation->statistics->viewCount : 0,
+                    'like_count' =>  isset($videoInfomation->statistics->likeCount) ? $videoInfomation->statistics->likeCount : 0,
+                    'dislike_count' =>  isset($videoInfomation->statistics->dislikeCount) ? $videoInfomation->statistics->dislikeCount : 0,
                 ];
                 $findVideo = $this->videoRepository->findWhere(['video_id' => $videoInfomation->id]);
 

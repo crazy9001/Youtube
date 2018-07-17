@@ -93,8 +93,8 @@
                                         {{ isset($video->title) ? $video->title : '' }}
                                     </a>
                                     <div class="pull-right">
-                                        <i class="icon-thumbs-up opac5"></i> <small>2</small>&nbsp;&nbsp;
-                                        <i class="icon-thumbs-down opac5"></i> <small>0</small>
+                                        <i class="icon-thumbs-up opac5"></i> <small>{{ isset($video->like_count) ? $video->like_count : 0 }}</small>&nbsp;&nbsp;
+                                        <i class="icon-thumbs-down opac5"></i> <small>{{ isset($video->dislike_count) ? $video->dislike_count : 0 }}</small>
                                     </div>
                                 </td>
                                 <td class="gr-video">

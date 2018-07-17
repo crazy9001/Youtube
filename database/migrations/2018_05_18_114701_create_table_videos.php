@@ -25,6 +25,8 @@ class CreateTableVideos extends Migration
             $table->integer('category_id')->nullable();
             $table->string('group_id')->nullable();
             $table->integer('views')->nullable();
+            $table->integer('like_count')->nullable();
+            $table->integer('dislike_count')->nullable();
             $table->integer('status')->nullable()->default(1);
             $table->integer('display')->nullable()->default(1);
             $table->text('note')->nullable();
