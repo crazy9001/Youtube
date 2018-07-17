@@ -62,37 +62,40 @@
                     <table class="table table-bordered" id="list_videos">
                         <thead>
                         <tr>
-                            <th>{!!$columns['checkbox']!!}</th>
-                            <th>{!!$columns['id']!!}</th>
+                            <th></th>
                             <th>{!!$columns['thumbnails']!!}</th>
                             <th>{!!$columns['title']!!}</th>
-                            <th>{!!$columns['video_id']!!}</th>
                             <th>{!!$columns['group_name']!!}</th>
                             <th>{!!$columns['channel_name']!!}</th>
                             <th>{!!$columns['updated_at']!!}</th>
                             <th>{!!$columns['note']!!}</th>
                             <th>{!!$columns['status']!!}</th>
                             <th>{!!$columns['display']!!}</th>
+                            <th>{!!$columns['checkbox']!!}</th>
+                            {{--<th>{!!$columns['video_id']!!}</th>--}}
+                            <th>{!!$columns['id']!!}</th>
+
+
 
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($videos as $key => $video)
                             <tr role="row" class="odd">
-                                <td class="checkbox-video">
-                                    <input type="checkbox" data-skin="square" data-color="blue">
-                                </td>
-                                <td class=" stt-video">{{ $video->id }}</td>
+                                <td style="width: 10px">{{ $key + 1 }}</td>
                                 <td class="img-video">
-                                    <img src="{{ isset($video->thumbnails) ? $video->thumbnails : '' }}">
+                                    <a href="http://youtube.com?watch={{ isset($video->video_id) ? $video->video_id : '' }}" target="_blank">
+                                        <img src="{{ isset($video->thumbnails) ? $video->thumbnails : '' }}">
+                                    </a>
                                 </td>
                                 <td class="title-video">
                                     <a href="http://youtube.com?watch={{ isset($video->video_id) ? $video->video_id : '' }}" target="_blank">
                                         {{ isset($video->title) ? $video->title : '' }}
                                     </a>
-                                </td>
-                                <td class="id-video">
-                                    {{ isset($video->video_id) && !empty($video->video_id) ? $video->video_id : '' }}
+                                    <div class="pull-right">
+                                        <i class="icon-thumbs-up opac5"></i> <small>2</small>&nbsp;&nbsp;
+                                        <i class="icon-thumbs-down opac5"></i> <small>0</small>
+                                    </div>
                                 </td>
                                 <td class="gr-video">
                                     {{ isset($video->group_name) && !empty($video->group_name) ? $video->group_name : '' }}
@@ -103,13 +106,28 @@
                                 <td class=" lastcheck-video">
                                     {{ isset($video->updated_at) && !empty($video->updated_at) ? $video->updated_at : '' }}
                                 </td>
-                                <td></td>
-                                <td class=" status-video">
-                                    {!! isset($video->status) && $video->status == 1 ? '<span class="label label-success">Sống</span>' : ($video->status == 3 ? '<span class="label label-danger">Chết</span>' : '<span class="label label-danger">Block</span>')  !!}
+                                <td> Ghi chu</td>
+                                <td class="status-video">
+                                    @php
+                                        $status = $video->status == 1 ?  'Hoạt động' : ( $video->status == 2 ? 'Chặn' : 'Block');
+                                        $origin = 'Video status: '. $status;
+                                        $origin .= ' ';
+                                    @endphp
+                                    {{--{!! isset($video->status) && $video->status == 1 ? '<span class="label label-success">Sống</span>' : ($video->status == 3 ? '<span class="label label-danger">Chết</span>' : '<span class="label label-danger">Block</span>')  !!}--}}
+                                    <div class="pm-sprite {{ $video->status == 1 ? 'vs_ok' : ( $video->status == 3 ? 'vs_broken' : 'vs_restricted' )  }}"
+                                         data-toggle="tooltip" title=""
+                                         data-original-title="{{ 'Last checked : ' . \Carbon\Carbon::createFromTimeStamp(strtotime($video->updated_at))->diffForHumans()}} "></div>
                                 </td>
                                 <td class=" status-video">
                                     {!!  isset($video->display) && $video->display == 1 ? '<span class="label label-info">Hiển thị</span>' : '<span class="label label-default">Ẩn</span>'  !!}
                                 </td>
+                                <td class="checkbox-video">
+                                    <input type="checkbox" data-skin="square" data-color="blue">
+                                </td>
+                                {{--<td class="id-video">
+                                    {{ isset($video->video_id) && !empty($video->video_id) ? $video->video_id : '' }}
+                                </td>--}}
+                                <td class=" stt-video">{{ $video->id }}</td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -151,6 +169,8 @@
                 }
             });
         });
+
+        $("[data-toggle=tooltip]").tooltip();
 
     </script>
 

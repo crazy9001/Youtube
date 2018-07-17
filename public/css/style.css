@@ -5059,7 +5059,7 @@ label, input, button, select, textarea {
 }
 
 #navigation {
-  background: #368ee0;
+  background: #2F373D;
   position: relative;
   z-index: 100;
 }
@@ -5364,7 +5364,7 @@ label, input, button, select, textarea {
 }
 #navigation .main-nav > li > a:hover {
   text-decoration: none;
-  background: #1e74c5;
+  background: #335C97;
 }
 #navigation .main-nav > li > a:hover .caret {
   border-top-color: #fff;
@@ -9405,8 +9405,9 @@ a:focus {
   overflow: hidden;
 }
 .status-video {
-  width: 100px;
+  width: 12px;
   overflow: hidden;
+  text-align: center;
 }
 .img-video, .id-video{
   width: 50px;
@@ -9478,4 +9479,42 @@ input[type=checkbox], input[type=radio] {
   border: 1px solid #ddd;
   margin-bottom: 20px;
   display: none;
+}
+
+.vs_broken {
+  width: 16px;
+  height: 16px;
+  background-position: -52px -25px; }
+
+.vs_checking {
+  width: 16px;
+  height: 16px;
+  background-position: -165px -142px; }
+
+.vs_na {
+  width: 16px;
+  height: 16px;
+  background-position: -165px -191px; }
+
+.vs_ok {
+  width: 16px;
+  height: 16px;
+  background-position: -168px -122px; }
+
+.vs_restricted {
+  width: 16px;
+  height: 16px;
+  background-position: -170px -36px; }
+
+.vs_unchecked {
+  width: 16px;
+  height: 16px;
+  background-position: -170px -20px; }
+
+.pm-sprite {
+  background-image: url(../img/admin-sprite.png);
+  background-color: transparent;
+  background-repeat: no-repeat;
+  text-align: center;
+  display: inline-block;
 }

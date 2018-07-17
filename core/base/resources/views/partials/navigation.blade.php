@@ -1,6 +1,6 @@
 <div id="navigation">
     <div class="container-fluid">
-        <a href="#" id="brand">FLAT</a>
+        <a href="#" id="brand">MELODY</a>
         <a href="#" class="toggle-nav" rel="tooltip" data-placement="bottom" title="Toggle navigation">
             <i class="fa fa-bars"></i>
         </a>

@@ -23,6 +23,7 @@ return array(
     'stylesheets' => [
         'bootstrap',
         'jquery-ui',
+        'font-awesome',
         'core',
         'themes',
         'toastr'
@@ -193,6 +194,13 @@ return array(
                 'src' => [
                     'local' => '/js/plugins/datatables/jquery.dataTables.min.js',
                 ],
+            ],
+            'dynatree' => [
+                'use_cdn' => false,
+                'location' => 'bottom',
+                'src' => [
+                    'local' => '/js/plugins/dynatree/jquery.dynatree.js',
+                ],
             ]
         ],
         'stylesheets' => [
@@ -223,6 +231,13 @@ return array(
                 'src' => [
                     'local' => '/css/plugins/toastr/toastr.min.css',
                     'cdn' => '//cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.2/toastr.min.css',
+                ],
+            ],
+            'font-awesome' => [
+                'use_cdn' => true,
+                'location' => 'top',
+                'src' => [
+                    'cdn' => '//cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.min.css',
                 ],
             ],
             'core' => [
@@ -293,6 +308,13 @@ return array(
                 'location' => 'top',
                 'src' => [
                     'local' => '/css/style-video.css',
+                ],
+            ],
+            'dynatree' => [
+                'use_cdn' => false,
+                'location' => 'top',
+                'src' => [
+                    'local' => '/css/plugins/dynatree/ui.dynatree.css',
                 ],
             ],
         ],

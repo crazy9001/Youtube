@@ -10,10 +10,7 @@ return array(
 
     'super-admin' => [
         'Bảng điều khiển' => 'dashboard.index',
-        'Quản lí nhóm' => [
-            'Xem tất cả' => 'group.index',
-            'Thêm mới' => 'group.create'
-        ],
+        'Quản lí nhóm' => 'group.index',
         'Quản lí kênh' =>  'channel.index',
         'Quản lí video' => 'video.index',
         'Quản lí API key' => 'key.index'

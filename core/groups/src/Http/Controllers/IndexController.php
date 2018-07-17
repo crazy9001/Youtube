@@ -25,27 +25,8 @@ class IndexController extends Controller
         $this->groupRepository = $groupRepository;
     }
 
-    /*public function index()
-    {
-        Assets::removeJavascript(['eakroko']);
-        Assets::addStylesheets(['treeview']);
-        Assets::addJavascript(['treeview']);
-        $groups = $this->groupRepository->findWhere(['parent_id' => 0]);
-        $tree = '<ul id="browser" class="filetree"><li class="tree-view"></li>';
-        foreach ($groups as $group) {
-            $tree .= '<li class="tree-view closed"<a class="tree-name">' . $group->name . '</a>';
-            if(count($group->childs)) {
-                $tree .= $this->childView($group);
-            }
-        }
-        $tree .= '<ul>';
-
-        return view('groups::index.index', compact('tree'));
-    }*/
-
     public function index()
     {
-        Assets::removeJavascript(['eakroko']);
         Assets::addJavascript(['nestable']);
         $groupModel = $this->groupRepository->model();
         $groups = $groupModel::nested()->get();

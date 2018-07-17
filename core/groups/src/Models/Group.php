@@ -43,7 +43,6 @@ class Group extends Eloquent
     {
         return $this->belongsTo('Youtube\Groups\Models\Group', 'id', 'parent_id'); // I believe you can use also hasOne().
     }
-
     public function childs() {
         return $this->hasMany('Youtube\Groups\Models\Group','parent_id','id') ;
     }

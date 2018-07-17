@@ -30,11 +30,13 @@ class IndexController
 
     public function index()
     {
+        Assets::removeJavascript(['eakroko']);
         Assets::addStylesheets(['table-videos']);
         $channels = $this->channelRepository->pluck( 'name', 'id_channel')->toArray();
         $statuss = [
             '1' =>  'Hoạt động',
             '2' =>  'Block',
+            '3' =>  'Chết'
         ];
         $search = Input::get('search');
         $channel = Input::get('channel');
@@ -66,12 +68,12 @@ class IndexController
             'stt' => 'STT',
             'thumbnails' => 'Ảnh',
             'title' => 'Tiêu đề',
-            'video_id' => 'Video ID',
+            'video_id' => 'Unique ID',
             'group_name' => 'Nhóm',
             'channel_name' => 'Kênh',
             'updated_at' => 'Last check',
             'note' => 'Ghi chú',
-            'status'    =>  'Tình trạng',
+            'status'    =>  'Status',
             'display'   =>  'Display',
             'checkbox'  =>  '<input type="checkbox" data-skin="square" data-color="blue">',
             'id'    =>  'ID'

@@ -10,7 +10,8 @@
     <meta names="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
     <!-- provide the csrf token -->
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-
+    <title>Manage videos</title>
+    <link rel="shortcut icon" type="image/ico" href="{{ asset('img/favicon.new.ico') }}" />
     @foreach ($stylesheets as $style)
         {!! HTML::style($style) !!}
     @endforeach
