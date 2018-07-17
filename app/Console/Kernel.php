@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         \App\Console\Commands\CrawlVideoYoutube::class,
+        \App\Console\Commands\CheckVideoInforCommand::class,
 
     ];
 
@@ -25,8 +26,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('video:start')
+            ->hourlyAt(30);
+        $schedule->command('video:check')
+            ->everyFiveMinutes();
     }
 
     /**

@@ -2,7 +2,9 @@
 
 namespace App\Console\Commands;
 
+use Carbon\Carbon;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 use Youtube;
 use Youtube\Videos\Repositories\Eloquent\DbVideosRepository;
 
@@ -68,6 +70,7 @@ class CheckVideoInforCommand extends Command
             $data['status'] = $status;
             $video = $this->videoRepository->update($data, $row->id);
             $this->info('Check success : ' . $row->title);
+            \Log::info('Check success : ' . $row->title . ' vào lúc ' . Carbon::now());
         }
     }
 }
