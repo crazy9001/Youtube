@@ -27,7 +27,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('video:start')
-            ->hourlyAt(30);
+            ->hourlyAt(34);
         $schedule->command('video:check')
             ->everyFiveMinutes();
     }
