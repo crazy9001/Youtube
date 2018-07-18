@@ -8,7 +8,7 @@
             <div class="entry-count">
                 <ul class="pageControls">
                     <li>
-                        <div class="floatL"><strong class="blue">{{ isset($videos) ? number_format($videos->count()) : 0 }}</strong><span>videos</span></div>
+                        <div class="floatL"><strong class="blue">{{ isset($countTotalVideo) ? number_format($countTotalVideo) : 0 }}</strong><span>videos</span></div>
                         <div class="blueImg"><div class="pm-sprite ico-videos-small"></div></div>
                     </li>
                 </ul><!-- .pageControls -->
