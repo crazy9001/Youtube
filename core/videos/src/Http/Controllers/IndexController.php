@@ -41,10 +41,12 @@ class IndexController
         $search = Input::get('search');
         $channel = Input::get('channel');
         $status = Input::get('status');
+        $search_type = Input::get('search_type');
         $filters = array(
-            'search' => trim($search),
             'channel' => trim($channel),
             'status' => trim($status),
+            'search' => trim($search),
+            'search_type'   =>  trim($search_type)
         );
         $sortInfo = array();
         if (Input::has('sort') && Input::has('dir')) {
@@ -55,7 +57,9 @@ class IndexController
         $pagination = $result->paginate('50')->appends($filters + $sortInfo)->render("pagination::default");
         $videos = $result->get();
         $columns = $this->getSortableColumn();
-        return view('videos::index.index', compact('pagination', 'columns', 'videos', 'channels', 'statuss', 'filters'));
+        $countBlock = $this->videoRepository->findWhere(['status' => '2'])->count();
+        $countDie = $this->videoRepository->findWhere(['status' => '3'])->count();
+        return view('videos::index.index', compact('pagination', 'columns', 'videos', 'channels', 'statuss', 'filters', 'countBlock', 'countDie'));
     }
 
 

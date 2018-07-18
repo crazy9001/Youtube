@@ -36,9 +36,13 @@ class DbVideosRepository extends BaseRepository
                         $que->where('videos.status', $filters['status']);
                     }
                     $que->Where(function($que) use ( $filters ) {
-                        if (isset($filters['search']) && !empty($filters['search'])) {
-                            $que->orWhere('videos.title', 'like', '%' . trim($filters['search']) . '%');
-                            $que->orWhere('videos.video_id', '=', trim($filters['search']));
+                        if (isset($filters['search']) && !empty($filters['search'] && isset($filters['search_type']) && !empty($filters['search_type']))) {
+                            if($filters['search_type'] == 'video_title'){
+                                $que->orWhere('videos.title', 'like', '%' . trim($filters['search']) . '%');
+                            }
+                            elseif($filters['search_type'] == 'uniq_id'){
+                                $que->orWhere('videos.video_id', '=', trim($filters['search']));
+                            }
                         }
                     });
                 })
