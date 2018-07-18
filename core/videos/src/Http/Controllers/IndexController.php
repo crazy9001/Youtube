@@ -57,9 +57,10 @@ class IndexController
         $pagination = $result->paginate('50')->appends($filters + $sortInfo)->render("pagination::default");
         $videos = $result->get();
         $columns = $this->getSortableColumn();
+        $countTotalVideo = $this->videoRepository->all()->count();
         $countBlock = $this->videoRepository->findWhere(['status' => '2'])->count();
         $countDie = $this->videoRepository->findWhere(['status' => '3'])->count();
-        return view('videos::index.index', compact('pagination', 'columns', 'videos', 'channels', 'statuss', 'filters', 'countBlock', 'countDie'));
+        return view('videos::index.index', compact('pagination', 'columns', 'videos', 'channels', 'statuss', 'filters', 'countBlock', 'countDie', 'countTotalVideo'));
     }
 
 
