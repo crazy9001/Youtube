@@ -121,7 +121,7 @@
                                             $origin .= ' ';
                                         @endphp
                                         <div class="pm-sprite {{ $video->status == 1 ? 'vs_ok' : ( $video->status == 3 ? 'vs_broken' : 'vs_restricted' )  }}"
-                                             data-toggle="tooltip" title=""
+                                             rel="tooltip" title=""
                                              data-original-title="{{ 'Last checked : ' . \Carbon\Carbon::createFromTimeStamp(strtotime($video->updated_at))->diffForHumans()}} "></div>
                                     </td>
                                     <td class=" status-video">
@@ -135,13 +135,74 @@
                             @endforeach
                             </tbody>
                         </table>
+                        @include('bases::elements.paginate')
                     </div>
-                    @include('bases::elements.paginate')
                 </div>
             </div>
 
         </div>
 
+    </div>
+    <div class="clearfix"></div>
+
+    <div id="stack-controls" class="list-controls scroll-to-fixed-fixed">
+        <div class="pull-left form-inline" style="padding-top: 8px;">
+            <small>Move selected videos to</small>
+            <div class="input-append">
+                <select name="move_to_category" id="" class="inline smaller-select">
+                    <option value="-1" selected="selected">Nhóm...</option>
+                    <option value="5"> Cars</option>
+                    <option value="6">&nbsp;&nbsp;&nbsp; Car Reviews</option>
+                    <option value="7"> Comedy</option>
+                    <option value="10"> Courses</option>
+                    <option value="11">&nbsp;&nbsp;&nbsp; Business</option>
+                    <option value="12">&nbsp;&nbsp;&nbsp; Marketing</option>
+                    <option value="8"> Gaming</option>
+                    <option value="9"> Entertainment</option>
+                    <option value="18">&nbsp;&nbsp;&nbsp; Movie Trailers</option>
+                    <option value="17"> Fashion</option>
+                    <option value="1"> Film &amp; animation</option>
+                    <option value="2">&nbsp;&nbsp;&nbsp; Stop motion</option>
+                    <option value="19"> Music</option>
+                    <option value="13"> Science &amp; Technology</option>
+                    <option value="14"> Sports</option>
+                    <option value="15"> Travel &amp; Events</option>
+                    <option value="16"> Nonprofit &amp; Activism</option>
+                </select>
+                <button type="submit" name="Submit" value="Move" data-loading-text="Moving..." class="btn-small" rel="tooltip" data-original-title="Video sẽ được chuyển sang nhóm đã chọn">Move</button>
+
+            </div>
+        </div>
+        <div class="btn-toolbar pull-right">
+            <div class="btn-group dropup">
+                <button class="btn btn-small btn-normal btn-strong dropdown-toggle" data-toggle="dropdown" href="#" rel="tooltip" data-original-title="Chức năng đang được xây dựng">Mark as
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><button type="submit" name="Submit" value="Mark as featured" class="btn btn-link-strong">Featured</button></li>
+                    <li><button type="submit" name="Submit" value="Mark as regular" class="btn btn-link-strong">Regular (non-Featured)</button></li>
+                    <li class="divider"></li>
+                    <li><button type="submit" name="Submit_restrict" value="Restrict access" class="btn btn-link-strong" rel="tooltip" data-placement="left" data-original-title="Private videos will be available only to registered users.">Private</button></li>
+                    <li><button type="submit" name="Submit_derestrict" value="Derestrict access" class="btn btn-link-strong" rel="tooltip" data-placement="left" data-original-title="Make selected videos <u>public</u>. Remove any viewing restrictions.">Public</button></li>
+                </ul>
+            </div>
+            <div class="btn-group">
+                <button type="submit" name="VideoChecker" id="VideoChecker" value="Check status" class="btn btn-small btn-success btn-strong" rel="tooltip" data-original-title="Chức năng đang được xây dựng">
+                    Check status
+                </button>
+            </div>
+            <div class="btn-group dropup">
+                <button type="submit" name="Submit" value="Trash selected" class="btn btn-small btn-danger btn-strong" rel="tooltip" data-original-title="Chức năng đang được xây dựng">Delete</button>
+                <button class="btn  btn-small btn-danger dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu pull-right">
+                    <li><a href="#" data-toggle="tooltip" data-original-title="Hành động này sẽ xóa vĩnh viễn toàn bộ cơ sở dữ liệu video!">DELETE ALL VIDEOS</a></li>
+                </ul>
+            </div>
+            <input type="hidden" name="filter" id="listing-filter" value="added">
+            <input type="hidden" name="fv" id="listing-filter_value" value="desc">
+        </div>
     </div>
 
 @stop
@@ -149,7 +210,7 @@
 @section('javascript')
 
     <script>
-        $("[data-toggle=tooltip]").tooltip();
+        $("[rel=tooltip]").tooltip();
 
     </script>
 

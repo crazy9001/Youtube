@@ -33,7 +33,8 @@ table#list_videos tbody tr {
 
 table#list_videos tbody tr:nth-child(even):hover td,
 table#list_videos tbody tr:nth-child(odd):hover td {
-    background-color: #a0ffce;
+    /*background-color: #a0ffce;*/
+    background-color: #fdf6e3;
     color: #000
 }
 

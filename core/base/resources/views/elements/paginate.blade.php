@@ -1,5 +1,5 @@
-<div class="highlight-toolbar bottom" style="padding-left: 0px">
-    <div class="pull-left">
+<div class="highlight-toolbar bottom">
+    <div class="pull-right">
         <div class="btn-toolbar">
             <div class="btn-group">
                 {!!$pagination!!}
