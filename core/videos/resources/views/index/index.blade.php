@@ -122,7 +122,11 @@
                                         @endphp
                                         <div class="pm-sprite {{ $video->status == 1 ? 'vs_ok' : ( $video->status == 3 ? 'vs_broken' : 'vs_restricted' )  }}"
                                              rel="tooltip" title=""
-                                             data-original-title="{{ 'Last checked : ' . \Carbon\Carbon::createFromTimeStamp(strtotime($video->updated_at))->diffForHumans()}} "></div>
+                                             data-original-title="{{ 'Last checked : ' . \Carbon\Carbon::createFromTimeStamp(strtotime($video->updated_at))->diffForHumans()}} ">
+                                        </div>
+                                        <span style="display: none">
+                                            <img src="../img/ico-loading.gif"  style=" width: 16px !important; height:  16px; border:  none">
+                                        </span>
                                     </td>
                                     <td class="status-video">
                                         {!!  isset($video->display) && $video->display == 1 ? '<span class="label label-info">Hiển thị</span>' : '<span class="label label-default">Ẩn</span>'  !!}
@@ -228,9 +232,11 @@
             });
             $.each(listVideoChecked, function( index, value ) {
 
-                var tdStatus = '';
+                var loadingComponent = '';
+                var statusVideoComponent = ''
                 $('tr#video-'+value).each(function(){
-                    tdStatus = $(this).find('td#status-video div');
+                    statusVideoComponent = $(this).find('td#status-video div');
+                    loadingComponent = $(this).find('td#status-video span')
                 });
 
                 $.ajax({
@@ -240,17 +246,16 @@
                     success: function(result){
                         if(result.success == true){
                             if(result.data.status == 1){
-                                tdStatus.removeClass('ico-loading').addClass('vs_ok');
+                                loadingComponent.hide();
+                                statusVideoComponent.show();
                             }else{
-                                tdStatus.removeClass('ico-loading').addClass('vs_broken');
+                                loadingComponent.hide();
                             }
                         }
                     },
                     beforeSend: function(){
-                        $('tr#video-'+value).each(function(){
-                            var tdStatus = $(this).find('td#status-video div');
-                            tdStatus.removeClass('vs_ok').addClass('ico-loading');
-                        });
+                        statusVideoComponent.hide();
+                        loadingComponent.show();
                     },
                     error:function (xhr, ajaxOptions, thrownError){
                         xhr = jQuery.parseJSON(xhr.responseText);

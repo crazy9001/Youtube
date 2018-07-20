@@ -9851,3 +9851,7 @@ input[type=checkbox], input[type=radio] {
   background: url(../img/ico-loading.gif) no-repeat center center;
   height: 16px;
   width: 16px; }
+/*
+findLoader{
+    display: none
+}*/
