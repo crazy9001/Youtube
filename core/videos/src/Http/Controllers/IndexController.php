@@ -8,14 +8,16 @@
 
 namespace Youtube\Videos\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Http\Request;
 use Youtube\Videos\Models\Video;
 use Youtube\Videos\Repositories\Eloquent\DbVideosRepository;
 use Youtube\Channel\Repositories\Eloquent\DbChannelRepository;
 use Assets;
 use DataTables;
-use Request;
 use Helper;
+use Youtube;
 
 class IndexController
 {
@@ -80,10 +82,30 @@ class IndexController
             'note' => 'Ghi chú',
             'status'    =>  'Status',
             'display'   =>  'Display',
-            'checkbox'  =>  '<input type="checkbox" data-skin="square" data-color="blue">',
+            'checkbox'  =>  '<input type="checkbox" data-skin="square" data-color="blue" id="select_all_video">',
             'id'    =>  'ID'
         );
         return Helper::getSortableColumnOnArray($columns);
+    }
+
+    public function checkVideo(Request $request)
+    {
+        $videoId = $request->only('video');
+        $videoLocal = $this->videoRepository->findWhere(['video_id' => $videoId['video']])->first();
+        if(isset($videoLocal) && !empty($videoLocal)){
+            $checkVideo = Youtube::getVideoInfo($videoLocal->video_id);
+            if(!empty($checkVideo)){
+                $status = ( isset($checkVideo->contentDetails->regionRestriction) && count($checkVideo->contentDetails->regionRestriction->blocked ) >= 100 ) ? 2 : 1;
+            }else{
+                $status = 3;
+            }
+            $data['status'] = $status;
+            $data['updated_at'] = Carbon::now();
+            $video = $this->videoRepository->update($data, $videoLocal->id);
+            return $this->sendResponse($video->toArray(), 'Successfully');
+        }
+        return $this->sendError('Error.', 'Video không tồn tại hoặc đã bị xóa');
+
     }
 
     /**

@@ -9847,3 +9847,7 @@ input[type=checkbox], input[type=radio] {
   border-top: 1px solid #ddd;
   background-color: #fbfbfb;
 }
+.ico-loading {
+  background: url(../img/ico-loading.gif) no-repeat center center;
+  height: 16px;
+  width: 16px; }

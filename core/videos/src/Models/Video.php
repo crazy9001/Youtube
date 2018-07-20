@@ -32,7 +32,7 @@ class Video extends Eloquent
      *
      * @var array
      */
-    protected $fillable = ['video_id', 'title', 'description', 'thumbnails', 'published_at', 'tags', 'category_id', 'embed_html', 'group_id', 'channelId', 'views', 'status', 'display', 'note', 'like_count', 'dislike_count'];
+    protected $fillable = ['video_id', 'title', 'description', 'thumbnails', 'published_at', 'tags', 'category_id', 'embed_html', 'group_id', 'channelId', 'views', 'status', 'display', 'note', 'like_count', 'dislike_count', 'updated_at'];
 
     public function channel()
     {

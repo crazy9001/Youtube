@@ -54,7 +54,7 @@
                                         {!! Form::select('search_type',  ['video_title' => 'Title', 'uniq_id' => 'Unique ID'], isset($filters['search_type']) ? $filters['search_type'] : '', ['class' => 'input-small']) !!}
                                         <button type="submit" class="btn" id="submitFind">
                                             <i class="icon-search findIcon"></i>
-                                            <span class="findLoader"><img src="img/ico-loading.gif" width="16" height="16"></span>
+                                            {{--<span class="findLoader"><img src="img/ico-loading.gif" width="16" height="16"></span>--}}
                                         </button>
                                     </div>
                                     {!! Form::close() !!}
@@ -82,9 +82,9 @@
                                 <th>{!!$columns['id']!!}</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="dataVideos">
                             @foreach($videos as $key => $video)
-                                <tr role="row" class="odd">
+                                <tr role="row" class="odd" id="video-{{ $video->video_id ?  $video->video_id : ''  }}">
                                     <td style="width: 10px">{{ $key + 1 }}</td>
                                     <td class="id-video">
                                         {{ isset($video->video_id) && !empty($video->video_id) ? $video->video_id : '' }}
@@ -99,8 +99,8 @@
                                             {{ isset($video->title) ? $video->title : '' }}
                                         </a>
                                         <div class="pull-right">
-                                            <i class="icon-thumbs-up opac5"></i> <small>{{ isset($video->like_count) ? $video->like_count : 0 }}</small>&nbsp;&nbsp;
-                                            <i class="icon-thumbs-down opac5"></i> <small>{{ isset($video->dislike_count) ? $video->dislike_count : 0 }}</small>
+                                            {{--<i class="icon-thumbs-up opac5"></i> <small>{{ isset($video->like_count) ? $video->like_count : 0 }}</small>&nbsp;&nbsp;
+                                            <i class="icon-thumbs-down opac5"></i> <small>{{ isset($video->dislike_count) ? $video->dislike_count : 0 }}</small>--}}
                                             <i class="icon-eye-open"></i> <small>{{ isset($video->views) ? $video->views : 0 }}</small>
                                         </div>
                                     </td>
@@ -114,7 +114,7 @@
                                         {{ isset($video->updated_at) && !empty($video->updated_at) ? \Carbon\Carbon::createFromTimeStamp(strtotime($video->updated_at))->diffForHumans() : '' }}
                                     </td>
                                     <td> Ghi chu</td>
-                                    <td class="status-video">
+                                    <td class="status-video" id="status-video">
                                         @php
                                             $status = $video->status == 1 ?  'Hoạt động' : ( $video->status == 2 ? 'Chặn' : 'Block');
                                             $origin = 'Video status: '. $status;
@@ -124,11 +124,11 @@
                                              rel="tooltip" title=""
                                              data-original-title="{{ 'Last checked : ' . \Carbon\Carbon::createFromTimeStamp(strtotime($video->updated_at))->diffForHumans()}} "></div>
                                     </td>
-                                    <td class=" status-video">
+                                    <td class="status-video">
                                         {!!  isset($video->display) && $video->display == 1 ? '<span class="label label-info">Hiển thị</span>' : '<span class="label label-default">Ẩn</span>'  !!}
                                     </td>
                                     <td class="checkbox-video">
-                                        <input type="checkbox" data-skin="square" data-color="blue">
+                                        <input type="checkbox" data-skin="square" data-color="blue" name="videoSelect[]" value="{{ isset($video->video_id) ? $video->video_id : '' }}">
                                     </td>
                                     <td class=" stt-video">{{ $video->id }}</td>
                                 </tr>
@@ -187,7 +187,7 @@
                 </ul>
             </div>
             <div class="btn-group">
-                <button type="submit" name="VideoChecker" id="VideoChecker" value="Check status" class="btn btn-small btn-success btn-strong" rel="tooltip" data-original-title="Chức năng đang được xây dựng">
+                <button type="submit" name="VideoChecker" id="VideoChecker" value="Check status" class="btn btn-small btn-success btn-strong">
                     Check status
                 </button>
             </div>
@@ -211,6 +211,56 @@
 
     <script>
         $("[rel=tooltip]").tooltip();
+        var checkboxes = $('#dataVideos').find(':checkbox');
+        $('#select_all_video').change(function() {
+            checkboxes.prop('checked', $(this).is(':checked'));
+        });
+
+        var btnCheckVideo = $('#VideoChecker');
+        btnCheckVideo.on('click', function () {
+            var listVideoChecked = [];
+            $(':checkbox:checked').each(function(i){
+                listVideoChecked[i] = $(this).val();
+            });
+            var btnSelectAll = 'on';
+            listVideoChecked = jQuery.grep(listVideoChecked, function(value) {
+                return value != btnSelectAll;
+            });
+            $.each(listVideoChecked, function( index, value ) {
+
+                var tdStatus = '';
+                $('tr#video-'+value).each(function(){
+                    tdStatus = $(this).find('td#status-video div');
+                });
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('video.check') }}",
+                    data: { video : value },
+                    success: function(result){
+                        if(result.success == true){
+                            if(result.data.status == 1){
+                                tdStatus.removeClass('ico-loading').addClass('vs_ok');
+                            }else{
+                                tdStatus.removeClass('ico-loading').addClass('vs_broken');
+                            }
+                        }
+                    },
+                    beforeSend: function(){
+                        $('tr#video-'+value).each(function(){
+                            var tdStatus = $(this).find('td#status-video div');
+                            tdStatus.removeClass('vs_ok').addClass('ico-loading');
+                        });
+                    },
+                    error:function (xhr, ajaxOptions, thrownError){
+                        xhr = jQuery.parseJSON(xhr.responseText);
+                        Youtube.showNotice('error', xhr.data, xhr.message);
+                    },
+                });
+            });
+
+
+        });
 
     </script>
 

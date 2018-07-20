@@ -24,6 +24,13 @@ Route::group(['namespace' => 'Youtube\Videos\Http\Controllers', 'middleware' => 
                 'uses' => 'IndexController@index',
             ]);
 
+            Route::post('/check', [
+                'as' => 'video.check',
+                'uses' => 'IndexController@checkVideo',
+            ]);
+
+
+
         });
 
     });
