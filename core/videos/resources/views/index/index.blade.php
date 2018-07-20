@@ -25,8 +25,8 @@
                             <div class="span8">
                                 <ul class="pm-inline-filters list-inline">
                                     <li><a href="{{ route('video.index') }}">All videos <span class="count">({{ isset($countTotalVideo) ? number_format($countTotalVideo) : 0 }})</span></a></li>
-                                    <li><a href="?status=2">Block <span class="count">({{ isset($countBlock) ? number_format($countBlock) : 0 }})</span></a></li>
-                                    <li><a href="?status=3">Bị chặn quốc gia <span class="count">({{ isset($countDie) ? number_format($countDie) : 0 }})</span></a> </li>
+                                    <li><a href="?status=2">Bị chặn quốc gia <span class="count">({{ isset($countBlock) ? number_format($countBlock) : 0 }})</span></a></li>
+                                    <li><a href="?status=3">Chết <span class="count">({{ isset($countDie) ? number_format($countDie) : 0 }})</span></a> </li>
                                 </ul>
                             </div><!-- .span8 -->
                         </div>

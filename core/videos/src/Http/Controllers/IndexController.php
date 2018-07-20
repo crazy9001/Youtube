@@ -37,7 +37,7 @@ class IndexController
         $channels = $this->channelRepository->pluck( 'name', 'id_channel')->toArray();
         $statuss = [
             '1' =>  'Hoạt động',
-            '2' =>  'Block',
+            '2' =>  'Bị chặn quốc gia',
             '3' =>  'Chết'
         ];
         $search = Input::get('search');
