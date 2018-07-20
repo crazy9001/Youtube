@@ -93,16 +93,21 @@ class IndexController
         $videoId = $request->only('video');
         $videoLocal = $this->videoRepository->findWhere(['video_id' => $videoId['video']])->first();
         if(isset($videoLocal) && !empty($videoLocal)){
-            $checkVideo = Youtube::getVideoInfo($videoLocal->video_id);
-            if(!empty($checkVideo)){
-                $status = ( isset($checkVideo->contentDetails->regionRestriction) && count($checkVideo->contentDetails->regionRestriction->blocked ) >= 100 ) ? 2 : 1;
-            }else{
-                $status = 3;
+            try{
+                $checkVideo = Youtube::getVideoInfo($videoLocal->video_id);
+                if(!empty($checkVideo)){
+                    $status = ( isset($checkVideo->contentDetails->regionRestriction) && count($checkVideo->contentDetails->regionRestriction->blocked ) >= 100 ) ? 2 : 1;
+                }else{
+                    $status = 3;
+                }
+                $data['status'] = $status;
+                $data['updated_at'] = Carbon::now();
+                $video = $this->videoRepository->update($data, $videoLocal->id);
+                return $this->sendResponse($video->toArray(), 'Successfully');
             }
-            $data['status'] = $status;
-            $data['updated_at'] = Carbon::now();
-            $video = $this->videoRepository->update($data, $videoLocal->id);
-            return $this->sendResponse($video->toArray(), 'Successfully');
+            catch ( \Exception $e) {
+                return $this->sendError('Error.', $e->getMessage());
+            }
         }
         return $this->sendError('Error.', 'Video không tồn tại hoặc đã bị xóa');
 

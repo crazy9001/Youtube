@@ -120,7 +120,7 @@
                                             $origin = 'Video status: '. $status;
                                             $origin .= ' ';
                                         @endphp
-                                        <div class="pm-sprite {{ $video->status == 1 ? 'vs_ok' : ( $video->status == 3 ? 'vs_broken' : 'vs_restricted' )  }}"
+                                        <div class="pm-sprite {{ $video->status == 1 ? 'vs_ok' : ( $video->status == 3 ? 'vs_broken' : 'vs_broken' )  }}"
                                              rel="tooltip" title=""
                                              data-original-title="{{ 'Last checked : ' . \Carbon\Carbon::createFromTimeStamp(strtotime($video->updated_at))->diffForHumans()}} ">
                                         </div>
@@ -244,12 +244,13 @@
                     url: "{{ route('video.check') }}",
                     data: { video : value },
                     success: function(result){
+                        loadingComponent.hide();
+                        statusVideoComponent.show();
                         if(result.success == true){
                             if(result.data.status == 1){
-                                loadingComponent.hide();
-                                statusVideoComponent.show();
+                                statusVideoComponent.addClass('vs_ok')
                             }else{
-                                loadingComponent.hide();
+                                statusVideoComponent.addClass('vs_broken')
                             }
                         }
                     },
