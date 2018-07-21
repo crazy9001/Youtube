@@ -37,7 +37,8 @@ class DataSeeder extends Seeder
                 'video.index' => true,
                 'list.videos' => true,
                 'video.check'   =>  true,
-                'video.delete'  =>  true
+                'video.delete'  =>  true,
+                'video.move.group'  =>  true
             ]
         ];
         $adminRole = Sentinel::getRoleRepository()->createModel()->fill($role)->save();

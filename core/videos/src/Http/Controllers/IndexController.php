@@ -18,20 +18,32 @@ use Assets;
 use DataTables;
 use Helper;
 use Youtube;
+use Youtube\Groups\Models\Group;
 
 class IndexController
 {
     protected $videoRepository;
     protected $channelRepository;
 
+    /**
+     * IndexController constructor.
+     * @param DbVideosRepository $videosRepository
+     * @param DbChannelRepository $channelRepository
+     */
     public function __construct(DbVideosRepository $videosRepository, DbChannelRepository $channelRepository)
     {
         $this->videoRepository = $videosRepository;
         $this->channelRepository = $channelRepository;
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
+        $groupsNested = Group::attr(['name' => 'move_to_group', 'class' => 'inline smaller-select'])
+                        ->selected(1)
+                        ->renderAsDropdown();
         Assets::removeJavascript(['eakroko']);
         Assets::addStylesheets(['table-videos']);
         $channels = $this->channelRepository->pluck( 'name', 'id_channel')->toArray();
@@ -66,7 +78,7 @@ class IndexController
         $countTotalVideo = $this->videoRepository->all()->count();
         $countBlock = $this->videoRepository->findWhere(['status' => '2'])->count();
         $countDie = $this->videoRepository->findWhere(['status' => '3'])->count();
-        return view('videos::index.index', compact('pagination', 'columns', 'videos', 'channels', 'statuss', 'filters', 'countBlock', 'countDie', 'countTotalVideo'));
+        return view('videos::index.index', compact('pagination', 'columns', 'videos', 'channels', 'statuss', 'filters', 'countBlock', 'countDie', 'countTotalVideo', 'groupsNested'));
     }
 
 
@@ -92,6 +104,10 @@ class IndexController
         return Helper::getSortableColumnOnArray($columns);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
     public function checkVideo(Request $request)
     {
         $videoId = $request->only('video');
@@ -124,6 +140,10 @@ class IndexController
     }
 
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
     public function deleteVideo(Request $request)
     {
         $videoId = $request->only('video');
@@ -138,6 +158,24 @@ class IndexController
             }
         }
         return $this->sendError('Error.', 'Video không tồn tại hoặc đã bị xóa');
+    }
+
+    public function movieVideoToGroup(Request $request)
+    {
+        $data = $request->only('video', 'group');
+        $videoLocal = $this->videoRepository->findWhere(['video_id' => $data['video']])->first();
+        try{
+            if(isset($videoLocal) && !empty($videoLocal)){
+                $newData['group_id'] = $data['group'];
+                $video = $this->videoRepository->update($newData, $videoLocal->id);
+                return $this->sendResponse($video->toArray(), 'Successfully');
+            }
+            return $this->sendError('Error.', 'Video không tồn tại hoặc đã bị xóa');
+        }
+        catch (\Exception $e)
+        {
+            return $this->sendError('Error.', $e->getMessage());
+        }
     }
 
     /**

@@ -161,33 +161,17 @@
 
     <div id="stack-controls" class="list-controls scroll-to-fixed-fixed">
         <div class="pull-left form-inline" style="padding-top: 8px;">
-            <small>Di chuyển các video đã chọn đến</small>
+            <small class="alert-info" style="padding: 3px 5px; font-weight: bold">Di chuyển các video đã chọn đến nhóm</small>
             <div class="input-append">
-                <select name="move_to_category" id="" class="inline smaller-select">
-                    <option value="-1" selected="selected">Nhóm...</option>
-                    <option value="5"> Cars</option>
-                    <option value="6">&nbsp;&nbsp;&nbsp; Car Reviews</option>
-                    <option value="7"> Comedy</option>
-                    <option value="10"> Courses</option>
-                    <option value="11">&nbsp;&nbsp;&nbsp; Business</option>
-                    <option value="12">&nbsp;&nbsp;&nbsp; Marketing</option>
-                    <option value="8"> Gaming</option>
-                    <option value="9"> Entertainment</option>
-                    <option value="18">&nbsp;&nbsp;&nbsp; Movie Trailers</option>
-                    <option value="17"> Fashion</option>
-                    <option value="1"> Film &amp; animation</option>
-                    <option value="2">&nbsp;&nbsp;&nbsp; Stop motion</option>
-                    <option value="19"> Music</option>
-                    <option value="13"> Science &amp; Technology</option>
-                    <option value="14"> Sports</option>
-                    <option value="15"> Travel &amp; Events</option>
-                    <option value="16"> Nonprofit &amp; Activism</option>
-                </select>
-                <button type="submit" name="Submit" value="Move" data-loading-text="Moving..." class="btn-small" rel="tooltip" data-original-title="Video sẽ được chuyển sang nhóm đã chọn">Move</button>
-
+                {!! Form::open(array('route' => 'video.move.group', 'class'=>'form-inline')) !!}
+                    {!! $groupsNested !!}
+                    <a data-loading-text="Moving..." class="btn btn-small btn-success btn-strong" style="padding-top: 0px" id="move_to_group">
+                        Move
+                    </a>
+                {!! Form::close() !!}
             </div>
         </div>
-        <div class="btn-toolbar pull-right">
+        <div class="btn-toolbar pull-right" style=" padding-top: 5px">
             <div class="btn-group">
                 <button type="submit" name="VideoChecker" id="VideoChecker" value="Check status" class="btn btn-small btn-success btn-strong">
                     Check status
@@ -214,6 +198,7 @@
 
         var btnCheckVideo = $('#VideoChecker');
         var btnTrashVideo = $('#trashVideoSelected');
+        var btnMovieVideo = $('#move_to_group');
 
         btnCheckVideo.on('click', function ()  {
             var listVideoChecked = [];
@@ -225,14 +210,12 @@
                 return value != btnSelectAll;
             });
             $.each(listVideoChecked, function( index, value ) {
-
                 var loadingComponent = '';
                 var statusVideoComponent = ''
                 $('tr#video-'+value).each(function(){
                     statusVideoComponent = $(this).find('td#status-video div');
                     loadingComponent = $(this).find('td#status-video span')
                 });
-
                 $.ajax({
                     type: "POST",
                     url: "{{ route('video.check') }}",
@@ -288,7 +271,38 @@
 
             });
 
+        });
 
+        btnMovieVideo.on('click', function () {
+            var listVideoChecked = [];
+            $(':checkbox:checked').each(function(i){
+                listVideoChecked[i] = $(this).val();
+            });
+            var btnSelectAll = 'on';
+            listVideoChecked = jQuery.grep(listVideoChecked, function(value) {
+                return value != btnSelectAll;
+            });
+            var groupId = $(this).closest("form").find("select[name='move_to_group']").val();
+            $.each(listVideoChecked, function( index, value ) {
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('video.move.group') }}",
+                    data: { video : value, group: groupId },
+                    success: function(result){
+                        if(result.success == true){
+                            Youtube.showNotice('success', result.message, Youtube.languages.notices_msg.success);
+                        }
+                    },
+                    beforeSend: function(){
+
+                    },
+                    error:function (xhr, ajaxOptions, thrownError){
+                        xhr = jQuery.parseJSON(xhr.responseText);
+                        Youtube.showNotice('error', xhr.data, xhr.message);
+                    },
+                });
+            });
+            window.setTimeout(function(){location.reload()}, 3000)
         });
 
     </script>

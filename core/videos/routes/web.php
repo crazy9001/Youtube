@@ -34,7 +34,10 @@ Route::group(['namespace' => 'Youtube\Videos\Http\Controllers', 'middleware' => 
                 'uses' => 'IndexController@deleteVideo',
             ]);
 
-
+            Route::post('/movie', [
+                'as' => 'video.move.group',
+                'uses' => 'IndexController@movieVideoToGroup',
+            ]);
         });
 
     });
