@@ -161,7 +161,7 @@ class CrawlVideoYoutube extends Command
                     'like_count' =>  isset($videoInfomation->statistics->likeCount) ? $videoInfomation->statistics->likeCount : 0,
                     'dislike_count' =>  isset($videoInfomation->statistics->dislikeCount) ? $videoInfomation->statistics->dislikeCount : 0,
                 ];
-                $findVideo = $this->videoRepository->findWhere(['video_id' => $videoInfomation->id]);
+                $findVideo = $this->videoRepository->withTrashed()->findWhere(['video_id' => $videoInfomation->id]);
 
                 if($findVideo->isEmpty()){
                     $this->info($videoData['title']);

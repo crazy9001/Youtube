@@ -10,6 +10,7 @@ namespace Youtube\Videos\Models;
 use Eloquent;
 use Youtube\Channel\Models\Channel;
 use Youtube\Groups\Models\Group;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Video extends Eloquent
 {
@@ -19,6 +20,8 @@ class Video extends Eloquent
      * @var string
      */
     protected $table = 'videos';
+
+    use SoftDeletes;
 
     /**
      * The date fields for the model.clear

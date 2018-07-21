@@ -33,13 +33,14 @@
                         <div class="clearfix"></div>
                         <div class="row-fluid">
                             <div class="span8">
-                                <div class="qsFilter pull-left">
+                                <div class="qsFilter pull-right">
                                     <div class="btn-group input-prepend">
                                         <div class="form-filter-inline">
                                             {!! Form::open(array('route' => 'video.index','method'=>'get','class'=>'form-inline')) !!}
-                                            <button type="submit" id="appendedInputButtons" class="btn">Filter</button>
-                                            {!! Form::select('channel', ['' => 'Tìm kiếm video theo tên kênh'] + $channels ,isset($filters['channel'])?$filters['channel'] : null, ['id' => 'channelFilter', 'class' => 'chosen-select'])!!}
-                                            {!! Form::select('status', ['' => 'Trạng thái'] + $statuss, isset($filters['status']) ? $filters['status'] : '', ['id' => 'statusFilter', 'class' => 'chosen-select last-filter']) !!}
+                                            {!! Form::select('channel', ['' => 'Tìm kiếm video theo tên kênh'] + $channels ,isset($filters['channel'])?$filters['channel'] : null, ['id' => 'channelFilter', 'class' => 'chosen-select', 'style' => 'border-left: 1px solid #ccc !important'])!!}
+                                            {!! Form::select('status', ['' => 'Trạng thái'] + $statuss, isset($filters['status']) ? $filters['status'] : '', ['id' => 'statusFilter', 'class' => 'chosen-select']) !!}
+                                            {!! Form::select('display', ['' => 'Display'] + ['1' => 'Hiển thị', '2' => 'Ẩn'], isset($filters['display']) ? $filters['display'] : '', ['id' => 'displayFilter', 'class' => 'chosen-select']) !!}
+                                            <button type="submit" id="appendedInputButtons" class="btn" style="border: 1px solid #ccc; border-radius: 0px !important;">Filter</button>
                                             {!! Form::close() !!}
                                         </div><!-- .form-filter-inline -->
                                     </div><!-- .btn-group -->
@@ -47,14 +48,13 @@
 
                             </div>
                             <div class="span4">
-                                <div class="pull-right">
+                                <div class="pull-left">
                                     {!! Form::open(array('route' => 'video.index','method'=>'get','class'=>'form-search-listing form-inline')) !!}
                                     <div class="input-append">
                                         {!! Form::text('search', isset($filters['search']) && !empty($filters['search']) ? $filters['search'] : '' ,array('id' => 'form-search-input','placeholder'=>'Enter keyword', 'class' => 'search-query search-quez input-medium placeholder', 'autocomplete' => 'off')) !!}
                                         {!! Form::select('search_type',  ['video_title' => 'Title', 'uniq_id' => 'Unique ID'], isset($filters['search_type']) ? $filters['search_type'] : '', ['class' => 'input-small']) !!}
                                         <button type="submit" class="btn" id="submitFind">
                                             <i class="icon-search findIcon"></i>
-                                            {{--<span class="findLoader"><img src="img/ico-loading.gif" width="16" height="16"></span>--}}
                                         </button>
                                     </div>
                                     {!! Form::close() !!}
@@ -99,8 +99,6 @@
                                             {{ isset($video->title) ? $video->title : '' }}
                                         </a>
                                         <div class="pull-right">
-                                            {{--<i class="icon-thumbs-up opac5"></i> <small>{{ isset($video->like_count) ? $video->like_count : 0 }}</small>&nbsp;&nbsp;
-                                            <i class="icon-thumbs-down opac5"></i> <small>{{ isset($video->dislike_count) ? $video->dislike_count : 0 }}</small>--}}
                                             <i class="icon-eye-open"></i> <small>{{ isset($video->views) ? $video->views : 0 }}</small>
                                         </div>
                                     </td>
@@ -151,7 +149,7 @@
 
     <div id="stack-controls" class="list-controls scroll-to-fixed-fixed">
         <div class="pull-left form-inline" style="padding-top: 8px;">
-            <small>Move selected videos to</small>
+            <small>Di chuyển các video đã chọn đến</small>
             <div class="input-append">
                 <select name="move_to_category" id="" class="inline smaller-select">
                     <option value="-1" selected="selected">Nhóm...</option>
@@ -178,31 +176,13 @@
             </div>
         </div>
         <div class="btn-toolbar pull-right">
-            <div class="btn-group dropup">
-                <button class="btn btn-small btn-normal btn-strong dropdown-toggle" data-toggle="dropdown" href="#" rel="tooltip" data-original-title="Chức năng đang được xây dựng">Mark as
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><button type="submit" name="Submit" value="Mark as featured" class="btn btn-link-strong">Featured</button></li>
-                    <li><button type="submit" name="Submit" value="Mark as regular" class="btn btn-link-strong">Regular (non-Featured)</button></li>
-                    <li class="divider"></li>
-                    <li><button type="submit" name="Submit_restrict" value="Restrict access" class="btn btn-link-strong" rel="tooltip" data-placement="left" data-original-title="Private videos will be available only to registered users.">Private</button></li>
-                    <li><button type="submit" name="Submit_derestrict" value="Derestrict access" class="btn btn-link-strong" rel="tooltip" data-placement="left" data-original-title="Make selected videos <u>public</u>. Remove any viewing restrictions.">Public</button></li>
-                </ul>
-            </div>
             <div class="btn-group">
                 <button type="submit" name="VideoChecker" id="VideoChecker" value="Check status" class="btn btn-small btn-success btn-strong">
                     Check status
                 </button>
             </div>
             <div class="btn-group dropup">
-                <button type="submit" name="Submit" value="Trash selected" class="btn btn-small btn-danger btn-strong" rel="tooltip" data-original-title="Chức năng đang được xây dựng">Delete</button>
-                <button class="btn  btn-small btn-danger dropdown-toggle" data-toggle="dropdown">
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu pull-right">
-                    <li><a href="#" data-toggle="tooltip" data-original-title="Hành động này sẽ xóa vĩnh viễn toàn bộ cơ sở dữ liệu video!">DELETE ALL VIDEOS</a></li>
-                </ul>
+                <button name="Submit" value="Trash selected" class="btn btn-small btn-danger btn-strong" id="trashVideoSelected">Delete</button>
             </div>
             <input type="hidden" name="filter" id="listing-filter" value="added">
             <input type="hidden" name="fv" id="listing-filter_value" value="desc">
@@ -221,7 +201,9 @@
         });
 
         var btnCheckVideo = $('#VideoChecker');
-        btnCheckVideo.on('click', function () {
+        var btnTrashVideo = $('#trashVideoSelected');
+
+        btnCheckVideo.on('click', function ()  {
             var listVideoChecked = [];
             $(':checkbox:checked').each(function(i){
                 listVideoChecked[i] = $(this).val();
@@ -263,6 +245,35 @@
                         Youtube.showNotice('error', xhr.data, xhr.message);
                     },
                 });
+            });
+        });
+
+        btnTrashVideo.on('click', function () {
+            var listVideoChecked = [];
+            $(':checkbox:checked').each(function(i){
+                listVideoChecked[i] = $(this).val();
+            });
+            var btnSelectAll = 'on';
+            listVideoChecked = jQuery.grep(listVideoChecked, function(value) {
+                return value != btnSelectAll;
+            });
+            $.each(listVideoChecked, function( index, value ) {
+                var videoTrashComponents = $('tr#video-'+value);
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('video.delete') }}",
+                    data: { video : value },
+                    success: function(result){
+
+                    },
+                    beforeSend: function(){
+                        videoTrashComponents.fadeOut();
+                    },
+                    error:function (xhr, ajaxOptions, thrownError){
+
+                    },
+                });
+
             });
 
 

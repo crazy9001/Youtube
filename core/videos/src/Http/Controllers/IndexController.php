@@ -43,10 +43,12 @@ class IndexController
         $search = Input::get('search');
         $channel = Input::get('channel');
         $status = Input::get('status');
+        $display = Input::get('display');
         $search_type = Input::get('search_type');
         $filters = array(
             'channel' => trim($channel),
             'status' => trim($status),
+            'display' => trim($display),
             'search' => trim($search),
             'search_type'   =>  trim($search_type)
         );
@@ -111,12 +113,29 @@ class IndexController
                 $video = $this->videoRepository->update($data, $videoLocal->id);
                 return $this->sendResponse($video->toArray(), 'Successfully');
             }
-            catch ( \Exception $e) {
+            catch (\Exception $e) {
                 return $this->sendError('Error.', $e->getMessage());
             }
         }
         return $this->sendError('Error.', 'Video không tồn tại hoặc đã bị xóa');
 
+    }
+
+
+    public function deleteVideo(Request $request)
+    {
+        $videoId = $request->only('video');
+        $videoLocal = $this->videoRepository->findWhere(['video_id' => $videoId['video']])->first();
+        if(isset($videoLocal) && !empty($videoLocal)){
+            try{
+                return $videoLocal->delete();
+
+            }catch (\Exception $e)
+            {
+                return $this->sendError('Error.', $e->getMessage());
+            }
+        }
+        return $this->sendError('Error.', 'Video không tồn tại hoặc đã bị xóa');
     }
 
     /**

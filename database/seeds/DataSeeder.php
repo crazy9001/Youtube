@@ -36,7 +36,8 @@ class DataSeeder extends Seeder
                 'channel.delete' => true,
                 'video.index' => true,
                 'list.videos' => true,
-                'video.check'   =>  true
+                'video.check'   =>  true,
+                'video.delete'  =>  true
             ]
         ];
         $adminRole = Sentinel::getRoleRepository()->createModel()->fill($role)->save();
@@ -55,6 +56,16 @@ class DataSeeder extends Seeder
             'user_id'   =>  1,
             'parent_id' =>  0
         ]);
+
+        DB::table('channels')->insert([
+            'id_channel' => 'UC7j9eEcIO0TNboF-nRjFp4A',
+            'name'  =>  'Kiều Bá Hùng',
+            'images'   =>  'https://yt3.ggpht.com/-sEMSkaC9zNY/AAAAAAAAAAI/AAAAAAAAAAA/_GF_3lvuc4U/s240-c-k-no-mo-rj-c0xffffff/photo.jpg',
+            'description' =>  '♪ Kênh Zing Mp3: https://goo.gl/7wWBgT
+                            * Fanpage:  https://www.facebook.com/windcold1109/
+                            * Channel List: https://www.youtube.com/channel/hunglov3ly09'
+        ]);
+
 
     }
 }

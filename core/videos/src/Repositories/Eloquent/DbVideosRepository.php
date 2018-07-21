@@ -22,6 +22,22 @@ class DbVideosRepository extends BaseRepository
         return Video::class;
     }
 
+    /**
+     * @return $this
+     */
+    public function withTrashed() {
+        $this->model = $this->model->withTrashed();
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function onlyTrashed() {
+        $this->model = $this->model->onlyTrashed();
+        return $this;
+    }
+
     public function getVideos($filters = array(), $sortInfo = array())
     {
         $query = DB::table('videos')
@@ -29,11 +45,15 @@ class DbVideosRepository extends BaseRepository
                 ->join('groups', 'groups.id', '=', 'videos.group_id')
                 ->select('videos.*', 'channels.name as channel_name', 'groups.name as group_name')
                 ->where(function($que) use ( $filters ){
+                    $que->where('videos.deleted_at', '=', null);
                     if (isset($filters['channel']) && !empty($filters['channel'])) {
                         $que->where('videos.channelId', $filters['channel']);
                     }
                     if (isset($filters['status']) && !empty($filters['status'])) {
                         $que->where('videos.status', $filters['status']);
+                    }
+                    if (isset($filters['display']) && !empty($filters['display'])) {
+                        $que->where('videos.display', $filters['display']);
                     }
                     $que->Where(function($que) use ( $filters ) {
                         if (isset($filters['search']) && !empty($filters['search'] && isset($filters['search_type']) && !empty($filters['search_type']))) {

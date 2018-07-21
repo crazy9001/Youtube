@@ -29,6 +29,10 @@ Route::group(['namespace' => 'Youtube\Videos\Http\Controllers', 'middleware' => 
                 'uses' => 'IndexController@checkVideo',
             ]);
 
+            Route::post('/delete', [
+                'as' => 'video.delete',
+                'uses' => 'IndexController@deleteVideo',
+            ]);
 
 
         });
