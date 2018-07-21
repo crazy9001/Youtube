@@ -105,8 +105,10 @@ class CrawlVideoYoutube extends Command
 
             $this->info('---------------------- CRAWLING VIDEO CHANNEL ' . $inforChannel->snippet->title . ' ----------------------');
 
-            // merge videos
-            $videos = array_merge($videos, $search['results']);
+            if($search['results']){
+                // merge videos
+                $videos = array_merge($videos, $search['results']);
+            }
 
             // check next page
             if(isset($search['info']['nextPageToken'])){
