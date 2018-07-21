@@ -15,6 +15,7 @@ use Youtube\Videos\Repositories\Eloquent\DbVideosRepository;
 use Youtube\Groups\Repositories\Eloquent\GroupRepository;
 use Youtube\Channel\Repositories\Eloquent\DbChannelRepository;
 use Helper;
+use Log;
 
 class CrawlVideoYoutube extends Command
 {
