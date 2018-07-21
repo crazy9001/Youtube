@@ -102,13 +102,25 @@
                                             <i class="icon-eye-open"></i> <small>{{ isset($video->views) ? $video->views : 0 }}</small>
                                         </div>
                                     </td>
-                                    <td class="gr-video">
-                                        {{ isset($video->group_name) && !empty($video->group_name) ? $video->group_name : '' }}
+                                    <td class="gr-video" id="group-video">
+                                        <ul>
+                                            {!! isset($video->group->parent->name) ? '<li>
+                                               <a href="?group='. $video->group->parent->id .'">'. $video->group->parent->name .'</a>
+                                                <i class="fa fa-angle-right"></i>
+                                            </li>' : '' !!}
+
+                                            {!! $video->group ? '<li>
+                                               <a href="?group='. $video->group->id .'">'. $video->group->name .'</a>
+                                            </li>' : ''  !!}
+                                        </ul>
                                     </td>
                                     <td class="channel-video">
-                                        {{ isset($video->channel_name) && !empty($video->channel_name) ? $video->channel_name : '' }}
+                                        {{ isset($video->channel) && !empty($video->channel) ? $video->channel->name : '' }}
                                     </td>
                                     <td class=" lastcheck-video">
+                                        @php
+                                            \Carbon\Carbon::setLocale('vi');
+                                        @endphp
                                         {{ isset($video->updated_at) && !empty($video->updated_at) ? \Carbon\Carbon::createFromTimeStamp(strtotime($video->updated_at))->diffForHumans() : '' }}
                                     </td>
                                     <td> Ghi chu</td>

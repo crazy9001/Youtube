@@ -39,11 +39,14 @@ class Group extends Eloquent
      */
     protected $fillable = ['name', 'slug', 'user_id', 'parent_id','note', 'icon', 'tags'];
 
-    public function parent()
-    {
-        return $this->belongsTo('Youtube\Groups\Models\Group', 'id', 'parent_id'); // I believe you can use also hasOne().
+
+    public function parent() {
+        return $this->belongsTo(static::class, 'parent_id');
     }
-    public function childs() {
-        return $this->hasMany('Youtube\Groups\Models\Group','parent_id','id') ;
+
+    // Each category may have multiple children
+    public function children() {
+        return $this->hasMany(static::class, 'parent_id');
     }
+
 }

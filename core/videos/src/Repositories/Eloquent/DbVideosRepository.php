@@ -40,10 +40,8 @@ class DbVideosRepository extends BaseRepository
 
     public function getVideos($filters = array(), $sortInfo = array())
     {
-        $query = DB::table('videos')
-                ->join('channels', 'channels.id_channel', '=', 'videos.channelId')
-                ->join('groups', 'groups.id', '=', 'videos.group_id')
-                ->select('videos.*', 'channels.name as channel_name', 'groups.name as group_name')
+        $query = $this->model->with('group')
+                ->with('channel')
                 ->where(function($que) use ( $filters ){
                     $que->where('videos.deleted_at', '=', null);
                     if (isset($filters['channel']) && !empty($filters['channel'])) {
@@ -54,6 +52,9 @@ class DbVideosRepository extends BaseRepository
                     }
                     if (isset($filters['display']) && !empty($filters['display'])) {
                         $que->where('videos.display', $filters['display']);
+                    }
+                    if (isset($filters['group']) && !empty($filters['group'])) {
+                        $que->where('videos.group_id', $filters['group']);
                     }
                     $que->Where(function($que) use ( $filters ) {
                         if (isset($filters['search']) && !empty($filters['search'] && isset($filters['search_type']) && !empty($filters['search_type']))) {

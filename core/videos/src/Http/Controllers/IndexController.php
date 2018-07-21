@@ -44,11 +44,13 @@ class IndexController
         $channel = Input::get('channel');
         $status = Input::get('status');
         $display = Input::get('display');
+        $group = Input::get('group');
         $search_type = Input::get('search_type');
         $filters = array(
             'channel' => trim($channel),
             'status' => trim($status),
             'display' => trim($display),
+            'group' => trim($group),
             'search' => trim($search),
             'search_type'   =>  trim($search_type)
         );

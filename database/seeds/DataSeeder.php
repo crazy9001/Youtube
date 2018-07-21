@@ -51,16 +51,35 @@ class DataSeeder extends Seeder
         $adminUser->roles()->attach($adminRole);
 
         DB::table('groups')->insert([
-            'name' => 'Default',
-            'slug'  =>  'default',
-            'user_id'   =>  1,
-            'parent_id' =>  0
+
+            [
+                'name' => 'Default',
+                'slug'  =>  'default',
+                'user_id'   =>  1,
+                'parent_id' =>  0,
+                'tags'  =>  ''
+            ],
+            [
+                'name' => 'Hoạt Hình',
+                'slug'  =>  'hoat-hinh',
+                'user_id'   =>  1,
+                'parent_id' =>  0,
+                'tags'  =>  ''
+            ],
+            [
+                'name' => 'Tom and Jerry',
+                'slug'  =>  'tom-and-jerry',
+                'user_id'   =>  1,
+                'parent_id' =>  2,
+                'tags'  =>  'Tom and Jerry'
+            ]
+
         ]);
 
         DB::table('channels')->insert([
-            'id_channel' => 'UC7j9eEcIO0TNboF-nRjFp4A',
-            'name'  =>  'Kiều Bá Hùng',
-            'images'   =>  'https://yt3.ggpht.com/-sEMSkaC9zNY/AAAAAAAAAAI/AAAAAAAAAAA/_GF_3lvuc4U/s240-c-k-no-mo-rj-c0xffffff/photo.jpg',
+            'id_channel' => 'UCJVfKoXyh7sdV4V0YdYTePg',
+            'name'  =>  'MovieCon Animation',
+            'images'   =>  'https://yt3.ggpht.com/-eOXVZ69SY54/AAAAAAAAAAI/AAAAAAAAAAA/pm9_P67jsS8/s240-c-k-no-mo-rj-c0xffffff/photo.jpg',
             'description' =>  '♪ Kênh Zing Mp3: https://goo.gl/7wWBgT
                             * Fanpage:  https://www.facebook.com/windcold1109/
                             * Channel List: https://www.youtube.com/channel/hunglov3ly09'
