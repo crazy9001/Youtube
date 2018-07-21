@@ -121,7 +121,7 @@
                                         @php
                                             \Carbon\Carbon::setLocale('vi');
                                         @endphp
-                                        {{ isset($video->updated_at) && !empty($video->updated_at) ? \Carbon\Carbon::createFromTimeStamp(strtotime($video->updated_at))->diffForHumans() : '' }}
+                                        {{ isset($video->last_check) && !empty($video->last_check) ? \Carbon\Carbon::createFromTimeStamp(strtotime($video->last_check))->diffForHumans() : '' }}
                                     </td>
                                     <td> Ghi chu</td>
                                     <td class="status-video" id="status-video">
@@ -132,7 +132,7 @@
                                         @endphp
                                         <div class="pm-sprite {{ $video->status == 1 ? 'vs_ok' : ( $video->status == 3 ? 'vs_broken' : 'vs_broken' )  }}"
                                              rel="tooltip" title=""
-                                             data-original-title="{{ 'Last checked : ' . \Carbon\Carbon::createFromTimeStamp(strtotime($video->updated_at))->diffForHumans()}} ">
+                                             data-original-title="{{ 'Last checked : ' . isset($video->last_check) && !empty($video->last_check) ? \Carbon\Carbon::createFromTimeStamp(strtotime($video->last_check))->diffForHumans() : '' }} ">
                                         </div>
                                         <span style="display: none">
                                             <img src="../img/ico-loading.gif"  style=" width: 16px !important; height:  16px; border:  none">

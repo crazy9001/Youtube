@@ -127,7 +127,7 @@ class IndexController
                     $status = 3;
                 }
                 $data['status'] = $status;
-                $data['updated_at'] = Carbon::now();
+                $data['last_check'] = Carbon::now();
                 $video = $this->videoRepository->update($data, $videoLocal->id);
                 return $this->sendResponse($video->toArray(), 'Successfully');
             }

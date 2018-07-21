@@ -31,7 +31,7 @@ class CreateTableVideos extends Migration
             $table->integer('display')->nullable()->default(1);
             $table->text('note')->nullable();
             $table->string('embed_html', 400)->nullable();
-
+            $table->timestamp('last_check')->nullable();
             $table->softDeletes();
             $table->timestamps();
             $table->engine = 'InnoDB';

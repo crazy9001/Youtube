@@ -73,6 +73,7 @@ class CheckVideoInforCommand extends Command
                     $data['views'] = isset($inforVideo->statistics->viewCount) ? $inforVideo->statistics->viewCount : $row->views;
                     $data['like_count'] = isset($inforVideo->statistics->likeCount) ? $inforVideo->statistics->likeCount : $row->like_count;
                     $data['dislike_count'] = isset($inforVideo->statistics->dislikeCount) ? $inforVideo->statistics->dislikeCount : $row->dislike_count;
+                    $data['last_check'] = Carbon::now();
                 }
                 $data['status'] = $status;
                 $video = $this->videoRepository->update($data, $row->id);
