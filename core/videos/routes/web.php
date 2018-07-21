@@ -38,6 +38,17 @@ Route::group(['namespace' => 'Youtube\Videos\Http\Controllers', 'middleware' => 
                 'as' => 'video.move.group',
                 'uses' => 'IndexController@movieVideoToGroup',
             ]);
+
+            Route::get('/{id}/edit', [
+                'as' => 'video.edit',
+                'uses' => 'IndexController@edit',
+            ]);
+
+            Route::post('/update', [
+                'as' => 'video.update',
+                'uses' => 'IndexController@update',
+            ]);
+
         });
 
     });

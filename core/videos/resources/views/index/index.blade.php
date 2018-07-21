@@ -95,7 +95,7 @@
                                         </a>
                                     </td>
                                     <td class="title-video">
-                                        <a href="http://youtube.com?watch={{ isset($video->video_id) ? $video->video_id : '' }}" target="_blank">
+                                        <a href="{{ route('video.edit', isset($video->video_id) ? $video->video_id : '')   }}">
                                             {{ isset($video->title) ? $video->title : '' }}
                                         </a>
                                         <div class="pull-right">

@@ -217,4 +217,17 @@ class IndexController
         return response()->json($response, $code);
     }
 
+    public function edit($id){
+
+        Assets::addJavascript(['ck-editor']);
+        $groupsNested = Group::attr(['name' => 'group_video', 'class' => 'inline smaller-select group_video'])
+            ->selected(1)
+            ->renderAsDropdown();
+        $video = $this->videoRepository->findWhere(['video_id' => $id])->first();
+        if($video){
+            return view('videos::index.create', compact('video', 'groupsNested'));
+        }
+        return redirect()->route('video.index')->with('error_msg', 'Đã xảy ra lỗi. Vui lòng liên hệ admin')->withInput();
+    }
+
 }

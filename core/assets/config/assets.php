@@ -201,6 +201,13 @@ return array(
                 'src' => [
                     'local' => '/js/plugins/dynatree/jquery.dynatree.js',
                 ],
+            ],
+            'ck-editor' => [
+                'use_cdn' => false,
+                'location' => 'bottom',
+                'src' => [
+                    'local' => '/js/plugins/ckeditor/ckeditor.js',
+                ],
             ]
         ],
         'stylesheets' => [
