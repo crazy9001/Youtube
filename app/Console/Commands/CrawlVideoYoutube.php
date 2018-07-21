@@ -108,6 +108,8 @@ class CrawlVideoYoutube extends Command
             if($search['results']){
                 // merge videos
                 $videos = array_merge($videos, $search['results']);
+            }else{
+                Log::info('Channel :' . $inforChannel->snippet->title . 'không có video hoặc video bị chặn quốc gia');
             }
 
             // check next page
