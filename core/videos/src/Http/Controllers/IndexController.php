@@ -94,9 +94,15 @@ class IndexController
         $videoLocal = $this->videoRepository->findWhere(['video_id' => $videoId['video']])->first();
         if(isset($videoLocal) && !empty($videoLocal)){
             try{
-                $checkVideo = Youtube::getVideoInfo($videoLocal->video_id);
-                if(!empty($checkVideo)){
-                    $status = ( isset($checkVideo->contentDetails->regionRestriction) && count($checkVideo->contentDetails->regionRestriction->blocked ) >= 100 ) ? 2 : 1;
+                $inforVideo = Youtube::getVideoInfo($videoLocal->video_id);
+                if(isset($inforVideo) && !empty($inforVideo)){
+                    $status = 1;
+                    if( isset($inforVideo->contentDetails->regionRestriction->blocked) && count($inforVideo->contentDetails->regionRestriction->blocked ) >= 100 ){
+                        $status = 3;
+                    }
+                    if(isset($inforVideo->contentDetails->regionRestriction->allowed)){
+                        $status = in_array('VN', $inforVideo->contentDetails->regionRestriction->allowed) ? 1 : 3;
+                    }
                 }else{
                     $status = 3;
                 }
