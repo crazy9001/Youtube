@@ -60,26 +60,26 @@ class DataSeeder extends Seeder
                 'tags'  =>  ''
             ],
             [
-                'name' => 'Hoạt Hình',
-                'slug'  =>  'hoat-hinh',
+                'name' => 'Nhạc Hoa',
+                'slug'  =>  'nhac-hoa',
                 'user_id'   =>  1,
                 'parent_id' =>  0,
                 'tags'  =>  ''
             ],
             [
-                'name' => 'Tom and Jerry',
-                'slug'  =>  'tom-and-jerry',
+                'name' => 'Âu Thần x Hạ Mạt',
+                'slug'  =>  'au-than-ha-mat',
                 'user_id'   =>  1,
                 'parent_id' =>  2,
-                'tags'  =>  'Tom and Jerry'
+                'tags'  =>  'Bong Bóng Mùa Hè 2018'
             ]
 
         ]);
 
         DB::table('channels')->insert([
-            'id_channel' => 'UCJVfKoXyh7sdV4V0YdYTePg',
-            'name'  =>  'MovieCon Animation',
-            'images'   =>  'https://yt3.ggpht.com/-eOXVZ69SY54/AAAAAAAAAAI/AAAAAAAAAAA/pm9_P67jsS8/s240-c-k-no-mo-rj-c0xffffff/photo.jpg',
+            'id_channel' => 'UCnPGSZNSqsPxitx8oWYhRUA',
+            'name'  =>  'Hibi',
+            'images'   =>  'https://yt3.ggpht.com/-yi21LP8spdk/AAAAAAAAAAI/AAAAAAAAAAA/pv8OXpq6xBY/s288-mo-c-c0xffffffff-rj-k-no/photo.jpg',
             'description' =>  '♪ Kênh Zing Mp3: https://goo.gl/7wWBgT
                             * Fanpage:  https://www.facebook.com/windcold1109/
                             * Channel List: https://www.youtube.com/channel/hunglov3ly09'
