@@ -13,6 +13,8 @@ use Sentinel;
 use Youtube\Users\Repositories\Eloquent\DbUsersRepository;
 use Youtube;
 use Illuminate\Support\Facades\Input;
+use DateTime;
+use DateInterval;
 
 class BasicHelper
 {
@@ -191,6 +193,12 @@ class BasicHelper
             }
         }
         return implode(",", $newArrayIds);
+    }
+
+    public static function convertDurationTime($youtube_time){
+        $start = new DateTime('@0'); // Unix epoch
+        $start->add(new DateInterval($youtube_time));
+        return $start->format('H:i:s');
     }
 
 }

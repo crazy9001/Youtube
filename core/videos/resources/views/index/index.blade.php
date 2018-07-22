@@ -123,7 +123,9 @@
                                         @endphp
                                         {{ isset($video->last_check) && !empty($video->last_check) ? \Carbon\Carbon::createFromTimeStamp(strtotime($video->last_check))->diffForHumans() : '' }}
                                     </td>
-                                    <td> Ghi chu</td>
+                                    <td style="width: 200px">
+                                        {{ isset($video->note) && !empty($video->note) ? $video->note : '' }}
+                                    </td>
                                     <td class="status-video" id="status-video">
                                         @php
                                             $status = $video->status == 1 ?  'Hoạt động' : ( $video->status == 2 ? 'Chặn' : 'Block');

@@ -19,6 +19,7 @@ use DataTables;
 use Helper;
 use Youtube;
 use Youtube\Groups\Models\Group;
+use Youtube\Videos\Http\Requests\VideoUpdateRequest;
 
 class IndexController
 {
@@ -219,15 +220,44 @@ class IndexController
 
     public function edit($id){
 
+        Assets::removeJavascript(['eakroko']);
         Assets::addJavascript(['ck-editor']);
         $groupsNested = Group::attr(['name' => 'group_video', 'class' => 'inline smaller-select group_video'])
             ->selected(1)
             ->renderAsDropdown();
         $video = $this->videoRepository->findWhere(['video_id' => $id])->first();
         if($video){
-            return view('videos::index.create', compact('video', 'groupsNested'));
+            $inforVideo = Youtube::getVideoInfo($video->video_id);
+            //dd($inforVideo);
+            return view('videos::index.create', compact('video', 'groupsNested', 'inforVideo'));
         }
-        return redirect()->route('video.index')->with('error_msg', 'Đã xảy ra lỗi. Vui lòng liên hệ admin')->withInput();
+        return redirect()->route('video.index')->with('error_msg', 'Video không tồn tại hoặc đã bị xóa')->withInput();
+    }
+
+    public function update(VideoUpdateRequest $request)
+    {
+        if($request->submit == 'Save'){
+            $newData = [
+                'title' => $request->video_title,
+                'description' => $request->description,
+                'embed_code' => $request->embed_code,
+                'note'  =>  $request->note,
+                'group_id'  =>  $request->group_video,
+
+            ];
+            $video = $this->videoRepository->update($newData, $request->id);
+            return redirect()->route('video.edit', $video->video_id)->with('success_msg', trans('bases::notices.update_success_message'));
+        }elseif($request->submit == 'Delete'){
+            $videoId = $request->unique_id;
+            $video = $this->videoRepository->findWhere(['video_id' => $videoId])->first();
+            if(isset($video) && !empty($video)){
+                $video->delete();
+                return redirect()->route('video.index')->with('success_msg', trans('bases::notices.delete_success_message'));
+            }
+            return $this->sendError('Error.', 'Video không tồn tại hoặc đã bị xóa');
+        }else{
+            return redirect()->route('video.index');
+        }
     }
 
 }

@@ -11,12 +11,11 @@
 
         <div class="row">
 
-            {!! Form::open(array(/*'route' => 'video.update',*/ 'method'=>'post','class'=>'form-inline')) !!}
-
+            {!! Form::open(array('route' => 'video.update', 'method'=>'post','class'=>'form-inline')) !!}
+            {!! Form::hidden('id', isset($video->id) && !empty($video->id) ? $video->id : '' ,array('id' => 'id_video')) !!}
+            {!! Form::hidden('unique_id', isset($video->id) && !empty($video->video_id) ? $video->video_id : '' ,array('id' => 'unique_id')) !!}
             <div id="post-page">
-                <?php
-                  //  dd($video);
-                ?>
+
                 <div class="col-sm-9">
                     <div class="widget border-radius4 shadow-div">
                         <h4>Title &amp; Description</h4>
@@ -29,6 +28,12 @@
                         <h4>Embed Code</h4>
                         <div class="control-group">
                             {!! Form::textarea('embed_code', isset($video->id) && !empty($video->embed_html) ? $video->embed_html : '',['id'=>'embed_code', 'class'=>'textarea-embed', 'cols' => '', 'rows' => '']) !!}
+                        </div>
+                    </div>
+                    <div class="widget border-radius4 shadow-div">
+                        <h4>Ghi chú</h4>
+                        <div class="control-group">
+                            {!! Form::textarea('note', isset($video->id) && !empty($video->note) ? $video->note : '',['id'=>'note', 'class'=>'textarea-embed', 'cols' => '', 'rows' => '']) !!}
                         </div>
                     </div>
                 </div>
@@ -44,35 +49,19 @@
                     <div class="widget border-radius4 shadow-div">
                         <h4>Video Details</h4>
                         <div class="control-group">
-                            <label class="control-label" for="">Duration: <span id="value-yt_length"><strong>4 min. 3 sec.</strong></span> <a href="#" id="show-duration">Edit</a></label>
+                            <label class="control-label" for="">
+                                {!! isset($inforVideo->contentDetails->duration) ? 'Duration: <span id="value-yt_length"><strong>' . Helper::convertDurationTime($inforVideo->contentDetails->duration) . '</strong></span>' : '' !!}
+                            </label>
                         </div>
-
                         <div class="control-group">
-                            <label class="control-label" for="">Comments: <span id="value-comments"><strong>allowed</strong></span> <a href="#" id="show-comments">Edit</a></label>
+                            <label class="control-label" for="">
+                                Embedding: <span id="value-embedding"><strong>{{ isset($inforVideo->status->embeddable) && $inforVideo->status->embeddable == true ? 'allowed ' : 'not allowed' }}</strong></span>
+                            </label>
                         </div>
-
                         <div class="control-group">
-                            <label class="control-label" for="">Embedding: <span id="value-embedding"><strong>allowed</strong></span> <a href="#" id="show-embedding">Edit</a></label>
-                        </div>
-
-                        <div class="control-group">
-                            <label>Featured: <span id="value-featured"><strong>no</strong></span> <a href="#" id="show-featured">Edit</a></label>
-                        </div>
-
-                        <div class="control-group">
-                            <label class="control-label" for="">Requires registration: <span id="value-register"><strong>no</strong></span> <a href="#" id="show-visibility">Edit</a></label>
-                        </div>
-
-                        <div class="control-group">
-                            <label class="control-label" for="">Views: <span id="value-views"><strong>0</strong></span> <a href="#" id="show-views">Edit</a></label>
-                        </div>
-
-                        <div class="control-group">
-                            <label class="control-label" for="">Submitted by: <span id="value-submitted"><strong>jules</strong></span> <a href="#" id="show-user">Edit</a></label>
-                        </div>
-
-                        <div class="control-group">
-                            <label class="control-label" for="">Publish date: <span id="value-publish"><strong>Jul 21, 2018 3:40 AM</strong></span> <a href="#" id="show-publish">Edit</a></label>
+                            <label class="control-label" for="">
+                                {!! isset($inforVideo->snippet->publishedAt) ? 'Publish date: <span id="value-publish"><strong>' . date('Y-m-d H:i:s', strtotime($inforVideo->snippet->publishedAt)) . '</strong></span>' : '' !!}
+                            </label>
                         </div>
                     </div>
 
@@ -83,7 +72,7 @@
                         </div>
                     </div>
 
-                    <div class="widget border-radius4 shadow-div">
+                    {{--<div class="widget border-radius4 shadow-div">
                         <h4>Tags</h4>
                         <div class="control-group">
                             <div class="controls">
@@ -92,7 +81,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>--}}
                 </div>
 
                 <div class="clearfix"></div>
@@ -100,13 +89,12 @@
                 <div id="stack-controls" class="list-controls scroll-to-fixed-fixed" style="width: 98%;left: 20px; padding: 10px 10px !important;">
                     <div class="btn-toolbar pull-left">
                         <div class="btn-group">
-                            <!--<a href="#" onClick='del_video_id("6d8c82535", "1", "")' class="btn btn-small btn-danger btn-strong" rel="tooltip" title="Are you sure?">Delete Video</a>-->
-                            <a href="modify.php?vid=6d8c82535&amp;a=3" class="btn btn-small btn-danger btn-strong" title="">Move to Trash</a>
+                            <button name="submit" type="submit" value="Delete" class="btn btn-small btn-danger btn-strong">Delete Video</button>
                         </div>
                     </div>
                     <div class="btn-toolbar">
                         <div class="btn-group">
-                            <button name="cancel" type="button" value="Cancel" onclick="location.href='videos.php'" class="btn btn-small btn-normal btn-strong">Cancel</button>
+                            <button name="cancel" type="submit" value="Cancel" class="btn btn-small btn-normal btn-strong">Cancel</button>
                         </div>
                         <div class="btn-group">
                             <button name="submit" type="submit" value="Save" class="btn btn-small btn-success btn-strong">Save</button>
