@@ -72,16 +72,16 @@
                         </div>
                     </div>
 
-                    {{--<div class="widget border-radius4 shadow-div">
-                        <h4>Tags</h4>
+                    <div class="widget border-radius4 shadow-div">
+                        <h4>Hiển thị trang chủ</h4>
                         <div class="control-group">
                             <div class="controls">
                                 <div class="tagsinput" style="width: 100%;">
-                                    <input type="text" name="tags" value="" id="tags_addvideo_1" data-tagsinput-init="true" style="display: none;"><div id="tags_addvideo_1_tagsinput" class="tagsinput" style="width: auto; min-height: auto; height: auto;"><div id="tags_addvideo_1_addTag"><input id="tags_addvideo_1_tag" value="" data-default="" data-tagsinput-init="true" style="color: rgb(102, 102, 102); width: 50px;"></div><div class="tags_clear"></div></div>
+                                    {!! Form::select('display', ['1' => 'Hiển thị', '2' => 'Ẩn'], isset($video->display) ? $video->display : '', ['id' => 'displayFilter', 'class' => 'chosen-select']) !!}
                                 </div>
                             </div>
                         </div>
-                    </div>--}}
+                    </div>
                 </div>
 
                 <div class="clearfix"></div>

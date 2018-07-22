@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Youtube\Videos\Models\Video;
 use Youtube\Videos\Repositories\Eloquent\DbVideosRepository;
 use Youtube\Channel\Repositories\Eloquent\DbChannelRepository;
+use Youtube\Groups\Repositories\Eloquent\GroupRepository;
 use Assets;
 use DataTables;
 use Helper;
@@ -25,16 +26,18 @@ class IndexController
 {
     protected $videoRepository;
     protected $channelRepository;
+    protected $groupRepository;
 
     /**
      * IndexController constructor.
      * @param DbVideosRepository $videosRepository
      * @param DbChannelRepository $channelRepository
      */
-    public function __construct(DbVideosRepository $videosRepository, DbChannelRepository $channelRepository)
+    public function __construct(DbVideosRepository $videosRepository, DbChannelRepository $channelRepository, GroupRepository $groupRepository)
     {
         $this->videoRepository = $videosRepository;
         $this->channelRepository = $channelRepository;
+        $this->groupRepository = $groupRepository;
     }
 
     /**
@@ -243,7 +246,7 @@ class IndexController
                 'embed_code' => $request->embed_code,
                 'note'  =>  $request->note,
                 'group_id'  =>  $request->group_video,
-
+                'display'   =>  $request->display
             ];
             $video = $this->videoRepository->update($newData, $request->id);
             return redirect()->route('video.edit', $video->video_id)->with('success_msg', trans('bases::notices.update_success_message'));
