@@ -90,7 +90,7 @@
                                         {{ isset($video->video_id) && !empty($video->video_id) ? $video->video_id : '' }}
                                     </td>
                                     <td class="img-video">
-                                        <a href="http://youtube.com?watch?v={{ isset($video->video_id) ? $video->video_id : '' }}" target="_blank">
+                                        <a href="http://youtube.com/watch?v={{ isset($video->video_id) ? $video->video_id : '' }}" target="_blank">
                                             <img src="{{ isset($video->thumbnails) ? $video->thumbnails : '' }}">
                                         </a>
                                     </td>
