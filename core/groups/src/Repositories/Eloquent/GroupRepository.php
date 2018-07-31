@@ -21,4 +21,17 @@ class GroupRepository extends BaseRepository
         return Group::class;
     }
 
+    public function getGroups($filters = array())
+    {
+        $query = $this->model->with('parent')
+                ->with('children')
+                ->where('parent_id', 0)
+                ->where(function ($where) use ($filters){
+                    if (isset($filters['search']) && !empty($filters['search'])) {
+                        $where->where('name', 'like', '%' . ($filters['search']) . '%');
+                    }
+                });
+        return $query;
+    }
+
 }

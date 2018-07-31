@@ -239,7 +239,7 @@ class IndexController
 
     public function update(VideoUpdateRequest $request)
     {
-        if($request->submit == 'Save'){
+        if($request->submit == 'Apply'){
             $newData = [
                 'title' => $request->video_title,
                 'description' => $request->description,
@@ -258,8 +258,17 @@ class IndexController
                 return redirect()->route('video.index')->with('success_msg', trans('bases::notices.delete_success_message'));
             }
             return $this->sendError('Error.', 'Video không tồn tại hoặc đã bị xóa');
-        }else{
-            return redirect()->route('video.index');
+        }elseif($request->submit == 'Save'){
+            $newData = [
+                'title' => $request->video_title,
+                'description' => $request->description,
+                'embed_code' => $request->embed_code,
+                'note'  =>  $request->note,
+                'group_id'  =>  $request->group_video,
+                'display'   =>  $request->display
+            ];
+            $video = $this->videoRepository->update($newData, $request->id);
+            return redirect()->route('video.index')->with('success_msg', trans('bases::notices.update_success_message'));
         }
     }
 

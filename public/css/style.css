@@ -9681,7 +9681,7 @@ input[type=checkbox], input[type=radio] {
   top: 66px;
 }
 
-#videos-screen h2, #update-video-screen h2 {
+#videos-screen h2, #update-video-screen h2, #groups-screen h2 {
   position: relative;
   color: #666;
   text-shadow: 0 1px 0 #FFF;
@@ -9974,4 +9974,9 @@ input[type=checkbox], input[type=radio] {
 }
 #main .group_video select {
   width: 100%;
+}
+#showListGroups{
+  max-height: 700px;
+  overflow: hidden;
+  overflow-y: scroll;
 }

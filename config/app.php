@@ -227,6 +227,7 @@ return [
         'Youtube' => Alaouy\Youtube\Facades\Youtube::class,
         'Nestable' => Nestable\Facades\NestableService::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+        'Input' => Illuminate\Support\Facades\Input::class,
     ],
 
 ];

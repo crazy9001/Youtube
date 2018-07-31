@@ -16,6 +16,25 @@
             {!! Form::hidden('unique_id', isset($video->id) && !empty($video->video_id) ? $video->video_id : '' ,array('id' => 'unique_id')) !!}
             <div id="post-page">
 
+                <div id="stack-controls" class="scroll-to-fixed-fixed col-sm-12 " style="padding: 10px 16px">
+                    <div class="btn-toolbar pull-right">
+                        <div class="btn-group">
+                            <button name="cancel" type="submit" value="Cancel" class="btn btn-small btn-normal btn-strong">Cancel</button>
+                        </div>
+                        <div class="btn-group">
+                            <button name="submit" type="submit" value="Save" class="btn btn-small btn-success btn-strong">Save</button>
+                        </div>
+                        <div class="btn-group">
+                            <button name="submit" type="submit" value="Apply" class="btn btn-small btn-success btn-strong">Apply</button>
+                        </div>
+                    </div>
+                    <div class="btn-toolbar pull-right">
+                        <div class="btn-group">
+                            <button name="submit" type="submit" value="Delete" class="btn btn-small btn-danger btn-strong">Delete Video</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
                 <div class="col-sm-9">
                     <div class="widget border-radius4 shadow-div">
                         <h4>Title &amp; Description</h4>
@@ -83,25 +102,6 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="clearfix"></div>
-
-                <div id="stack-controls" class="list-controls scroll-to-fixed-fixed" style="width: 98%;left: 20px; padding: 10px 10px !important;">
-                    <div class="btn-toolbar pull-left">
-                        <div class="btn-group">
-                            <button name="submit" type="submit" value="Delete" class="btn btn-small btn-danger btn-strong">Delete Video</button>
-                        </div>
-                    </div>
-                    <div class="btn-toolbar">
-                        <div class="btn-group">
-                            <button name="cancel" type="submit" value="Cancel" class="btn btn-small btn-normal btn-strong">Cancel</button>
-                        </div>
-                        <div class="btn-group">
-                            <button name="submit" type="submit" value="Save" class="btn btn-small btn-success btn-strong">Save</button>
-                        </div>
-                    </div>
-                </div>
-
 
             </div>
 
