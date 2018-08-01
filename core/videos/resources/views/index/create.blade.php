@@ -28,11 +28,6 @@
                             <button name="submit" type="submit" value="Apply" class="btn btn-small btn-success btn-strong">Apply</button>
                         </div>
                     </div>
-                    <div class="btn-toolbar pull-right">
-                        <div class="btn-group">
-                            <button name="submit" type="submit" value="Delete" class="btn btn-small btn-danger btn-strong">Delete Video</button>
-                        </div>
-                    </div>
                 </div>
                 <div class="clearfix"></div>
                 <div class="col-sm-9">

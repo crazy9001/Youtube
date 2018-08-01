@@ -72,6 +72,10 @@
     <div id="modal_add_channel" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 id="myModalLabel">Add Channel</h3>
+                </div>
                 <div class="modal-body">
                     <input type="text" name="idChannel" class="form-control" autocomplete="off">
                     <span class="label label-info">ID Channel lấy từ Youtube . Ví dụ : UCCE0ldAqiHLYeQaa8yI2_aQ</span>

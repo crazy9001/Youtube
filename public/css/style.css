@@ -5059,7 +5059,7 @@ label, input, button, select, textarea {
 }
 
 #navigation {
-  background: #2F373D;
+  background: #354052;
   position: relative;
   z-index: 100;
 }
@@ -7794,7 +7794,7 @@ body.error .wrapper .buttons {
 }
 
 .pagination.pagination-custom {
-  height: 28px;
+  height: 20px;
   margin-top: -1px;
 }
 .pagination.pagination-custom li.active a {
@@ -9372,7 +9372,8 @@ a:focus {
   height: 45px;
 }
 #list_videos {
-  border: 0px;
+  border-top: 1px solid #ddd;
+  border-left: 0px !important; ;
 }
 #list_videos img {
   width: 60px;
@@ -9417,9 +9418,10 @@ a:focus {
   width: 200px;
 }
 #showListVideos {
-  max-height: calc(100vh - 255px);
+  max-height: calc(100vh - 260px);
   overflow-y: scroll;
   border: 1px solid #ddd !important;
+  border-top: 0px !important;
   margin-top: 20px;
 }
 
@@ -9691,6 +9693,7 @@ input[type=checkbox], input[type=radio] {
   font-family: Cuprum, Helvetica, Arial, Verdana;
   font-weight: bold;
   letter-spacing: 0.025em;
+  padding-bottom: 5px;
 }
 .pageControls li:first-child {
   border-left: 0;
@@ -9979,4 +9982,133 @@ input[type=checkbox], input[type=radio] {
   max-height: 700px;
   overflow: hidden;
   overflow-y: scroll;
+  margin-top: 15px;
+}
+
+#main h2 a.label {
+  display: inline;
+  position: absolute;
+  top: 11px;
+  padding: 3px 7px;
+  margin-left: 18px;
+  font-size: 11.844px;
+  font-weight: bold;
+  line-height: 14px;
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+  white-space: nowrap;
+  vertical-align: baseline;
+  background-color: #999;
+}
+#showListVideos .pagination.pagination-custom li a {
+  border: 1px solid #f4f4f4;
+  border-radius: 3px;
+  padding: 0 7px;
+  margin: 0 3px;
+  cursor: pointer;
+  color: #293241;
+  font-size: 11px;
+  background: transparent;
+}
+
+#showListVideos .pagination>.active>a,
+#showListVideos .pagination>.active>span,
+#showListVideos .pagination>.active>a:hover,
+#showListVideos .pagination>.active>span:hover,
+#showListVideos .pagination>.active>a:focus,
+#showListVideos .pagination>.active>span:focus,
+#showListVideos .pagination.pagination-custom li a:hover {
+  background: #fff;
+  color: #455B6B;
+  border-color: #AEB1B5;
+  font-weight: 700;
+  padding: 0 7px;
+  font-size: 12px;
+}
+
+#showListVideos .pagination.pagination-custom {
+  margin: 0px;
+  padding: 8px;
+  min-height: 36px;
+  float: right;
+  clear: both;
+}
+
+#showListVideos .pagination li a,
+#showListVideos .pagination li a.active {
+  border: 1px solid #f4f4f4;
+  border-radius: 3px;
+  padding: 0 7px;
+  margin: 0 3px;
+  cursor: pointer;
+  color: #293241;
+  font-size: 11px;
+  background: transparent;
+}
+#main .table th, #adminPrimary .table td {
+  color: #636363;
+  font-family: 'Roboto',Arial,Helvetica,sans-serif;
+  padding: 8px;
+  line-height: 24px;
+  text-align: left;
+  vertical-align: middle;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+#showListVideos .custom-paginate{
+  border-top: 1px solid #ddd;
+}
+.modal-header {
+  background: #4C9ED9;
+  border-bottom: 1px solid #4C9ED9;
+}
+.modal-header h3 {
+  font-family: Cuprum, Arial, Helvetica, sans-serif;
+  font-size: 22px !important;
+  font-weight: bold !important;
+  text-shadow: none;
+  color: #FFF;
+}
+.modal-header h3 {
+  margin: 0;
+  line-height: 30px;
+}
+.ico-add-link {
+  width: 28px;
+  height: 29px;
+  background-position: -40px -47px;
+}
+.modal-content {
+  border: 5px solid transparent !important;
+  border-radius: 5px;
+}
+
+.modal {
+  text-align: center;
+}
+
+@media screen and (min-width: 767px) {
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.ico-cats-new {
+  width: 26px;
+  height: 25px;
+  background-position: -26px -22px;
+}
+.ico-add-local {
+  width: 42px;
+  height: 30px;
+  background-position: -96px -73px;
 }

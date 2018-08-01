@@ -49,6 +49,11 @@ Route::group(['namespace' => 'Youtube\Videos\Http\Controllers', 'middleware' => 
                 'uses' => 'IndexController@update',
             ]);
 
+            Route::post('/store', [
+                'as' => 'video.create',
+                'uses' => 'IndexController@store',
+            ]);
+
         });
 
     });

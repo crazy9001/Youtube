@@ -5,14 +5,6 @@
 
         <div class="page-header"></div>
         <div class="breadcrumbs">
-            <div class="entry-count">
-                <ul class="pageControls">
-                    <li>
-                        <div class="floatL"><strong class="blue">{{ isset($countTotalVideo) ? number_format($countTotalVideo) : 0 }}</strong><span>videos</span></div>
-                        <div class="blueImg"><div class="pm-sprite ico-videos-small"></div></div>
-                    </li>
-                </ul><!-- .pageControls -->
-            </div>
             <h2>Nhóm Video <a class="label opac5" href="#addVideo" data-toggle="modal">+ add new</a></h2>
         </div>
 
@@ -21,16 +13,6 @@
             <div class="col-sm-12">
 
                 <div class="portlet-title">
-                    <div class="row-fluid">
-                        <div class="span8">
-                            <ul class="pm-inline-filters list-inline">
-                                <li><a href="{{ route('video.index') }}">All videos <span class="count">({{ isset($countTotalVideo) ? number_format($countTotalVideo) : 0 }})</span></a></li>
-                                <li><a href="?status=2">Bị chặn quốc gia <span class="count">({{ isset($countBlock) ? number_format($countBlock) : 0 }})</span></a></li>
-                                <li><a href="?status=3">Chết <span class="count">({{ isset($countDie) ? number_format($countDie) : 0 }})</span></a> </li>
-                            </ul>
-                        </div><!-- .span8 -->
-                    </div>
-                    <div class="clearfix"></div>
                     <div class="row-fluid">
                         <div class="span8">
                             <div class="pull-left">
@@ -62,30 +44,6 @@
                         </tr>
                         </thead>
                         <tbody id="dataGroups">
-                            {{--<tr role="row" class="odd" id="group-1">
-                                <td style="width: 10px">2</td>
-                                <td class="group-name">
-                                    Nhạc Hoa
-                                </td>
-                                <td>Nhạc trung quốc</td>
-                                <td>Ghi chú</td>
-                                <td>display</td>
-                                <td>
-                                    <input type="checkbox" data-skin="square" data-color="blue" name="videoSelect[]" value="{{ isset($video->video_id) ? $video->video_id : '' }}">
-                                </td>
-                            </tr>
-                            <tr role="row" class="odd" id="group-2">
-                                <td style="width: 10px">1</td>
-                                <td class="group-name">
-                                    ━ Âu Thần x Hạ Mạt
-                                </td>
-                                <td>Nhạc trung quốc</td>
-                                <td>Ghi chú</td>
-                                <td>display</td>
-                                <td>
-                                    <input type="checkbox" data-skin="square" data-color="blue" name="videoSelect[]" value="{{ isset($video->video_id) ? $video->video_id : '' }}">
-                                </td>
-                            </tr>--}}
                             {!! $html !!}
                         </tbody>
                     </table>

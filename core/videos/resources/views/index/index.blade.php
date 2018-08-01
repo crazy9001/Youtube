@@ -13,7 +13,10 @@
                     </li>
                 </ul><!-- .pageControls -->
             </div>
-            <h2>Videos <a class="label opac5" href="#addVideo" onclick="location.href='#addVideo';" data-toggle="modal">+ add new</a></h2>
+            <h2>
+                Videos <a class="label opac5" href="#createNewVideo" data-toggle="modal">+ add new</a>
+                {{--<a href="#modal-1" role="button" class="label opac5" data-toggle="modal">Open Modal</a>--}}
+            </h2>
         </div>
 
         <div class="row">
@@ -65,6 +68,8 @@
                     </div>
 
                     <div class="box-content nopadding portlet light" id="showListVideos">
+                        @include('bases::elements.paginate')
+                        <div class="clearfix"></div>
                         <table class="table table-bordered" id="list_videos">
                             <thead>
                             <tr>
@@ -187,6 +192,49 @@
         </div>
     </div>
 
+
+    <div id="createNewVideo" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 id="myModalLabel">Add Video</h3>
+                </div>
+                <!-- /.modal-header -->
+                <div class="modal-body" style="padding: 0px">
+                    <form action="#" method="POST" class='form-horizontal form-bordered'>
+                        <div class="form-group">
+                            <label for="textfield" class="control-label col-sm-2" style="text-align: center">
+                                <div class="pm-sprite ico-add-link"></div>
+                            </label>
+                            <div class="col-sm-10">
+                                <input type="text" name="link_video" id="link_video" placeholder="Http://" class="form-control">
+                                <span class="label label-info">Nhập link youtube . Ví dụ: https://www.youtube.com/watch?v=8_9gQZmbsr4</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="textfield" class="control-label col-sm-2" style="text-align: center">
+                                <div class="pm-sprite ico-add-local"></div>
+                            </label>
+                            <div class="col-sm-10">
+                                {!! Form::select('channel', ['' => 'Chọn kênh video'] + $channels ,isset($filters['channel'])?$filters['channel'] : null, ['id' => 'channelVideoAdd', 'class' => 'form-control', 'style' => 'border-left: 1px solid #ccc !important'])!!}
+                                <span class="label label-info">Chọn kênh cho video</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.modal-body -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary btn-add-new-video">Add</button>
+                </div>
+                <!-- /.modal-footer -->
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
 @stop
 
 @section('javascript')
@@ -201,6 +249,7 @@
         var btnCheckVideo = $('#VideoChecker');
         var btnTrashVideo = $('#trashVideoSelected');
         var btnMovieVideo = $('#move_to_group');
+        var btnAddVideo = $('.btn-add-new-video');
 
         btnCheckVideo.on('click', function ()  {
             var listVideoChecked = [];
@@ -305,6 +354,30 @@
                 });
             });
             window.setTimeout(function(){location.reload()}, 3000)
+        });
+
+        btnAddVideo.on('click', function () {
+            var link = $("input[name=link_video]").val();
+            var channel = $("select#channelVideoAdd option").filter(":selected").val();
+            $.ajax({
+                type: "POST",
+                url: "{{ route('video.create') }}",
+                data: { link : link, channel : channel },
+                success: function(result){
+                    if(result.success == true){
+                        Youtube.showNotice('success', result.message, Youtube.languages.notices_msg.success);
+                        $('#createNewVideo').modal('hide')
+                        $("input[name=link_video]").val('');
+                    }
+                },
+                beforeSend: function(){
+
+                },
+                error:function (xhr, ajaxOptions, thrownError){
+                    xhr = jQuery.parseJSON(xhr.responseText);
+                    Youtube.showNotice('error', xhr.data, xhr.message);
+                },
+            });
         });
 
     </script>
