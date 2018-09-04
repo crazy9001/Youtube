@@ -315,9 +315,9 @@
  .sidebar-nav, .sidebar-nav ul, .sidebar-nav li {     list-style: none} 
  .sidebar-nav ul { width:100%; } 
  .sidebar-nav { width:218px; margin: 0px} 
- .sidebar-nav li { font-size: 16px;    margin: 0; 	width:100%; font-weight:300;  padding: 9px 0 9px 9px; } 
+ .sidebar-nav li { font-size: 1.4rem;    margin: 0; 	width:100%; font-weight:300;  padding: 9px 0 9px 9px; }
  .sidebar-nav ul li i {vertical-align:middle; color: 	#888888; font-size: 24px; width: 24px; height:24px; line-height: 24px; margin:-3px 18px 0 3px} 
- .sidebar-nav a {vertical-align:middle; display: block;  line-height:24px; color:#888888; outline: none; float: none; text-transform: none; margin: 0; padding: 2px; text-decoration: none} 
+ .sidebar-nav a {vertical-align:middle; display: block;  line-height:24px; color:#333; outline: none; float: none; text-transform: none; margin: 0; padding: 2px; text-decoration: none}
  .sidebar-nav a:hover {color: 	#333} 
  .sidebar-nav li > a > span {     float: left; width:50px} 
  .sidebar-nav li:hover {background:#ebebeb} 
