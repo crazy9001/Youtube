@@ -2,26 +2,25 @@
     <div class="sidescroll">
         <div class="sidebar-nav blc">
             <ul>
-                <li class="lihead"><a href="https://www.multimedia.pub/"><span class="iconed"><i
-                                    class="material-icons">&#xE88A;</i></span> Home</a></li>
-                <li class="lihead"><a href="https://www.multimedia.pub/premiumhub/browse/"><span class="iconed"><i
-                                    class="material-icons">&#xE8D0;</i></span> Premium Hub</a></li>
-                <li class="lihead"><a href="https://www.multimedia.pub/activity"><span class="iconed"><i
-                                    class="material-icons">&#xE80E;</i></span> What's up</a></li>
-                <li class="lihead"><a href="https://www.multimedia.pub/videos/browse/"><span class="iconed"><i
-                                    class="material-icons">&#xE038;</i></span> Videos</a></li>
-                <li class="lihead"><a href="https://www.multimedia.pub/music/browse/"><span class="iconed"><i
-                                    class="material-icons">&#xE1B8;</i></span> Music</a></li>
-                <li class="lihead"><a href="https://www.multimedia.pub/lists/"><span class="iconed"><i
-                                    class="material-icons">&#xE05F;</i></span>Playlists</a></li>
-                <li class="lihead"><a href="https://www.multimedia.pub/images/browse/"><span class="iconed"><i
-                                    class="material-icons">&#xE8FC;</i></span> Pictures</a></li>
-                <li class="lihead"><a href="https://www.multimedia.pub/albums"><span class="iconed"><i
-                                    class="material-icons">&#xE43C;</i></span> Galleries</a></li>
-                <li class="lihead"><a href="https://www.multimedia.pub/users/"><span class="iconed"><i
-                                    class="material-icons">&#xE8EF;</i></span>Channels</a></li>
-                <li class="lihead"><a href="https://www.multimedia.pub/blog/"><span class="iconed"><i
-                                    class="material-icons">&#xE8CD;</i></span>Blog</a></li>
+                <li class="lihead">
+                    <a href="{{ route('home') }}">
+                        <span class="iconed"><i class="material-icons">&#xE88A;</i></span>
+                        Trang chủ
+                    </a>
+                </li>
+                <li class="lihead">
+                    <a href="#">
+                        <span class="iconed"> <i class="material-icons">&#xE8EF;</i></span>
+                        Kênh
+                    </a>
+                </li>
+                <li class="lihead">
+                    <a href="#">
+                        <span class="iconed"><i class="material-icons">&#xE05F;</i></span>
+                        Nhóm Video
+                    </a>
+                </li>
+
             </ul>
         </div>
         <div class="blc mtop20 odet fs300">Share videos, music and pictures, follow friends and keep track of

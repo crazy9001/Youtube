@@ -25,6 +25,7 @@ class GroupRepository extends BaseRepository
     {
         $query = $this->model->with('parent')
                 ->with('children')
+                ->with('videos')
                 ->where('parent_id', 0)
                 ->where(function ($where) use ($filters){
                     if (isset($filters['search']) && !empty($filters['search'])) {

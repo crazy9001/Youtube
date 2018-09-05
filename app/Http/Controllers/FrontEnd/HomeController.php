@@ -7,17 +7,22 @@
  */
 
 namespace App\Http\Controllers\FrontEnd;
+use Youtube\Groups\Repositories\Eloquent\GroupRepository;
 
 class HomeController extends BaseController
 {
-    public function __construct()
+    protected $groupRepository;
+
+    public function __construct(GroupRepository $groupRepository)
     {
         parent::__construct();
+        $this->groupRepository = $groupRepository;
     }
 
     public function index()
     {
-        return view('layout.FronHome');
+        $groups = $this->groupRepository->getGroups()->get();
+        return view('layout.FronHome', compact('groups'));
     }
 
 }

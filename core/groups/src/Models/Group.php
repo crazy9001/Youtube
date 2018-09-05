@@ -10,6 +10,7 @@ namespace Youtube\Groups\Models;
 
 use Eloquent;
 use Nestable\NestableTrait;
+use Youtube\Videos\Models\Video;
 
 class Group extends Eloquent
 
@@ -46,7 +47,13 @@ class Group extends Eloquent
 
     // Each category may have multiple children
     public function children() {
-        return $this->hasMany(static::class, 'parent_id');
+        return $this->hasMany(static::class, 'parent_id')->with('children');
     }
+
+    public function videos()
+    {
+        return $this->hasMany(Video::class, 'group_id', 'id')->where('status', '=', 1)->where('display', '=', 1)->limit(24)->orderby('created_at', 'desc');
+    }
+
 
 }

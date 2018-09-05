@@ -3,28 +3,17 @@
 <html dir="ltr" lang="en-US">
 <head>
     <meta http-equiv="content-type" content="text/html;charset=UTF-8">
-    <title>Multimedia.pub</title>
+    <title>Youtube</title>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <base href="https://www.multimedia.pub/"/>
+    <base href="http://localhost:8000/"/>
     <meta name="description" content="">
     <meta name="generator" content="PHPVibe"/>
-    <link rel="alternate" type="application/rss+xml" title="MultimediaPub All Media Feed"
-          href="https://www.multimedia.pub/feed/"/>
-    <link rel="alternate" type="application/rss+xml" title="MultimediaPub Video Feed"
-          href="https://www.multimedia.pub/feed?m=1"/>
-    <link rel="alternate" type="application/rss+xml" title="MultimediaPub Music Feed"
-          href="https://www.multimedia.pub/feed?m=2"/>
-    <link rel="alternate" type="application/rss+xml" title="MultimediaPub Images Feed"
-          href="https://www.multimedia.pub/feed?m=3"/>
-    <link rel="canonical" href="https://multimedia.pub:443/"/>
     <meta property="og:site_name" content="MultimediaPub"/>
     <meta property="fb:app_id" content="233014957250190"/>
-    <meta property="og:url" content="https://multimedia.pub:443/"/>
-
     <link rel="apple-touch-icon" sizes="180x180" href="https://www.multimedia.pub/lib/favicos/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="https://www.multimedia.pub/lib/favicos/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="https://www.multimedia.pub/lib/favicos/favicon-16x16.png">
@@ -42,7 +31,8 @@
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Material+Icons|Roboto:300,400,500" type="text/css" media="all"/>
     <script type="text/javascript" src="{{ asset('js/jquery-2-2-4.min.js') }}"></script>
 
-    <script>if ((typeof jQuery == "undefined") || !window.jQuery) {
+    <script>
+        if ((typeof jQuery == "undefined") || !window.jQuery) {
             var script = document.createElement("script");
             script.type = "text/javascript";
             script.src = "https://www.multimedia.pub/tpl/main/styles/js/jquery.js";
