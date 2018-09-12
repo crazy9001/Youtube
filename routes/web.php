@@ -21,5 +21,10 @@ Route::group(['namespace' => 'FrontEnd'], function() {
         'uses' => 'HomeController@index'
     ]);
 
+    Route::get('/watch', [
+        'as' => 'view.video',
+        'uses' => 'HomeController@viewVideo'
+    ]);
+
 });
 

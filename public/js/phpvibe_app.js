@@ -919,6 +919,7 @@ $(document).ready(function () {
         var RRUrl = $('.ajaxreqRelated').data('url');
 
         var RUrl = site_url + 'api/' + RRUrl;
+        console.log(RUrl);
         $(".ajaxreqRelated").load(RUrl, function (data) {
             if ($(window).width() < 990) {
                 var $mobiR = $('.related').clone();
