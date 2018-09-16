@@ -942,8 +942,8 @@
  99% { -webkit-transform: scale(0.001, 0.001); transform: scale(0.001, 0.001); opacity: 0; } 
  100% { -webkit-transform: scale(0.001, 0.001); transform: scale(0.001, 0.001); opacity: 1; } 
  } 
- @font-face { font-family: 'icomoon'; src:  url('fonts/icomoon.eot?z5ra72'); src:  url('fonts/icomoon.eot?z5ra72#iefix') format('embedded-opentype'), url('fonts/icomoon.ttf?z5ra72') format('truetype'), url('fonts/icomoon.woff?z5ra72') format('woff'), url('fonts/icomoon.svg?z5ra72#icomoon') format('svg'); font-weight: normal; font-style: normal; } 
- [class^="jssico-"], [class*=" jssico-"] { /* use !important to prevent issues with browser extensions that change fonts */ 
+ @font-face { font-family: 'icomoon'; src:  url('font/icomoon.eot?z5ra72'); src:  url('font/icomoon.eot?z5ra72#iefix') format('embedded-opentype'), url('font/icomoon.ttf?z5ra72') format('truetype'), url('font/icomoon.woff?z5ra72') format('woff'), url('font/icomoon.svg?z5ra72#icomoon') format('svg'); font-weight: normal; font-style: normal; }
+ [class^="jssico-"], [class*=" jssico-"] { /* use !important to prevent issues with browser extensions that change font */
  font-family: 'icomoon' !important; speak: none; font-style: normal; font-weight: normal; font-variant: normal; text-transform: none; line-height: 1; color:#fff; /* Better Font Rendering =========== */ 
  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; } 
   .jssico-messenger:before { content: "\e900"; color: #0084ff; } 

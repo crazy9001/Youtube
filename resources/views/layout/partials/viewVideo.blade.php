@@ -4,7 +4,6 @@
 @stop
 @section('content')
 
-    <?php /*dd($video) */?>
     <div class="video-holder row">
         <div class="col-md-8 col-xs-12 ">
             <div id="video-content" class="row block">
@@ -27,13 +26,12 @@
                             default: 'high',
                             dynamicLabel: true
                         });
-                        myPlayer.persistvolume({namespace: 'httpswwwmultimediapub'});
-                        myPlayer.brand({
-                            image: "https://www.multimedia.pub/storage/uploads/brand-1-png5ac1674be2ec9.png",
-                            title: "MultimediaPub",
-                            destination: "https://www.multimedia.pub/",
+                       /* myPlayer.brand({
+                            image: "https://scontent.fhan2-2.fna.fbcdn.net/v/t1.0-1/p160x160/40136622_1913752615584236_6129206961784225792_n.jpg?_nc_cat=0&oh=82fdceb9c2d183aef30d4b3cbab9e4ce&oe=5C2DA3B0",
+                            title: "Tới Nguyễn",
+                            destination: "https://facebook.com/Spacy2804",
                             destinationTarget: "_top"
-                        });
+                        });*/
 
                         myPlayer.ready(function () {
                             this.hotkeys({
@@ -41,19 +39,15 @@
                                 seekStep: 5,
                                 enableModifiersForNumbers: false
                             });
-
                             $(".bAd").detach().appendTo(".video-js");
                             $(".plAd").detach().appendTo(".video-js");
-
                             function resizeVideoJS() {
                                 var containerWidth = $('.video-player').width();
                                 var videoHeight = Math.round((containerWidth / 16) * 9);
                                 myPlayer.width(containerWidth).height(videoHeight);
                             }
-
                             //resizeVideoJS();
                             window.onresize = resizeVideoJS;
-
                             myPlayer.on("ended", function () {
                                 startNextVideo();
                             });
@@ -73,6 +67,7 @@
                 </ul>
             </div>
         </div>
+
         <div class="video-under col-md-8 col-xs-12">
             <div class="oboxed odet mtop10">
                 <div class="row vibe-interactions">
@@ -134,140 +129,29 @@
             <div class="user-container full top20 bottom20">
                 <div class="pull-left user-box" style="">
 
-                    <a class="userav" href="https://www.multimedia.pub/u/interact/X0/" title="Interact">
-                        <img src="https://i.ytimg.com/vi/Jr4TMIU9oQ4/mqdefault.jpg" data-name="Interact"/>
+                    <a class="userav" href="#" title="{{ isset($video->channel) ? $video->channel->name : '' }}">
+                        <img src="{{ isset($video->channel) ? $video->channel->images : '' }}" data-name="{{ isset($video->channel) ? $video->channel->name : '' }}"/>
                     </a>
+
                     <div class="user-box-txt">
-                        <a class="" href="https://www.multimedia.pub/u/interact/X0/" title="Interact">
-                            <h3>Interact</h3>
+                        <a class="" href="#" title="Interact">
+                            <h3>{{ isset($video->channel) ? $video->channel->name : '' }}</h3>
                         </a> <a class="tipS grcreative" href="javascript:void()" title="Premium user"><i
                                     class="material-icons" style="color:#03a9f4"></i> </a>
                         <p> 2 months ago</p>
                     </div>
-                    <div class="pull-right">
+                    {{--<div class="pull-right">
                         <div class="btn-group"><a class="btn btn-labled social-google-plus subscriber"
                                                   href="javascript:showLogin()"><i class="icon icon-plus"></i>Subscribe
                                 <span class="kcounter">1,177</span></a></div>
-                    </div>
+                    </div>--}}
                 </div>
                 <div style="clear:both"></div>
-            </div>
-
-            <div class="sharing-icos mtop10 odet hide">
-                <div class="has-shadow">
-                    <div class="text-center text-uppercase full bottom10 top20">
-                        <h4>Let your friends enjoy it also!</h4>
-                    </div>
-                    <div id="jsshare" data-url="https://www.multimedia.pub/play_zXn/"
-                         data-title="MaRLo - Enough Echo (Official Music Vide"></div>
-                </div>
-                <div class="video-share mtop10 has-shadow right20 left20 clearfix">
-                    <div class="text-center text-uppercase full bottom20 top20">
-                        <h4>Add it to your website</h4>
-                    </div>
-                    <div class="form-group form-material floating">
-                        <div class="input-group">
-                        <span class="input-group-addon">
-                           <i class="material-icons">&#xE157;</i>
-                        </span>
-                            <div class="form-control-wrap">
-                                <input type="text" name="link-to-this" id="share-this-link" class="form-control"
-                                       title="Link back" value="https://www.multimedia.pub/play_zXn/"/>
-                                <label class="floating-label">
-                                    Link to this </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group form-material floating">
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                               <i class="material-icons">&#xE911;</i>
-                            </span>
-                            <div class="form-control-wrap">
-                                <div class="row">
-
-                                    <div class="col-md-7">
-                                            <textarea style="min-height:80px" id="share-embed-code-small"
-                                                      name="embed-this" class="form-control"
-                                                      title=" Embed this media on your page"><iframe width="853"
-                                                                                                     height="480"
-                                                                                                     src="https://www.multimedia.pub/embed/zXn/"
-                                                                                                     frameborder="0"
-                                                                                                     allowfullscreen></iframe></textarea>
-                                        <label class="floating-label"> Embed code</label>
-                                        <div class="radio-custom radio-primary"><input type="radio"
-                                                                                       name="changeEmbed"
-                                                                                       class="styled"
-                                                                                       value="1"><label>1920x1080</label>
-                                        </div>
-                                        <div class="radio-custom radio-primary"><input type="radio"
-                                                                                       name="changeEmbed"
-                                                                                       class="styled"
-                                                                                       value="2"><label>1280x720</label>
-                                        </div>
-                                        <div class="radio-custom radio-primary"><input type="radio"
-                                                                                       name="changeEmbed"
-                                                                                       class="styled"
-                                                                                       value="3"><label>854x480</label>
-                                        </div>
-                                        <div class="radio-custom radio-primary"><input type="radio"
-                                                                                       name="changeEmbed"
-                                                                                       class="styled"
-                                                                                       value="4"><label>640x360</label>
-                                        </div>
-                                        <div class="radio-custom radio-primary"><input type="radio"
-                                                                                       name="changeEmbed"
-                                                                                       class="styled"
-                                                                                       value="5"><label>426x240</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-md-offset-1">
-                                        <div class="well">
-                                            <div class="form-group">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i
-                                                                class="material-icons">&#xE86F;</i></span>
-                                                    <input type="number" class="form-control" name="CustomWidth"
-                                                           id="CustomWidth" placeholder="Custom width">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon"><i
-                                                                class="material-icons">&#xE883;</i></span>
-                                                    <input type="number" name="CustomHeight" id="CustomHeight"
-                                                           class="form-control" placeholder="Custom height"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group form-material floating">
-                        <div class="input-group">
-                        <span class="input-group-addon">
-                           <i class="material-icons">&#xE1B1;</i>
-                        </span>
-                            <div class="form-control-wrap">
-                                <input type="text" name="link-to-this" id="share-this-responsive"
-                                       class="form-control" title=" Make the iframe responsive on your website"
-                                       value='<script src="https://www.multimedia.pub/lib/vid.js"></script>'/>
-                                <label class="floating-label">
-                                    Responsive embed </label>
-                            </div>
-                            <span class="help-block">
-							Include this script into your page along with the iframe for a <code>responsive media embed</code>
-                        <span>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div class="mtop10 oboxed odet">
                 <ul id="media-info" class="list-unstyled">
                     <li>
-
-                        <div class="fb-like pull-left" data-href="https://www.multimedia.pub/play_zXn/"
+                        <div class="fb-like pull-left" data-href="#"
                              data-width="124" data-layout="standard" data-colorscheme="dark" data-action="like"
                              data-show-faces="true" data-share="true"></div>
                     </li>
@@ -275,15 +159,12 @@
                         <div id="media-description" data-small="show more" data-big=" show less">
                             {{ isset($video->description) && !empty($video->description) ? $video->description : '' }}
                             <p style="font-weight:500; color:#333">
-                                Category : <a href="https://www.multimedia.pub/category_eE/" title="Music">
-                                    Music </a>
+                                Category :
+                                <a href="#" title="Music"> Music </a>
                             </p>
-                            <p> #<a class="right20" href="https://www.multimedia.pub/show/marlo/">marlo</a>#<a
-                                        class="right20" href="https://www.multimedia.pub/show/enough/">enough</a>#<a
-                                        class="right20" href="https://www.multimedia.pub/show/echo/">echo</a>#<a
-                                        class="right20" href="https://www.multimedia.pub/show/official/">official</a>#<a
-                                        class="right20" href="https://www.multimedia.pub/show/music/">music</a>#<a
-                                        class="right20" href="https://www.multimedia.pub/show/video/">video</a></p>
+                            <p>
+                                <a class="right20" href="#">marlo</a>
+                            </p>
                         </div>
                     </li>
                 </ul>
@@ -305,7 +186,7 @@
                         <div class="cctotal">0 Comments and 0 replies</div>
                         <li id="reply-video_71-0" class="addcm ">
                             <img class="avatar" data-name="Guest"
-                                 src="https://www.multimedia.pub//storage/uploads/def-avatar.jpg">
+                                 src="https://yt3.ggpht.com/-k8cNWPkMl4Q/AAAAAAAAAAI/AAAAAAAAAAA/JZb2iDka-mA/s48-c-k-no-mo-rj-c0xffffff/photo.jpg">
                             <div class="message clearfix">
                                 <div class="arrow">
                                     <div class="arrow-inner"></div>

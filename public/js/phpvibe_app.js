@@ -677,26 +677,6 @@ $(document).ready(function () {
         $(this).removeAttr("src").addClass("NoAvatar");
     });
     $('.NoAvatar').initial({charCount: 1});
-    //Notifs
-    $.getJSON(site_url + "api/noty/", function (data) {
-        if (data) {
-            if (data.msg) {
-                $("li.my-inbox > a").append('<span class="badge badge-danger pull-right">' + data.msg + '</span>');
-            }
-            if (data.buzz) {
-                $("a#notifs").append('<span class="badge badge-primary">' + data.buzz + '</span>');
-            }
-            var $da = parseInt(data.msg);
-            var $db = parseInt(data.buzz);
-            var $dc = $da + $db;
-            if ($dc > 0) {
-                $("a#openusr").prepend('<span class="badge badge-success pull-right">' + $dc + '</span>');
-            }
-        }
-    }).error(function (jqXHR, textStatus, errorThrown) {
-        console.log("error " + textStatus);
-        console.log("incoming Text " + jqXHR.responseText);
-    });
 
     // Hide owl on mobiles
     $(".owl-carousel").owlCarousel({

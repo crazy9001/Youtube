@@ -1,15 +1,18 @@
 <div class="fixed-top">
     <div class="row block" style="position:relative;">
-        <div class="logo-wrapper"><a id="show-sidebar" href="javascript:void(0)" title="Show sidebar"><i
-                        class="material-icons">&#xE5D2;</i></a><a href="https://www.multimedia.pub/" title=""
-                                                                  class="logo"><img
-                        src="https://www.multimedia.pub/storage/uploads/mpb-jpg5a9c474203891.jpg"/></a><br
-                    style="clear:both;"/>
+        <div class="logo-wrapper">
+            <a id="show-sidebar" href="javascript:void(0)" title="Show sidebar">
+                <i class="material-icons">&#xE5D2;</i>
+            </a>
+            <a href="{{ route('home') }}" title="" class="logo">
+                <img src="{{ asset('images/mpb-jpg5a9c474203891.jpg') }}"/>
+            </a>
+            <br style="clear:both;"/>
         </div>
         <div class="header">
             <div class="searchWidget">
                 <form action="" method="get" id="searchform"
-                      onsubmit="location.href='https://www.multimedia.pub/show/' + encodeURIComponent(this.tag.value).replace(/%20/g, '+') + '?type=' + encodeURIComponent(this.component.value).replace(/%20/g, '+'); return false;"
+                      {{--onsubmit="location.href='https://www.multimedia.pub/show/' + encodeURIComponent(this.tag.value).replace(/%20/g, '+') + '?type=' + encodeURIComponent(this.component.value).replace(/%20/g, '+'); return false;"--}}
                       autocomplete="off">
                     <div class="search-holder">
                         <span class="search-button">

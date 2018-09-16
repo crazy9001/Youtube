@@ -9,7 +9,7 @@
                 <div class="panel">
                     <div class="row">
                         <div class="social-login google-login"><a
-                                    href="https://www.multimedia.pub/?action=login&type=google"
+                                    href="#"
                                     class="btn btn-block social-google-plus"><i
                                         class="icon jssico-google-plus bd-google-plus"></i><em> Login with</em> Google
                                 Plus</a>
@@ -85,12 +85,12 @@
                 <div class="panel">
                     <div class="row">
                         <div class="social-login google-login"><a
-                                    href="https://www.multimedia.pub/?action=login&type=google"
+                                    href="#"
                                     class="btn btn-block social-google-plus"><i
                                         class="icon jssico-google-plus bd-google-plus"></i><em> Login with</em> Google
                                 Plus</a>
                         </div>
-                        <form method="post" action="https://www.multimedia.pub/register" class="mtop10 modal-form">
+                        <form method="post" action="#" class="mtop10 modal-form">
                             <div class="form-group form-material floating"><input type="name" class="form-control"
                                                                                   name="name" required/><label
                                         class="floating-label">Your name</label></div>
@@ -109,8 +109,6 @@
                                         class="floating-label">Repeat password</label>
                                 <div class="help-block with-errors"></div>
                             </div>
-                            <div class="g-recaptcha" data-sitekey="6LeVR1EUAAAAAOqrXw5Ln2f0LNsJBgrH1YIX8PtC"
-                                 style="margin-left:-17px"></div>
                             <button type="submit" class="btn btn-primary btn-block mtop20">Create account</button>
                         </form>
                     </div>
@@ -122,7 +120,6 @@
         </div>
     </div>
 </div>
-<script src='https://www.google.com/recaptcha/api.js'></script>
 <div class="modal fade" id="search-now" aria-hidden="true" data-backdrop="false" aria-labelledby="search-now"
      role="dialog" tabindex="-1">
     <div class="modal-dialog modal-sidebar modal-searcher">

@@ -13,7 +13,7 @@
             @foreach($group->videos as $video)
                 <div id="video-206" class="video">
                     <div class="video-thumb">
-                        <a class="clip-link" data-id="206" title="{{ isset($video->title) ? $video->title : '' }}" href="#">
+                        <a class="clip-link" data-id="206" title="{{ isset($video->title) ? $video->title : '' }}" href="{{ route('view.video') . '?v=' . $video->video_id }}">
                             <span class="clip">
                                 <img src="{{ isset($video->thumbnails) ? $video->thumbnails : '' }}" alt="{{ isset($video->title) ? $video->title : '' }}"/>
                                 <span class="vertical-align"></span>
@@ -24,7 +24,7 @@
                     </div>
                     <div class="video-data">
                         <h4 class="video-title">
-                            <a href="#" title="MUSE - Dig Down [Official Music Video]">{{ isset($video->title) ? $video->title : '' }}</a></h4>
+                            <a href="{{ route('view.video') . '?v=' . $video->video_id }}" title="{{ isset($video->title) ? $video->title : '' }}">{{ isset($video->title) ? $video->title : '' }}</a></h4>
                         <ul class="stats">
                             <li class="uploaderlink">
                                 <a href="#" title="Interact">
